@@ -14,7 +14,6 @@ class UserSelection extends StatefulWidget {
 
 class _UserSelectionState extends State<UserSelection> {
 
-  // 🔥 حفظ النوع + الانتقال
   Future<void> _selectType(AppType type) async {
 
 
@@ -47,7 +46,6 @@ class _UserSelectionState extends State<UserSelection> {
 
             const SizedBox(height: 15),
 
-            // 👇 تاجر
             GestureDetector(
               onTap: (){
                 _selectType(AppType.merchant);
@@ -63,7 +61,6 @@ class _UserSelectionState extends State<UserSelection> {
               ),
             ),
 
-            // 👇 متسوق
             GestureDetector(
               onTap: () {
                 _selectType(AppType.client);
@@ -79,7 +76,7 @@ class _UserSelectionState extends State<UserSelection> {
               ),
             ),
 
-            // 👇 زائر
+
             GestureDetector(
               onTap: () {
                 _selectType(AppType.guest);
