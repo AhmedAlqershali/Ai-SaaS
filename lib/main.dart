@@ -1,28 +1,37 @@
-import 'package:ai_saas/screens/add_product.dart';
-import 'package:ai_saas/screens/splash_screen.dart';
-import 'package:ai_saas/screens/user_selection.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:ai_saas/screens/bn_screen.dart';
+import 'package:ai_saas/screens/user_selection.dart';
+import 'package:ai_saas/models/app_type.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+
+  AppType? appType;
+
+  if (appType == 'merchant') {
+    appType = AppType.merchant;
+  } else if (appType == 'client') {
+    appType = AppType.client;
+  }
+
+  runApp(MyApp(appType: appType));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AppType? appType;
 
-  // This widget is the root of your application.
+  const MyApp({super.key, required this.appType});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xffF2F3F6)
-      ),
+      debugShowCheckedModeBanner: false,
 
-      // home: UserSelection(),
-      // home:SplashScreen(),
-      home: AddProduct(),
+      home: appType == null
+          ? const UserSelection()
+          : BnScreen(type: appType!),
     );
   }
 }
-
