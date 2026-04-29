@@ -47,7 +47,7 @@ class NavConfig {
             activeIcon: Icons.dashboard,
           ),
           BnItem(
-            widget: Container(color: Colors.green),
+            widget: SearchScreen(),
             title: "Orders",
             icon: Icons.shopping_cart_outlined,
             activeIcon: Icons.shopping_cart,
