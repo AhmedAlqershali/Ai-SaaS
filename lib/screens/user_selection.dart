@@ -1,6 +1,6 @@
 import 'package:ai_saas/screens/splash_screen.dart';
 import 'package:ai_saas/screens/widgets/card_splash.dart';
-import 'package:ai_saas/screens/bn_screen.dart';
+import 'package:ai_saas/screens/widgets/bn_screen.dart';
 import 'package:ai_saas/models/app_type.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,7 +48,7 @@ class _UserSelectionState extends State<UserSelection> {
 
             GestureDetector(
               onTap: (){
-                _selectType(AppType.merchant);
+                _selectType(AppType.client);
               },
               child: CardSplash(
                 icon: Icons.storefront,
@@ -63,7 +63,7 @@ class _UserSelectionState extends State<UserSelection> {
 
             GestureDetector(
               onTap: () {
-                _selectType(AppType.client);
+                _selectType(AppType.merchant);
               },
               child: CardSplash(
                 icon: Icons.shopping_bag_outlined,

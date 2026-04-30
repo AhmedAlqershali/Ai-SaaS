@@ -1,12 +1,16 @@
 import 'package:ai_saas/models/app_type.dart';
-import 'package:flutter/material.dart';
-import 'package:ai_saas/models/bn_item.dart';
+import 'package:ai_saas/screens/dashbord_screen.dart';
 import 'package:ai_saas/screens/home_screen.dart';
 import 'package:ai_saas/screens/search_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:ai_saas/models/bn_item.dart';
+
 
 class NavConfig {
   static List<BnItem> getItems(AppType type) {
     switch (type) {
+
+    // 👇 العميل
       case AppType.client:
         return [
           BnItem(
@@ -22,38 +26,41 @@ class NavConfig {
             activeIcon: Icons.search,
           ),
         ];
+
+    // 👇 الزائر
       case AppType.guest:
         return [
           BnItem(
             widget: HomeScreen(),
-            title: "Home",
+            title: "Browse",
             icon: Icons.home_outlined,
             activeIcon: Icons.home,
           ),
           BnItem(
-            widget: SearchScreen(),
-            title: "Search",
-            icon: Icons.search_outlined,
-            activeIcon: Icons.search,
+            widget: HomeScreen(),
+            title: "Browse",
+            icon: Icons.home_outlined,
+            activeIcon: Icons.home,
           ),
         ];
 
+    // 👇 التاجر
       case AppType.merchant:
         return [
           BnItem(
-            widget: HomeScreen(),
+            widget: DashbordScreen(), // 🔥 مهم
             title: "Dashboard",
             icon: Icons.dashboard_outlined,
             activeIcon: Icons.dashboard,
           ),
           BnItem(
-            widget: SearchScreen(),
+            widget: HomeScreen(), // 🔥 مهم
             title: "Orders",
             icon: Icons.shopping_cart_outlined,
             activeIcon: Icons.shopping_cart,
           ),
           BnItem(
-            widget: Container(color: Colors.orange),
+            widget:HomeScreen(), // 🔥 مهم
             title: "Products",
             icon: Icons.inventory_2_outlined,
             activeIcon: Icons.inventory_2,

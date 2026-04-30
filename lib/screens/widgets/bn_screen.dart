@@ -16,6 +16,7 @@ class _BnScreenState extends State<BnScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("CURRENT TYPE: ${widget.type}");
     final items = NavConfig.getItems(widget.type);
 
     return Scaffold(

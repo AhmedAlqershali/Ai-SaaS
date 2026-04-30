@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:ai_saas/screens/bn_screen.dart';
+import 'package:ai_saas/screens/widgets/bn_screen.dart';
 import 'package:ai_saas/screens/user_selection.dart';
 import 'package:ai_saas/models/app_type.dart';
 
