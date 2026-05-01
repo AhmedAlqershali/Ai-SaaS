@@ -1,6 +1,8 @@
 import 'package:ai_saas/models/app_type.dart';
+import 'package:ai_saas/screens/categories_screen.dart';
 import 'package:ai_saas/screens/dashbord_screen.dart';
 import 'package:ai_saas/screens/home_screen.dart';
+import 'package:ai_saas/screens/profile_screen.dart';
 import 'package:ai_saas/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_saas/models/bn_item.dart';
@@ -23,6 +25,16 @@ class NavConfig {
             widget: SearchScreen(),
             title: "Search",
             icon: Icons.search_outlined,
+            activeIcon: Icons.search,
+          ),BnItem(
+            widget: CategoriesScreen(),
+            title: "Categories",
+            icon: Icons.category_rounded,
+            activeIcon: Icons.search,
+          ),BnItem(
+            widget: ProfileScreen(),
+            title: "Profile",
+            icon: Icons.person,
             activeIcon: Icons.search,
           ),
         ];
