@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HistoryItemTile extends StatelessWidget {
+class HistoryItemTile extends StatefulWidget {
   String name;
   String time;
   IconData icon1;
@@ -15,6 +15,11 @@ class HistoryItemTile extends StatelessWidget {
     super.key,
   });
 
+  @override
+  State<HistoryItemTile> createState() => _HistoryItemTileState();
+}
+
+class _HistoryItemTileState extends State<HistoryItemTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +43,7 @@ class HistoryItemTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                name,
+                widget.name,
                 style: GoogleFonts.ibmPlexSans(
                   color: Colors.black,
                   fontSize: 16,
@@ -46,7 +51,7 @@ class HistoryItemTile extends StatelessWidget {
                 ),
               ),
               Text(
-                time,
+                widget.time,
                 style: GoogleFonts.ibmPlexSans(
                   color: Color(0xff464555),
                   fontSize: 12,
@@ -69,7 +74,7 @@ class HistoryItemTile extends StatelessWidget {
                   constraints: const BoxConstraints(), // إزالة القيود الافتراضية للحجم
                   onPressed: () {},
                   icon:  Icon(
-                    icon1,
+                    widget.icon1,
                     color: Color(0xff4D41DF),
                     size: 20,
                   ),
