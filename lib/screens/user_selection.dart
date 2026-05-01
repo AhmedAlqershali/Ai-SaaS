@@ -13,15 +13,10 @@ class UserSelection extends StatefulWidget {
 }
 
 class _UserSelectionState extends State<UserSelection> {
-
   Future<void> _selectType(AppType type) async {
-
-
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => BnScreen(type: type),
-      ),
+      MaterialPageRoute(builder: (_) => BnScreen(type: type)),
     );
   }
 
@@ -31,7 +26,6 @@ class _UserSelectionState extends State<UserSelection> {
       body: SafeArea(
         child: Column(
           children: [
-
             const SizedBox(height: 20),
 
             Text(
@@ -47,17 +41,16 @@ class _UserSelectionState extends State<UserSelection> {
             const SizedBox(height: 15),
 
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 _selectType(AppType.client);
               },
               child: CardSplash(
                 icon: Icons.storefront,
                 name: 'صاحب المشروع',
                 subname:
-                'قم بإدارة أعمالك، عرض منتجاتك والوصول لآلاف المشترين في منطقتك',
+                    'قم بإدارة أعمالك، عرض منتجاتك والوصول لآلاف المشترين في منطقتك',
                 color: 0xffE3DFFF,
                 color1: 0xff4D41DF,
-
               ),
             ),
 
@@ -69,13 +62,11 @@ class _UserSelectionState extends State<UserSelection> {
                 icon: Icons.shopping_bag_outlined,
                 name: 'متسوق',
                 subname:
-                'استكشف أفضل العروض، تتبع طلباتك، واحصل على تجربة تسوق ذكية وفريدة',
+                    'استكشف أفضل العروض، تتبع طلباتك، واحصل على تجربة تسوق ذكية وفريدة',
                 color: 0xff68FADE,
                 color1: 0xff007162,
-
               ),
             ),
-
 
             GestureDetector(
               onTap: () {
@@ -85,10 +76,9 @@ class _UserSelectionState extends State<UserSelection> {
                 icon: Icons.remove_red_eye,
                 name: 'زائر',
                 subname:
-                'تصفح المنتجات والأسواق المحلية المتاحة دون الحاجة لإنشاء حساب حالياً',
+                    'تصفح المنتجات والأسواق المحلية المتاحة دون الحاجة لإنشاء حساب حالياً',
                 color: 0xffFFDCC6,
                 color1: 0xff914800,
-
               ),
             ),
 
@@ -103,17 +93,14 @@ class _UserSelectionState extends State<UserSelection> {
 
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor:
-                const Color(0xff4D41DF).withOpacity(0.1),
+                backgroundColor: const Color(0xff4D41DF).withOpacity(0.1),
                 foregroundColor: Colors.black,
                 fixedSize: const Size(300, 50),
               ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => SplashScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => SplashScreen()),
                 );
               },
               child: Text(
@@ -150,8 +137,7 @@ class _UserSelectionState extends State<UserSelection> {
                       SizedBox(height: 15),
                       CircleAvatar(
                         radius: 24,
-                        backgroundImage:
-                        AssetImage('assets/images/bank.jpg'),
+                        backgroundImage: AssetImage('assets/images/bank.jpg'),
                       ),
                     ],
                   ),
