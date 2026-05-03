@@ -20,9 +20,6 @@ class _BnScreenState extends State<BnScreen> {
     final items = NavConfig.getItems(widget.type);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(items[_currentIndex].title),
-      ),
 
       body: items[_currentIndex].widget,
 

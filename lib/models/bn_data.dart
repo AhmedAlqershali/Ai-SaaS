@@ -1,6 +1,6 @@
 import 'package:ai_saas/models/app_type.dart';
-import 'package:ai_saas/screens/categories_screen.dart';
-import 'package:ai_saas/screens/dashbord_screen.dart';
+import 'package:ai_saas/screens/client/categories_screen.dart';
+import 'package:ai_saas/screens/merchant/dashbord_screen.dart';
 import 'package:ai_saas/screens/home_screen.dart';
 import 'package:ai_saas/screens/profile_screen.dart';
 import 'package:ai_saas/screens/search_screen.dart';
@@ -30,12 +30,12 @@ class NavConfig {
             widget: CategoriesScreen(),
             title: "Categories",
             icon: Icons.category_rounded,
-            activeIcon: Icons.search,
+            activeIcon: Icons.category_rounded,
           ),BnItem(
             widget: ProfileScreen(),
             title: "Profile",
             icon: Icons.person,
-            activeIcon: Icons.search,
+            activeIcon: Icons.person,
           ),
         ];
 
