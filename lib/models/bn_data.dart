@@ -49,6 +49,12 @@ class NavConfig {
             activeIcon: Icons.home,
           ),
           BnItem(
+            widget: SearchScreen(),
+            title: "Search",
+            icon: Icons.search_outlined,
+            activeIcon: Icons.search,
+          ),
+          BnItem(
             widget: HomeScreen(),
             title: "Browse",
             icon: Icons.home_outlined,
@@ -60,22 +66,28 @@ class NavConfig {
       case AppType.merchant:
         return [
           BnItem(
-            widget: DashbordScreen(), // 🔥 مهم
-            title: "Dashboard",
+            widget: HomeScreen(), // 🔥 مهم
+            title: "Home",
             icon: Icons.dashboard_outlined,
             activeIcon: Icons.dashboard,
           ),
           BnItem(
-            widget: HomeScreen(), // 🔥 مهم
-            title: "Orders",
+            widget: SearchScreen(),
+            title: "Search",
+            icon: Icons.search_outlined,
+            activeIcon: Icons.search,
+          ),
+          BnItem(
+            widget: DashbordScreen(), // 🔥 مهم
+            title: "Dashbord",
             icon: Icons.shopping_cart_outlined,
             activeIcon: Icons.shopping_cart,
           ),
           BnItem(
-            widget:HomeScreen(), // 🔥 مهم
-            title: "Products",
-            icon: Icons.inventory_2_outlined,
-            activeIcon: Icons.inventory_2,
+            widget: ProfileScreen(),
+            title: "Profile",
+            icon: Icons.person,
+            activeIcon: Icons.person,
           ),
         ];
     }
