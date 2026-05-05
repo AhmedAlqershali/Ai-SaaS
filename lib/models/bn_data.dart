@@ -1,9 +1,10 @@
 import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/client/categories_screen.dart';
-import 'package:ai_saas/screens/merchant/dashbord_screen.dart';
+import 'package:ai_saas/screens/merchant/ai_marketing_tools.dart';
 import 'package:ai_saas/screens/home_screen.dart';
 import 'package:ai_saas/screens/profile_screen.dart';
 import 'package:ai_saas/screens/search_screen.dart';
+import 'package:ai_saas/screens/shopper_home.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_saas/models/bn_item.dart';
 
@@ -16,7 +17,7 @@ class NavConfig {
       case AppType.client:
         return [
           BnItem(
-            widget: HomeScreen(),
+            widget: ShopperHomePage(),
             title: "Home",
             icon: Icons.home_outlined,
             activeIcon: Icons.home,
@@ -43,7 +44,7 @@ class NavConfig {
       case AppType.guest:
         return [
           BnItem(
-            widget: HomeScreen(),
+            widget: ShopperHomePage(),
             title: "Browse",
             icon: Icons.home_outlined,
             activeIcon: Icons.home,
@@ -55,7 +56,7 @@ class NavConfig {
             activeIcon: Icons.search,
           ),
           BnItem(
-            widget: HomeScreen(),
+            widget: ShopperHomePage(),
             title: "Browse",
             icon: Icons.home_outlined,
             activeIcon: Icons.home,
@@ -66,7 +67,7 @@ class NavConfig {
       case AppType.merchant:
         return [
           BnItem(
-            widget: HomeScreen(), // 🔥 مهم
+            widget: ShopperHomePage(), // 🔥 مهم
             title: "Home",
             icon: Icons.dashboard_outlined,
             activeIcon: Icons.dashboard,
@@ -78,7 +79,7 @@ class NavConfig {
             activeIcon: Icons.search,
           ),
           BnItem(
-            widget: DashbordScreen(), // 🔥 مهم
+            widget: AiMarketingTools(), // 🔥 مهم
             title: "Dashbord",
             icon: Icons.shopping_cart_outlined,
             activeIcon: Icons.shopping_cart,

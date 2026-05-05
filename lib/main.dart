@@ -1,3 +1,8 @@
+import 'package:ai_saas/screens/aI_marketing_tools_screen.dart';
+import 'package:ai_saas/screens/details_products.dart';
+import 'package:ai_saas/screens/merchant/merchant_dashboard_screen.dart';
+import 'package:ai_saas/screens/onboarding2.dart';
+import 'package:ai_saas/screens/shop_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ai_saas/screens/widgets/bn_screen.dart';
@@ -32,9 +37,11 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xffF2F3F6)
       ),
 
-      home: appType == null
-          ? const UserSelection()
-          : BnScreen(type: appType!),
+      // home: appType == null
+      //     ? const UserSelection()
+      //     : BnScreen(type: appType!),
+      // home: OnboardingAIPage(),
+        home: ShopPage(),
     );
   }
 }

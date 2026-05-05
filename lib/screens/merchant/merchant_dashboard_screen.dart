@@ -1,3 +1,5 @@
+import 'package:ai_saas/screens/merchant/add_product.dart';
+import 'package:ai_saas/screens/merchant/ai_marketing_tools.dart';
 import 'package:flutter/material.dart';
 
 
@@ -21,9 +23,9 @@ class MerchantDashboardPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 12),
-                      _buildAddProductButton(),
+                      _buildAddProductButton(context),
                       const SizedBox(height: 12),
-                      _buildAIPostCard(),
+                      _buildAIPostCard(context),
                       const SizedBox(height: 12),
                       _buildStoreViewCard(),
                       const SizedBox(height: 20),
@@ -75,7 +77,7 @@ class MerchantDashboardPage extends StatelessWidget {
   }
 
   // ─── Add Product Button ────────────────────────────────────────────────────
-  Widget _buildAddProductButton() {
+  Widget _buildAddProductButton(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 64,
@@ -91,7 +93,12 @@ class MerchantDashboardPage extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) =>  AddProduct()),
+            );
+          },
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -113,11 +120,16 @@ class MerchantDashboardPage extends StatelessWidget {
   }
 
   // ─── AI Post Card ──────────────────────────────────────────────────────────
-  Widget _buildAIPostCard() {
+  Widget _buildAIPostCard(BuildContext context) {
     return _buildWhiteCard(
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => AiMarketingTools()),
+          );
+        },
         child: const Padding(
           padding: EdgeInsets.symmetric(vertical: 20),
           child: Row(

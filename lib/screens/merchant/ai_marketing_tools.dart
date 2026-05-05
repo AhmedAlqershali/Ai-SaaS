@@ -3,8 +3,8 @@ import 'package:ai_saas/screens/widgets/size_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DashbordScreen extends StatelessWidget {
-  const DashbordScreen({super.key});
+class AiMarketingTools extends StatelessWidget {
+  const AiMarketingTools({super.key});
 
   @override
   Widget build(BuildContext context) {
