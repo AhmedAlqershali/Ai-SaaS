@@ -40,8 +40,8 @@ class MyApp extends StatelessWidget {
       // home: appType == null
       //     ? const UserSelection()
       //     : BnScreen(type: appType!),
-      // home: OnboardingAIPage(),
-        home: ShopPage(),
+      home: OnboardingAIPage(),
+      //   home: ShopPage(),
     );
   }
 }
