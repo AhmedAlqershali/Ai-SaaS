@@ -36,7 +36,7 @@ class ShopperHomePage extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: _buildBottomNav(),
+        // bottomNavigationBar: _buildBottomNav(),
       ),
     );
   }
@@ -691,49 +691,49 @@ class ShopperHomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomNav() {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 10,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: 0,
-          selectedItemColor: const Color(0xFF5B4FCF),
-          unselectedItemColor: Colors.grey,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          type: BottomNavigationBarType.fixed,
-          selectedFontSize: 11,
-          unselectedFontSize: 11,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'الرئيسية',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'البحث',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard_outlined),
-              label: 'لوحة التحكم',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: 'الحساب',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _buildBottomNav() {
+  //   return Directionality(
+  //     textDirection: TextDirection.rtl,
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         color: Colors.white,
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Colors.black.withOpacity(0.08),
+  //             blurRadius: 10,
+  //             offset: const Offset(0, -4),
+  //           ),
+  //         ],
+  //       ),
+  //       child: BottomNavigationBar(
+  //         currentIndex: 0,
+  //         selectedItemColor: const Color(0xFF5B4FCF),
+  //         unselectedItemColor: Colors.grey,
+  //         backgroundColor: Colors.white,
+  //         elevation: 0,
+  //         type: BottomNavigationBarType.fixed,
+  //         selectedFontSize: 11,
+  //         unselectedFontSize: 11,
+  //         items: const [
+  //           BottomNavigationBarItem(
+  //             icon: Icon(Icons.home),
+  //             label: 'الرئيسية',
+  //           ),
+  //           BottomNavigationBarItem(
+  //             icon: Icon(Icons.search),
+  //             label: 'البحث',
+  //           ),
+  //           BottomNavigationBarItem(
+  //             icon: Icon(Icons.dashboard_outlined),
+  //             label: 'لوحة التحكم',
+  //           ),
+  //           BottomNavigationBarItem(
+  //             icon: Icon(Icons.person_outline),
+  //             label: 'الحساب',
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

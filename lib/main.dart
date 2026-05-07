@@ -1,4 +1,7 @@
 import 'package:ai_saas/screens/aI_marketing_tools_screen.dart';
+import 'package:ai_saas/screens/auth/code_register.dart';
+import 'package:ai_saas/screens/auth/login_screen.dart';
+import 'package:ai_saas/screens/auth/register_screen.dart';
 import 'package:ai_saas/screens/details_products.dart';
 import 'package:ai_saas/screens/merchant/merchant_dashboard_screen.dart';
 import 'package:ai_saas/screens/onboarding2.dart';
@@ -40,8 +43,9 @@ class MyApp extends StatelessWidget {
       // home: appType == null
       //     ? const UserSelection()
       //     : BnScreen(type: appType!),
-      home: OnboardingAIPage(),
-      //   home: ShopPage(),
+      // home: OnboardingAIPage(),
+        home: CodeRegister(),
+
     );
   }
 }

@@ -82,32 +82,32 @@ class _UserSelectionState extends State<UserSelection> {
               ),
             ),
 
-            const SizedBox(height: 15),
-
-            Text(
-              'هل لديك حساب بالفعل؟',
-              style: GoogleFonts.ibmPlexSans(fontSize: 14),
-            ),
-
-            const SizedBox(height: 10),
-
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff4D41DF).withOpacity(0.1),
-                foregroundColor: Colors.black,
-                fixedSize: const Size(300, 50),
-              ),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => SplashScreen()),
-                );
-              },
-              child: Text(
-                'تسجيل الدخول',
-                style: GoogleFonts.ibmPlexSans(fontSize: 20),
-              ),
-            ),
+            // const SizedBox(height: 15),
+            //
+            // Text(
+            //   'هل لديك حساب بالفعل؟',
+            //   style: GoogleFonts.ibmPlexSans(fontSize: 14),
+            // ),
+            //
+            // const SizedBox(height: 10),
+            //
+            // ElevatedButton(
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: const Color(0xff4D41DF).withOpacity(0.1),
+            //     foregroundColor: Colors.black,
+            //     fixedSize: const Size(300, 50),
+            //   ),
+            //   onPressed: () {
+            //     Navigator.pushReplacement(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => SplashScreen()),
+            //     );
+            //   },
+            //   child: Text(
+            //     'تسجيل الدخول',
+            //     style: GoogleFonts.ibmPlexSans(fontSize: 20),
+            //   ),
+            // ),
 
             const SizedBox(height: 20),
 
