@@ -1,15 +1,9 @@
-import 'package:ai_saas/screens/aI_marketing_tools_screen.dart';
-import 'package:ai_saas/screens/auth/code_register.dart';
-import 'package:ai_saas/screens/auth/login_screen.dart';
-import 'package:ai_saas/screens/auth/register_screen.dart';
-import 'package:ai_saas/screens/details_products.dart';
-import 'package:ai_saas/screens/merchant/merchant_dashboard_screen.dart';
+
+import 'package:ai_saas/screens/auth/forget_password_screen.dart';
+import 'package:ai_saas/screens/auth/complete_registration_screen.dart';
 import 'package:ai_saas/screens/onboarding2.dart';
-import 'package:ai_saas/screens/shop_page.dart';
 import 'package:flutter/material.dart';
 
-import 'package:ai_saas/screens/widgets/bn_screen.dart';
-import 'package:ai_saas/screens/user_selection.dart';
 import 'package:ai_saas/models/app_type.dart';
 
 void main() async {
@@ -43,8 +37,8 @@ class MyApp extends StatelessWidget {
       // home: appType == null
       //     ? const UserSelection()
       //     : BnScreen(type: appType!),
-      // home: OnboardingAIPage(),
-        home: CodeRegister(),
+      home: OnboardingAIPage(),
+      //   home: CompleteProfileScreen(),
 
     );
   }

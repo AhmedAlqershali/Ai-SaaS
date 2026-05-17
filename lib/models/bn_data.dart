@@ -66,12 +66,7 @@ class NavConfig {
     // 👇 التاجر
       case AppType.merchant:
         return [
-          BnItem(
-            widget: ShopperHomePage(), // 🔥 مهم
-            title: "Home",
-            icon: Icons.dashboard_outlined,
-            activeIcon: Icons.dashboard,
-          ),
+
           BnItem(
             widget: SearchScreen(),
             title: "Search",

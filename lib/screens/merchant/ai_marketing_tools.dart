@@ -55,12 +55,15 @@ class AiMarketingTools extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Size_Button(
+                                  onPressed:(){},
                                   name: 'شاهد الشرح',
                                   color: Color(0xff4D41DF),
                                   size: Size(119, 58),
                                   colorname: Colors.white,
                                 ),
                                 Size_Button(
+                                  onPressed:(){},
+
                                   name: 'ابدا الان',
                                   color: Colors.white,
                                   size: Size(119, 58),
@@ -162,6 +165,8 @@ class AiMarketingTools extends StatelessWidget {
                         bottom: 20,
                       ),
                       child: Size_Button(
+                        onPressed:(){},
+
                         name: 'ابدا الوصف',
                         color: Color(0xffF2F3F6),
                         colorname: Colors.black,
@@ -214,6 +219,8 @@ class AiMarketingTools extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 10),
                       child: Size_Button(
+                        onPressed:(){},
+
                         name: 'صمم المنشور ',
                         color: Colors.white,
                         colorname: Colors.black,
@@ -275,6 +282,7 @@ class AiMarketingTools extends StatelessWidget {
                       ),
                     ),
                     Size_Button(
+                      onPressed:(){},
                       name: 'توليد الان',
                       color: Colors.white,
                       colorname: Colors.black,
@@ -329,6 +337,7 @@ class AiMarketingTools extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 10),
                       child: Size_Button(
+                        onPressed:(){},
                         name: 'رد ذكي  ',
                         color: Colors.white,
                         colorname: Colors.black,

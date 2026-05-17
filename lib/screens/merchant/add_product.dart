@@ -427,6 +427,8 @@ class _AddProductState extends State<AddProduct> {
                     ),
                     SizedBox(height: 15),
                     Size_Button(
+                      onPressed:(){},
+
                       name: 'نشر المنتج الآن',
                       color: Color(0xff3622CA),
                       size: Size(294, 60),
@@ -434,6 +436,8 @@ class _AddProductState extends State<AddProduct> {
                     ),
                     SizedBox(height: 20,),
                     Size_Button(
+                      onPressed:(){},
+
                       name: 'معاينة المتجر',
                       color: Color(0xffC7C4D8),
                       size: Size(294, 60),
