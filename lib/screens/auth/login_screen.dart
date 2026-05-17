@@ -1,3 +1,5 @@
+import 'package:ai_saas/screens/auth/forget_password_screen.dart';
+import 'package:ai_saas/screens/shopper_home.dart';
 import 'package:ai_saas/screens/widgets/size_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -149,7 +151,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordScreen(), // واجهة تسجيل الدخول الخاصة بك
+                          ),
+                        );
+
+
+                      },
                       child: const Text(
                         "نسيت كلمة المرور؟",
                         style: TextStyle(color: Color(0xFF5145E5)),
@@ -159,7 +170,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Center(
                   child: Size_Button(
-                    onPressed:(){},
+                    onPressed:(){
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ShopperHomePage(), // واجهة تسجيل الدخول الخاصة بك
+                        ),
+                      );
+
+                    },
 
                     name: 'تسجيل الدخول',
                     color: Color(0xFF5145E5),

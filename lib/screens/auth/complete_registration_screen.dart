@@ -1,3 +1,5 @@
+import 'package:ai_saas/screens/auth/code_register.dart';
+import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
@@ -33,6 +35,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     const Color backgroundColor = Color(0xfff8faff);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false, // يمنع الشاشة من التغير عند ظهور الكيبورد
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -240,7 +243,13 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      // منطق الحفظ والمتابعة هنا
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CodeRegister(), // واجهة تسجيل الدخول الخاصة بك
+                        ),
+                      );
+
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,

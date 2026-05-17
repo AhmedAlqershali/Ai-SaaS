@@ -1,4 +1,5 @@
 import 'package:ai_saas/models/app_type.dart';
+import 'package:ai_saas/screens/auth/code_register.dart';
 import 'package:ai_saas/screens/auth/complete_registration_screen.dart';
 import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:ai_saas/screens/home_screen.dart';
@@ -202,7 +203,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoginScreen(), // واجهة تسجيل الدخول الخاصة بك
+                              builder: (context) => const CodeRegister(), // واجهة تسجيل الدخول الخاصة بك
                             ),
                           );
 

@@ -1,3 +1,5 @@
+import 'package:ai_saas/screens/auth/code_register.dart';
+import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -8,7 +10,6 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
 
   @override
@@ -20,6 +21,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, // يمنع الشاشة من التغير عند ظهور الكيبورد
+
       backgroundColor: const Color(0xfff8faff),
       body: SafeArea(
         child: Directionality(
@@ -105,12 +108,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       ),
                       child: ElevatedButton(
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // منطق إرسال الرمز (API Call) يوضع هنا
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('جاري إرسال الرمز...')),
-                            );
-                          }
+                          // if (_formKey.currentState!.validate()) {
+                          //   // منطق إرسال الرمز (API Call) يوضع هنا
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //     const SnackBar(content: Text('جاري إرسال الرمز...')),
+                          //   );
+                          // }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CodeRegister(), // واجهة تسجيل الدخول الخاصة بك
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,

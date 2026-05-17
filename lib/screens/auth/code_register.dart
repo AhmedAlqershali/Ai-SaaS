@@ -1,3 +1,4 @@
+import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:ai_saas/screens/widgets/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -200,7 +201,15 @@ class _CodeRegisterState extends State<CodeRegister> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(), // واجهة تسجيل الدخول الخاصة بك
+                    ),
+                  );
+
+                },
                 child: Text('تأكيد الرمز', style: GoogleFonts.cairo()),
                 style: ElevatedButton.styleFrom(minimumSize: const Size(0, 50)),
               ),
