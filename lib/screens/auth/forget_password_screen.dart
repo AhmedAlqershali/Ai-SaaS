@@ -1,9 +1,12 @@
+import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/auth/code_register.dart';
 import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+  final AppType type;
+
+  const ForgotPasswordScreen({super.key,required this.type});
 
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
@@ -107,19 +110,30 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ],
                       ),
                       child: ElevatedButton(
-                        onPressed: () {
-                          // if (_formKey.currentState!.validate()) {
-                          //   // منطق إرسال الرمز (API Call) يوضع هنا
-                          //   ScaffoldMessenger.of(context).showSnackBar(
-                          //     const SnackBar(content: Text('جاري إرسال الرمز...')),
-                          //   );
-                          // }
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const CodeRegister(), // واجهة تسجيل الدخول الخاصة بك
-                            ),
-                          );
+                        onPressed:(){
+                          {
+                            // نقوم بالفحص بناءً على النوع الممرر للواجهة باستخدام widget.type
+                            if (widget.type == AppType.merchant) {
+                              // إذا كان القادم متسوق (صاحب المتجر/المسوق) -> ينقله لواجهة إكمال الملف الشخصي
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(type: AppType.merchant), // واجهة غزة ورقم الجوال
+                                ),
+                              );
+
+                            } else if (widget.type == AppType.client) {
+
+                              // إذا كان القادم صاحب المشروع (العميل) -> ينقله مباشرة لواجهة تسجيل الدخول (أو الرئيسية)
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(type: AppType.client), // واجهة تسجيل الدخول الخاصة بك
+                                ),
+                              );
+
+                            }
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,

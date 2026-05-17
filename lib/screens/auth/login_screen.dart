@@ -1,11 +1,14 @@
+import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/auth/forget_password_screen.dart';
 import 'package:ai_saas/screens/shopper_home.dart';
+import 'package:ai_saas/screens/widgets/bn_screen.dart';
 import 'package:ai_saas/screens/widgets/size_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final AppType type;
+  const LoginScreen({super.key,required this.type});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -152,13 +155,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ForgotPasswordScreen(), // واجهة تسجيل الدخول الخاصة بك
-                          ),
-                        );
+// نقوم بالفحص بناءً على النوع الممرر للواجهة باستخدام widget.type
+                        if (widget.type == AppType.merchant) {
+                          // إذا كان القادم متسوق (صاحب المتجر/المسوق) -> ينقله لواجهة إكمال الملف الشخصي
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(type: AppType.merchant), // واجهة غزة ورقم الجوال
+                            ),
+                          );
 
+                        } else if (widget.type == AppType.client) {
+
+                          // إذا كان القادم صاحب المشروع (العميل) -> ينقله مباشرة لواجهة تسجيل الدخول (أو الرئيسية)
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(type: AppType.client), // واجهة تسجيل الدخول الخاصة بك
+                            ),
+                          );
+
+                        }
 
                       },
                       child: const Text(
@@ -171,14 +188,30 @@ class _LoginScreenState extends State<LoginScreen> {
                 Center(
                   child: Size_Button(
                     onPressed:(){
+                      {
+                        // نقوم بالفحص بناءً على النوع الممرر للواجهة باستخدام widget.type
+                        if (widget.type == AppType.merchant) {
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ShopperHomePage(), // واجهة تسجيل الدخول الخاصة بك
-                        ),
-                      );
+                          // إذا كان القادم متسوق (صاحب المتجر/المسوق) -> ينقله لواجهة إكمال الملف الشخصي
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BnScreen(type:AppType.merchant ), // واجهة غزة ورقم الجوال
+                            ),
+                          );
 
+                        } else if (widget.type == AppType.client) {
+
+                          // إذا كان القادم صاحب المشروع (العميل) -> ينقله مباشرة لواجهة تسجيل الدخول (أو الرئيسية)
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BnScreen(type:AppType.client ), // واجهة تسجيل الدخول الخاصة بك
+                            ),
+                          );
+
+                        }
+                      }
                     },
 
                     name: 'تسجيل الدخول',

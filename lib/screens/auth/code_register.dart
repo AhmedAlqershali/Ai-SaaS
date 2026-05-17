@@ -1,11 +1,12 @@
+import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:ai_saas/screens/widgets/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CodeRegister extends StatefulWidget {
-  const CodeRegister({Key? key}) : super(key: key);
-
+  final AppType type;
+  const CodeRegister({super.key,required this.type});
   @override
   State<CodeRegister> createState() => _CodeRegisterState();
 }
@@ -201,14 +202,30 @@ class _CodeRegisterState extends State<CodeRegister> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(), // واجهة تسجيل الدخول الخاصة بك
-                    ),
-                  );
+                onPressed:(){
+                  {
+                    // نقوم بالفحص بناءً على النوع الممرر للواجهة باستخدام widget.type
+                    if (widget.type == AppType.merchant) {
+                      // إذا كان القادم متسوق (صاحب المتجر/المسوق) -> ينقله لواجهة إكمال الملف الشخصي
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(type: AppType.merchant), // واجهة غزة ورقم الجوال
+                        ),
+                      );
 
+                    } else if (widget.type == AppType.client) {
+
+                      // إذا كان القادم صاحب المشروع (العميل) -> ينقله مباشرة لواجهة تسجيل الدخول (أو الرئيسية)
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(type: AppType.client), // واجهة تسجيل الدخول الخاصة بك
+                        ),
+                      );
+
+                    }
+                  }
                 },
                 child: Text('تأكيد الرمز', style: GoogleFonts.cairo()),
                 style: ElevatedButton.styleFrom(minimumSize: const Size(0, 50)),

@@ -188,12 +188,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       {
                         // نقوم بالفحص بناءً على النوع الممرر للواجهة باستخدام widget.type
                         if (widget.type == AppType.merchant) {
-
                           // إذا كان القادم متسوق (صاحب المتجر/المسوق) -> ينقله لواجهة إكمال الملف الشخصي
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CompleteProfileScreen(), // واجهة غزة ورقم الجوال
+                              builder: (context) => const CompleteProfileScreen(type: AppType.merchant,), // واجهة غزة ورقم الجوال
                             ),
                           );
 
@@ -203,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CodeRegister(), // واجهة تسجيل الدخول الخاصة بك
+                              builder: (context) =>  CodeRegister(type:AppType.client), // واجهة تسجيل الدخول الخاصة بك
                             ),
                           );
 
@@ -253,7 +252,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CompleteProfileScreen(), // واجهة غزة ورقم الجوال
+                              builder: (context) => const CompleteProfileScreen(type: AppType.merchant,), // واجهة غزة ورقم الجوال
                             ),
                           );
 
@@ -263,7 +262,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoginScreen(), // واجهة تسجيل الدخول الخاصة بك
+                              builder: (context) => const LoginScreen(type: AppType.client,), // واجهة تسجيل الدخول الخاصة بك
                             ),
                           );
 

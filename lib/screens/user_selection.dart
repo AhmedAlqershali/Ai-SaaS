@@ -69,7 +69,7 @@ class _UserSelectionState extends State<UserSelection> {
                     context,
                     MaterialPageRoute(
                       // نمرر النوع هنا
-                      builder: (context) => const RegisterScreen(type: AppType.merchant),
+                      builder: (context) =>  RegisterScreen(type: AppType.merchant),
                     ),
                   );
                 },
