@@ -1,6 +1,7 @@
 import 'package:ai_saas/screens/nearby_stores_screen.dart';
 import 'package:ai_saas/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopperHomePage extends StatefulWidget {
   const ShopperHomePage({super.key});
@@ -27,15 +28,15 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
                     children: [
                       _buildSearchBar(),
                       _buildHeroBanner(),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       _buildCategories(),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       _buildNearbyStores(),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       _buildNearbyProducts(),
-                      const SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       _buildWeekendPromo(),
-                      const SizedBox(height: 80),
+                      SizedBox(height: 80.h),
                     ],
                   ),
                 ),
@@ -43,45 +44,43 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
             ],
           ),
         ),
-        // bottomNavigationBar: _buildBottomNav(),
       ),
     );
   }
 
   Widget _buildTopBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
       child: Row(
         children: [
           CircleAvatar(
-            radius: 20,
+            radius: 20.r,
             backgroundColor: const Color(0xFF5B4FCF),
-            child: const Icon(Icons.person, color: Colors.white, size: 20),
+            child: Icon(Icons.person, color: Colors.white, size: 20.sp),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10.w),
           GestureDetector(
             onTap: (){
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  // نمرر النوع هنا
-                  builder: (context) =>  NotificationsScreen(),
+                  builder: (context) => const NotificationsScreen(),
                 ),
               );
             },
-              child: const Icon(Icons.notifications_outlined, size: 24)),
+              child: Icon(Icons.notifications_outlined, size: 24.sp)),
           const Spacer(),
-          const Text(
+          Text(
             'النصيرات',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(width: 4),
-          const Icon(Icons.location_on, color: Color(0xFF5B4FCF), size: 16),
+          SizedBox(width: 4.w),
+          Icon(Icons.location_on, color: const Color(0xFF5B4FCF), size: 16.sp),
           const Spacer(),
-          const Icon(Icons.menu, size: 24),
+          Icon(Icons.menu, size: 24.sp),
         ],
       ),
     );
@@ -89,16 +88,16 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
 
   Widget _buildSearchBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
+              blurRadius: 8.r,
+              offset: Offset(0, 2.h),
             ),
           ],
         ),
@@ -106,11 +105,11 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
           textAlign: TextAlign.right,
           decoration: InputDecoration(
             hintText: 'ابحث عن منتجات , ماركات , متاجر ........',
-            hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
-            prefixIcon: const Icon(Icons.search, color: Colors.grey),
+            hintStyle: TextStyle(color: Colors.grey, fontSize: 13.sp),
+            prefixIcon: Icon(Icons.search, color: Colors.grey, size: 20.sp),
             border: InputBorder.none,
             contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
           ),
         ),
       ),
@@ -119,44 +118,44 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
 
   Widget _buildHeroBanner() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Container(
-        height: 180,
+        height: 180.h,
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [Color(0xFF5B4FCF), Color(0xFF7B6FEF)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
         ),
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.25),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(20.r),
               ),
-              child: const Text(
+              child: Text(
                 'عرض لفترة محدودة',
-                style: TextStyle(color: Colors.white, fontSize: 11),
+                style: TextStyle(color: Colors.white, fontSize: 11.sp),
               ),
             ),
-            const SizedBox(height: 8),
-            const Text(
+            SizedBox(height: 8.h),
+            Text(
               'تسوّق في النصيرات',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 22,
+                fontSize: 22.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
+            Text(
               'أفضل العروض في النصيرات 🔥',
-              style: TextStyle(color: Colors.white70, fontSize: 13),
+              style: TextStyle(color: Colors.white70, fontSize: 13.sp),
             ),
             const Spacer(),
             Align(
@@ -167,14 +166,14 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
                   backgroundColor: Colors.white,
                   foregroundColor: const Color(0xFF5B4FCF),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.r),
                   ),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
                 ),
-                child: const Text(
+                child: Text(
                   'اكتشف الان',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
                 ),
               ),
             ),
@@ -193,36 +192,36 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: categories.map((cat) {
           return Column(
             children: [
               Container(
-                width: 60,
-                height: 60,
+                width: 60.w,
+                height: 60.h,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.07),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
+                      blurRadius: 8.r,
+                      offset: Offset(0, 2.h),
                     ),
                   ],
                 ),
                 child: Icon(
                   cat['icon'] as IconData,
                   color: const Color(0xFF5B4FCF),
-                  size: 26,
+                  size: 26.sp,
                 ),
               ),
-              const SizedBox(height: 6),
+              SizedBox(height: 6.h),
               Text(
                 cat['label'] as String,
-                style: const TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: 12.sp),
               ),
             ],
           );
@@ -235,7 +234,7 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -248,27 +247,27 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
                     ),
                   );
                 },
-                child: const Text(
+                child: Text(
                   'عرض المزيد',
-                  style: TextStyle(color: Color(0xFF5B4FCF), fontSize: 13),
+                  style: TextStyle(color: const Color(0xFF5B4FCF), fontSize: 13.sp),
                 ),
               ),
-              const Text(
+              Text(
                 'متاجر قريبة',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10.h),
         SizedBox(
-          height: 160,
+          height: 160.h,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.only(right: 16),
+            padding: EdgeInsets.only(right: 16.w),
             children: [
               _buildStoreCard(
                 name: 'معرض حكاية للملابس',
@@ -276,7 +275,7 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
                 rating: 4.9,
                 isMain: true,
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10.w),
               _buildStoreCard(
                 name: 'الرنتيز\nالنصير',
                 location: '',
@@ -298,10 +297,10 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
   }) {
     if (!isMain) {
       return Container(
-        width: 100,
+        width: 100.w,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           image: const DecorationImage(
             image: NetworkImage(
                 'https://via.placeholder.com/100x160/cccccc/999999?text=Store'),
@@ -310,20 +309,20 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
         ),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
             gradient: LinearGradient(
               colors: [Colors.transparent, Colors.black.withOpacity(0.5)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
           ),
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(8.r),
           alignment: Alignment.bottomRight,
           child: Text(
             name,
-            style: const TextStyle(
+            style: TextStyle(
                 color: Colors.white,
-                fontSize: 11,
+                fontSize: 11.sp,
                 fontWeight: FontWeight.bold),
             textAlign: TextAlign.right,
           ),
@@ -332,15 +331,15 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
     }
 
     return Container(
-      width: 220,
+      width: 220.w,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.07),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            blurRadius: 8.r,
+            offset: Offset(0, 2.h),
           ),
         ],
       ),
@@ -351,33 +350,33 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
             children: [
               ClipRRect(
                 borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(12)),
+                BorderRadius.vertical(top: Radius.circular(12.r)),
                 child: Container(
-                  height: 100,
+                  height: 100.h,
                   width: double.infinity,
                   color: const Color(0xFF8B7355),
-                  child: const Icon(Icons.store, size: 50, color: Colors.white54),
+                  child: Icon(Icons.store, size: 50.sp, color: Colors.white54),
                 ),
               ),
               if (rating != null)
                 Positioned(
-                  top: 8,
-                  right: 8,
+                  top: 8.h,
+                  right: 8.w,
                   child: Container(
                     padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.star, color: Colors.amber, size: 14),
-                        const SizedBox(width: 2),
+                        Icon(Icons.star, color: Colors.amber, size: 14.sp),
+                        SizedBox(width: 2.w),
                         Text(
                           '$rating',
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -386,19 +385,19 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   name,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 13),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 13.sp),
                 ),
                 if (location.isNotEmpty)
                   Text(
                     location,
-                    style: const TextStyle(color: Colors.grey, fontSize: 11),
+                    style: TextStyle(color: Colors.grey, fontSize: 11.sp),
                   ),
               ],
             ),
@@ -412,47 +411,47 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(8.r),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.05),
-                      blurRadius: 4,
+                      blurRadius: 4.r,
                     ),
                   ],
                 ),
-                child: const Icon(Icons.tune, size: 20),
+                child: Icon(Icons.tune, size: 20.sp),
               ),
-              const Text(
+              Text(
                 'منتجات مختارة',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         // Featured Product Card
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.07),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
+                  blurRadius: 10.r,
+                  offset: Offset(0, 4.h),
                 ),
               ],
             ),
@@ -460,7 +459,7 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12.r),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -468,39 +467,39 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.w, vertical: 4.h),
                             decoration: BoxDecoration(
                               color: const Color(0xFF5B4FCF),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(12.r),
                             ),
-                            child: const Text(
+                            child: Text(
                               'الرائج الان',
                               style:
-                              TextStyle(color: Colors.white, fontSize: 11),
+                              TextStyle(color: Colors.white, fontSize: 11.sp),
                             ),
                           ),
-                          const Text(
+                          Text(
                             '45.00 ش',
                             style: TextStyle(
-                              color: Color(0xFF5B4FCF),
+                              color: const Color(0xFF5B4FCF),
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 18.sp,
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 6),
-                      const Text(
+                      SizedBox(height: 6.h),
+                      Text(
                         '✨ سكارف حرير فاخر',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
+                      Text(
                         'فخامة بدوية من قلب غزة ✨\nبتصاميم تراثية مميزة',
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                        style: TextStyle(color: Colors.grey, fontSize: 12.sp),
                         textAlign: TextAlign.right,
                       ),
                     ],
@@ -510,27 +509,27 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
                   borderRadius:
                   const BorderRadius.vertical(bottom: Radius.circular(0)),
                   child: Container(
-                    height: 200,
+                    height: 200.h,
                     width: double.infinity,
                     color: const Color(0xFF8B2FC9),
-                    child: const Icon(Icons.shopping_bag,
-                        size: 80, color: Colors.white38),
+                    child: Icon(Icons.shopping_bag,
+                        size: 80.sp, color: Colors.white38),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12.r),
                   child: SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       onPressed: () {},
-                      icon: const Icon(Icons.shopping_cart_outlined),
-                      label: const Text('اضف الى السلة'),
+                      icon: Icon(Icons.shopping_cart_outlined, size: 20.sp),
+                      label: Text('اضف الى السلة', style: TextStyle(fontSize: 16.sp)),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF5B4FCF),
                         foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        padding: EdgeInsets.symmetric(vertical: 14.h),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
                       ),
                     ),
@@ -540,10 +539,10 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: 16.h),
         // Product Grid
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             children: [
               Expanded(
@@ -554,7 +553,7 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
                   color: const Color(0xFF2C2C2C),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12.w),
               Expanded(
                 child: _buildProductCard(
                   name: 'حذاء رياضي أحمر سريع',
@@ -579,12 +578,12 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.07),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            blurRadius: 8.r,
+            offset: Offset(0, 2.h),
           ),
         ],
       ),
@@ -595,52 +594,52 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
             children: [
               ClipRRect(
                 borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(12)),
+                BorderRadius.vertical(top: Radius.circular(12.r)),
                 child: Container(
-                  height: 120,
+                  height: 120.h,
                   width: double.infinity,
                   color: color.withOpacity(0.15),
-                  child: Icon(Icons.shopping_bag, size: 50, color: color),
+                  child: Icon(Icons.shopping_bag, size: 50.sp, color: color),
                 ),
               ),
               Positioned(
-                top: 8,
-                left: 8,
+                top: 8.h,
+                left: 8.w,
                 child: Container(
-                  padding: const EdgeInsets.all(6),
+                  padding: EdgeInsets.all(6.r),
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.favorite_border,
-                      size: 16, color: Colors.grey),
+                  child: Icon(Icons.favorite_border,
+                      size: 16.sp, color: Colors.grey),
                 ),
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: EdgeInsets.all(8.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   name,
-                  style: const TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: 12.sp, fontWeight: FontWeight.w600),
                   textAlign: TextAlign.right,
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4.h),
                 Text(
                   distance,
-                  style: const TextStyle(color: Colors.grey, fontSize: 10),
+                  style: TextStyle(color: Colors.grey, fontSize: 10.sp),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4.h),
                 Text(
                   price,
-                  style: const TextStyle(
-                    color: Color(0xFF5B4FCF),
+                  style: TextStyle(
+                    color: const Color(0xFF5B4FCF),
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                   ),
                 ),
               ],
@@ -653,13 +652,13 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
 
   Widget _buildWeekendPromo() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xFF1A1A2E),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
         ),
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.r),
         child: Row(
           children: [
             ElevatedButton(
@@ -668,25 +667,25 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
                 backgroundColor: const Color(0xFF4CAF50),
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
                 padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
               ),
-              child: const Text(
+              child: Text(
                 'احصل على العرض',
-                style: TextStyle(fontSize: 11),
+                style: TextStyle(fontSize: 11.sp),
               ),
             ),
             const Spacer(),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   'عروض التقنية لعطلة',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -694,18 +693,18 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
                   'نهاية الأسبوع 🔥',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: 4.h),
                 Text(
                   'خصومات حتى %40 🎉',
-                  style: TextStyle(color: Colors.white70, fontSize: 11),
+                  style: TextStyle(color: Colors.white70, fontSize: 11.sp),
                 ),
                 Text(
                   'على أجهزة الفعل القريبة منك',
-                  style: TextStyle(color: Colors.white70, fontSize: 11),
+                  style: TextStyle(color: Colors.white70, fontSize: 11.sp),
                 ),
               ],
             ),

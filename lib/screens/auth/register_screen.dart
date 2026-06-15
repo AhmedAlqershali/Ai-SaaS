@@ -2,10 +2,9 @@ import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/auth/code_register.dart';
 import 'package:ai_saas/screens/auth/complete_registration_screen.dart';
 import 'package:ai_saas/screens/auth/login_screen.dart';
-import 'package:ai_saas/screens/shopper_home.dart';
-import 'package:ai_saas/screens/user_selection.dart';
 import 'package:ai_saas/screens/widgets/size_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -28,15 +27,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
           title: Text(
             'Tradex',
             style: GoogleFonts.ibmPlexSans(
-              fontSize: 32,
-              color: Color(0xff8127CF),
+              fontSize: 32.sp,
+              color: const Color(0xff8127CF),
             ),
           ),
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.close))],
         ),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -45,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Text(
                     'انشاء حساب جديد',
                     style: GoogleFonts.ibmPlexSans(
-                      fontSize: 24,
+                      fontSize: 24.sp,
                       color: Colors.black,
                     ),
                   ),
@@ -54,99 +52,100 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Text(
                     'انضم إلى مستقبل التجارة الذكية في Tradex',
                     style: GoogleFonts.ibmPlexSans(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       color: Colors.grey,
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 10.h),
 
                 Text(
                   "الاسم بالكامل ",
-                  style: GoogleFonts.ibmPlexSans(color: Colors.grey),
+                  style: GoogleFonts.ibmPlexSans(color: Colors.grey, fontSize: 14.sp),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 SizedBox(
-                  height: 60,
+                  height: 40.h,
                   child: TextField(
-                    style: TextStyle(decoration: TextDecoration.none),
+                    style: const TextStyle(decoration: TextDecoration.none),
                     decoration: InputDecoration(
                       hintText: "ادخل الاسم الثلاثي",
-                      hintStyle: TextStyle(color: Colors.black54, fontSize: 14),
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
+                      hintStyle: TextStyle(color: Colors.black54, fontSize: 14.sp),
+                      prefixIcon: const Icon(
+                        Icons.person_outline,
                         color: Colors.black54,
                       ),
                       filled: true,
-                      fillColor: Color(0xffF2F3FF),
+                      fillColor: const Color(0xffF2F3FF),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(15.r),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                SizedBox(height: 10.h),
                 Text(
                   "البريد الإلكتروني ",
-                  style: GoogleFonts.ibmPlexSans(color: Colors.grey),
+                  style: GoogleFonts.ibmPlexSans(color: Colors.grey, fontSize: 14.sp),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 SizedBox(
-                  height: 60,
+                  height: 40.h,
                   child: TextField(
-                    style: TextStyle(decoration: TextDecoration.none),
+                    style: const TextStyle(decoration: TextDecoration.none),
                     decoration: InputDecoration(
                       hintText: "example@tradex.com",
-                      hintStyle: TextStyle(color: Colors.black54, fontSize: 14),
-                      prefixIcon: Icon(
+                      hintStyle: TextStyle(color: Colors.black54, fontSize: 14.sp),
+                      prefixIcon: const Icon(
                         Icons.email_outlined,
                         color: Colors.black54,
                       ),
                       filled: true,
-                      fillColor: Color(0xffF2F3FF),
+                      fillColor: const Color(0xffF2F3FF),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(15.r),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                SizedBox(height: 10.h),
                 Text(
                   "رقم الهاتف ",
-                  style: GoogleFonts.ibmPlexSans(color: Colors.grey),
+                  style: GoogleFonts.ibmPlexSans(color: Colors.grey, fontSize: 14.sp),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 SizedBox(
-                  height: 60,
+                  height: 40.h,
                   child: TextField(
-                    style: TextStyle(decoration: TextDecoration.none),
+                    style: const TextStyle(decoration: TextDecoration.none),
                     decoration: InputDecoration(
                       hintText: "05XXXXXXXX",
-                      hintStyle: TextStyle(color: Colors.black54, fontSize: 14),
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
+                      hintStyle: TextStyle(color: Colors.black54, fontSize: 14.sp),
+                      prefixIcon: const Icon(
+                        Icons.phone_android_outlined,
                         color: Colors.black54,
                       ),
                       filled: true,
-                      fillColor: Color(0xffF2F3FF),
+                      fillColor: const Color(0xffF2F3FF),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(15.r),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                SizedBox(height: 15.h),
                 Text(
                   "كلمة المرور",
-                  style: GoogleFonts.ibmPlexSans(color: Colors.grey),
+                  style: GoogleFonts.ibmPlexSans(color: Colors.grey, fontSize: 14.sp),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 SizedBox(
-                  height: 60,
+                  height: 40.h,
                   child: TextField(
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "********",
+                      hintStyle: TextStyle(fontSize: 14.sp),
                       prefixIcon: const Icon(
                         Icons.lock_outline,
                         color: Colors.grey,
@@ -158,138 +157,125 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       filled: true,
                       fillColor: const Color(0xFFF5F7FF),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(15.r),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                SizedBox(height: 10.h),
                 Row(
                   children: [
                     Checkbox(
                       value: false,
                       onChanged: (val) {},
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                     ),
-                    Text(
-                      " الخاصة بـ تراديكس. سياسة الخصوصيةوشروط الخدمةأوافق على",
-                      style: GoogleFonts.ibmPlexSans(
-                        color: const Color(0xff4648D4),
+                    Expanded(
+                      child: Text(
+                        "أوافق على شروط الخدمة وسياسة الخصوصية الخاصة بـ تراديكس.",
+                        style: GoogleFonts.ibmPlexSans(
+                          color: const Color(0xff4648D4),
+                          fontSize: 12.sp,
+                        ),
                       ),
                     ),
                   ],
                 ),
+                SizedBox(height: 10.h),
                 Center(
                   child: Size_Button(
                     onPressed:(){
-                      {
-                        // نقوم بالفحص بناءً على النوع الممرر للواجهة باستخدام widget.type
-                        if (widget.type == AppType.merchant) {
-                          // إذا كان القادم متسوق (صاحب المتجر/المسوق) -> ينقله لواجهة إكمال الملف الشخصي
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const CompleteProfileScreen(type: AppType.merchant,), // واجهة غزة ورقم الجوال
-                            ),
-                          );
-
-                        } else if (widget.type == AppType.client) {
-
-                          // إذا كان القادم صاحب المشروع (العميل) -> ينقله مباشرة لواجهة تسجيل الدخول (أو الرئيسية)
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>  CodeRegister(type:AppType.client), // واجهة تسجيل الدخول الخاصة بك
-                            ),
-                          );
-
-                        }
+                      if (widget.type == AppType.merchant) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CompleteProfileScreen(type: AppType.merchant,),
+                          ),
+                        );
+                      } else if (widget.type == AppType.client) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>  CodeRegister(type:AppType.client),
+                          ),
+                        );
                       }
                     },
                     name: 'انشاء حساب جديد',
-                    color: Color(0xff4648D4),
+                    color: const Color(0xff4648D4),
                     colorname: Colors.white,
-                    size: Size(350, 60),
+                    size: Size(350.w, 40.h),
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(12),
+                      padding: EdgeInsets.all(12.r),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFE0E7FF), // نفس لون الخلفية الزرقاء الفاتحة في صورتك
+                        color: const Color(0xFFE0E7FF),
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.1),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
+                            blurRadius: 10.r,
+                            offset: Offset(0, 4.h),
                           ),
                         ],
                       ),
-                      child: const Icon(
-                        Icons.headset_mic_rounded, // أيقونة الدعم الفني
-                        color: Color(0xFF5145E5),  // لون الأيقونة البنفسجي
-                        size: 25,
+                      child: Icon(
+                        Icons.headset_mic_rounded,
+                        color: const Color(0xFF5145E5),
+                        size: 25.sp,
                       ),
                     ),
-                    SizedBox(width: 10,),
-                    const Text(
+                    SizedBox(width: 10.w),
+                    Text(
                       " لديك حساب؟ ",
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: Colors.grey, fontSize: 14.sp),
                     ),
                     GestureDetector(
                       onTap: () {
-                        // نقوم بالفحص بناءً على النوع الممرر للواجهة باستخدام widget.type
                         if (widget.type == AppType.merchant) {
-
-                          // إذا كان القادم متسوق (صاحب المتجر/المسوق) -> ينقله لواجهة إكمال الملف الشخصي
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CompleteProfileScreen(type: AppType.merchant,), // واجهة غزة ورقم الجوال
+                              builder: (context) => const LoginScreen(type: AppType.merchant,),
                             ),
                           );
-
                         } else if (widget.type == AppType.client) {
-
-                          // إذا كان القادم صاحب المشروع (العميل) -> ينقله مباشرة لواجهة تسجيل الدخول (أو الرئيسية)
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoginScreen(type: AppType.client,), // واجهة تسجيل الدخول الخاصة بك
+                              builder: (context) => const LoginScreen(type: AppType.client,),
                             ),
                           );
-
                         }
                       },
-                      child: const Text(
-                        "ادخل هناً",
+                      child: Text(
+                        "ادخل هنا",
                         style: TextStyle(
-                          color: Color(0xFF5145E5),
+                          color: const Color(0xFF5145E5),
                           fontWeight: FontWeight.bold,
+                          fontSize: 14.sp,
                         ),
                       ),
                     )
                   ],
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 10.h),
                 Row(
                   children: [
-                    // زر جوجل
                     Expanded(
                       child: socialButton(
                         label: "جوجل",
-                        imagePath:
-                        'assets/google_logo.png', // تأكد من إضافة المسار الصحيح
+                        imagePath: 'assets/google_logo.png',
                       ),
                     ),
-                    const SizedBox(width: 15),
-                    // زر آبل
+                    SizedBox(width: 15.w),
                     Expanded(
                       child: socialButton(
                         label: "آبل iOS",
@@ -298,8 +284,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ],
                 ),
-
-
               ],
             ),
           ),
@@ -313,22 +297,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
     IconData? icon,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         border: Border.all(color: const Color(0xFFE0E0E0)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (imagePath != null)
-            Icon(Icons.person)
+            Icon(Icons.person, size: 24.sp)
           else if (icon != null)
-            Icon(icon, size: 24),
-          const SizedBox(width: 10),
-          Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
-
-
+            Icon(icon, size: 24.sp),
+          SizedBox(width: 10.w),
+          Text(label, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp)),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../helper/colors.dart';
 
@@ -20,12 +21,12 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
       backgroundColor: AppColors.lightGray,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.only(bottom: 20),
+          padding: EdgeInsets.only(bottom: 20.h),
           child: Column(
             children: [
               _buildTopBar(),
               _buildHeroBanner(),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               _buildToolCard(
                 tag: 'الأكثر استخداماً',
                 icon: Icons.description_outlined,
@@ -59,9 +60,9 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
                 buttonText: 'رد ذكي',
                 buttonColor: AppColors.pink,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               _buildAccuracyCard(),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               _buildRecentOperations(),
             ],
           ),
@@ -74,25 +75,25 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
   // ── TOP BAR ─────────────────────────────────────────────────────────────────
   Widget _buildTopBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
       child: Row(
         textDirection: TextDirection.rtl,
         children: [
           // Avatar
           Container(
-            width: 38,
-            height: 38,
+            width: 38.w,
+            height: 38.h,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: AppColors.purple.withOpacity(0.15),
             ),
-            child: const Icon(Icons.person, color: AppColors.purple, size: 22),
+            child: Icon(Icons.person, color: AppColors.purple, size: 22.sp),
           ),
-          const SizedBox(width: 10),
-          const Text(
+          SizedBox(width: 10.w),
+          Text(
             'Oasis AI',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.bold,
               color: AppColors.textDark,
             ),
@@ -101,13 +102,13 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
           // Notifications
           Stack(
             children: [
-              const Icon(Icons.notifications_none, size: 26, color: AppColors.textDark),
+              Icon(Icons.notifications_none, size: 26.sp, color: AppColors.textDark),
               Positioned(
                 right: 0,
                 top: 0,
                 child: Container(
-                  width: 8,
-                  height: 8,
+                  width: 8.w,
+                  height: 8.h,
                   decoration: const BoxDecoration(
                     color: AppColors.orange,
                     shape: BoxShape.circle,
@@ -116,8 +117,8 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
               ),
             ],
           ),
-          const SizedBox(width: 14),
-          const Icon(Icons.menu, size: 26, color: AppColors.textDark),
+          SizedBox(width: 14.w),
+          Icon(Icons.menu, size: 26.sp, color: AppColors.textDark),
         ],
       ),
     );
@@ -128,42 +129,42 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        padding: const EdgeInsets.all(28),
+        margin: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.all(28.r),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [Color(0xFF7B6FFF), Color(0xFF5A4FDF)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(24.r),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'مساعدك الذكي\nلإدارة متجرك\nباحترافية',
               style: TextStyle(
                 color: AppColors.white,
-                fontSize: 26,
+                fontSize: 26.sp,
                 fontWeight: FontWeight.bold,
                 height: 1.4,
               ),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
             Text(
               'استخدم أدوات الذكاء الاصطناعي لتوفير وزيادة مبيعاتك بضغطة زر واحدة.',
               style: TextStyle(
                 color: AppColors.white.withOpacity(0.85),
-                fontSize: 14,
+                fontSize: 14.sp,
                 height: 1.5,
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             Row(
               children: [
                 _heroButton('ابدأ الآن', AppColors.white, AppColors.purple),
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w),
                 _heroButton(
                   'شاهد الشرح',
                   Colors.transparent,
@@ -181,18 +182,18 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
   Widget _heroButton(String text, Color bg, Color textColor,
       {bool isOutlined = false}) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 11),
+      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 11.h),
       decoration: BoxDecoration(
         color: bg,
-        borderRadius: BorderRadius.circular(12),
-        border: isOutlined ? Border.all(color: AppColors.white, width: 1.5) : null,
+        borderRadius: BorderRadius.circular(12.r),
+        border: isOutlined ? Border.all(color: AppColors.white, width: 1.5.w) : null,
       ),
       child: Text(
         text,
         style: TextStyle(
           color: textColor,
           fontWeight: FontWeight.bold,
-          fontSize: 14,
+          fontSize: 14.sp,
         ),
       ),
     );
@@ -211,16 +212,16 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        padding: const EdgeInsets.all(20),
+        margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+        padding: EdgeInsets.all(20.r),
         decoration: BoxDecoration(
           color: AppColors.cardWhite,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.04),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
+              blurRadius: 12.r,
+              offset: Offset(0, 4.h),
             ),
           ],
         ),
@@ -230,28 +231,28 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
             Row(
               children: [
                 Container(
-                  width: 44,
-                  height: 44,
+                  width: 44.w,
+                  height: 44.h,
                   decoration: BoxDecoration(
                     color: iconColor.withOpacity(0.12),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
-                  child: Icon(icon, color: iconColor, size: 22),
+                  child: Icon(icon, color: iconColor, size: 22.sp),
                 ),
                 if (tag != null) ...[
                   const Spacer(),
                   Container(
                     padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                     decoration: BoxDecoration(
                       color: AppColors.green.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(
                       tag,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.green,
-                        fontSize: 11,
+                        fontSize: 11.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -259,40 +260,40 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
                 ],
               ],
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14.h),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 17,
+              style: TextStyle(
+                fontSize: 17.sp,
                 fontWeight: FontWeight.bold,
                 color: AppColors.textDark,
               ),
             ),
-            const SizedBox(height: 6),
+            SizedBox(height: 6.h),
             Text(
               subtitle,
-              style: const TextStyle(
-                fontSize: 13,
+              style: TextStyle(
+                fontSize: 13.sp,
                 color: AppColors.textGray,
                 height: 1.5,
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             GestureDetector(
               onTap: () {},
               child: Container(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+                EdgeInsets.symmetric(horizontal: 20.w, vertical: 11.h),
                 decoration: BoxDecoration(
                   color: buttonColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Text(
                   buttonText,
                   style: TextStyle(
                     color: buttonColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                   ),
                 ),
               ),
@@ -306,39 +307,39 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
   // ── ACCURACY CARD ─────────────────────────────────────────────────────────
   Widget _buildAccuracyCard() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 20),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(vertical: 32.h, horizontal: 20.w),
       decoration: BoxDecoration(
         color: AppColors.darkBg,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(24.r),
       ),
       child: Column(
         children: [
-          const Text(
+          Text(
             '98%',
             style: TextStyle(
               color: AppColors.green,
-              fontSize: 52,
+              fontSize: 52.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 8),
-          const Text(
+          SizedBox(height: 8.h),
+          Text(
             'دقة المحتوى المولود بواسطة AI',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.white,
-              fontSize: 15,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 6),
+          SizedBox(height: 6.h),
           Text(
             'بناءً على أكثر من 10,000 محتوى تم إنشاؤه',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.white.withOpacity(0.45),
-              fontSize: 12,
+              fontSize: 12.sp,
             ),
           ),
         ],
@@ -351,38 +352,38 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'آخر العمليات',
                   style: TextStyle(
-                    fontSize: 17,
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.bold,
                     color: AppColors.textDark,
                   ),
                 ),
                 TextButton(
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     'عرض السجل',
-                    style: TextStyle(color: AppColors.purple, fontSize: 13),
+                    style: TextStyle(color: AppColors.purple, fontSize: 13.sp),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
             _recentItem(
               icon: Icons.description_outlined,
               iconColor: AppColors.purple,
               title: 'وصف منتج: عطر "واحة النخيل"',
               time: 'قبل ١٥ دقيقة',
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             _recentItem(
               icon: Icons.share_outlined,
               iconColor: AppColors.orange,
@@ -402,47 +403,47 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
     required String time,
   }) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         color: AppColors.cardWhite,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.03),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            blurRadius: 8.r,
+            offset: Offset(0, 2.h),
           ),
         ],
       ),
       child: Row(
         children: [
           Container(
-            width: 40,
-            height: 40,
+            width: 40.w,
+            height: 40.h,
             decoration: BoxDecoration(
               color: iconColor.withOpacity(0.12),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(10.r),
             ),
-            child: Icon(icon, color: iconColor, size: 20),
+            child: Icon(icon, color: iconColor, size: 20.sp),
           ),
-          const SizedBox(width: 14),
+          SizedBox(width: 14.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textDark,
                   ),
                 ),
-                const SizedBox(height: 3),
+                SizedBox(height: 3.h),
                 Text(
                   time,
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style: TextStyle(
+                    fontSize: 12.sp,
                     color: AppColors.textGray,
                   ),
                 ),
@@ -466,14 +467,14 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.symmetric(vertical: 10.h),
         decoration: BoxDecoration(
           color: AppColors.cardWhite,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.06),
-              blurRadius: 16,
-              offset: const Offset(0, -4),
+              blurRadius: 16.r,
+              offset: Offset(0, -4.h),
             ),
           ],
         ),
@@ -486,12 +487,12 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 padding:
-                const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
                 decoration: BoxDecoration(
                   color: isSelected
                       ? AppColors.purple.withOpacity(0.12)
                       : Colors.transparent,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -499,13 +500,13 @@ class _DashboardScreenState extends State<AlMarketingToolsScreen> {
                     Icon(
                       item.icon,
                       color: isSelected ? AppColors.purple : AppColors.textGray,
-                      size: 24,
+                      size: 24.sp,
                     ),
-                    const SizedBox(height: 3),
+                    SizedBox(height: 3.h),
                     Text(
                       item.label,
                       style: TextStyle(
-                        fontSize: 11,
+                        fontSize: 11.sp,
                         color:
                         isSelected ? AppColors.purple : AppColors.textGray,
                         fontWeight: isSelected

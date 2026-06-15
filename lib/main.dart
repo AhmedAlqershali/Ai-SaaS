@@ -1,4 +1,3 @@
-
 import 'package:ai_saas/screens/auth/forget_password_screen.dart';
 import 'package:ai_saas/screens/auth/complete_registration_screen.dart';
 import 'package:ai_saas/screens/notification_screen.dart';
@@ -10,13 +9,14 @@ import 'package:ai_saas/screens/widgets/bn_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ai_saas/models/app_type.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-
   AppType? appType;
 
+  // Note: logic here might need adjustment based on how appType is retrieved
   if (appType == 'merchant') {
     appType = AppType.merchant;
   } else if (appType == 'client') {
@@ -33,19 +33,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xffF2F3F6)
-      ),
-
-      // home: appType == null
-      //     ? const UserSelection()
-      //     : BnScreen(type: appType!),
-      home: SearchScreen(),
-      // home: BnScreen(type: AppType.merchant),
-      //   home: CompleteProfileScreen(),
-
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: const Color(0xffF2F3F6),
+          ),
+          // home: appType == null
+          //     ? const UserSelection()
+          //     : BnScreen(type: appType!),
+          home: const OnboardingAIPage(),
+          // home: BnScreen(type: AppType.merchant),
+          //   home: CompleteProfileScreen(),
+        );
+      },
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ==========================================
 // 1. شاشة الإشعارات الأساسية (Notifications Screen)
@@ -14,31 +15,31 @@ class NotificationsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xff3f2d56)),
+          icon: Icon(Icons.arrow_back, color: const Color(0xff3f2d56), size: 24.sp),
           onPressed: () => Navigator.maybePop(context),
         ),
-        title: const Text(
+        title: Text(
           'الاشعارات',
           style: TextStyle(
-            color: Color(0xff1a1a1a),
+            color: const Color(0xff1a1a1a),
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 20.sp,
           ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings_outlined, color: Color(0xff3f2d56)),
+            icon: Icon(Icons.settings_outlined, color: const Color(0xff3f2d56), size: 24.sp),
             onPressed: () {},
           ),
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 10.0.h),
         children: [
           // ------ قسم اليوم ------
           _buildSectionHeader('اليوم'),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
 
           const NotificationCard(
             text: 'عرض 50% على كل القطع المتوفرة لدى محل حكاية .\nاستغل العرض الكمية محدودة',
@@ -47,7 +48,7 @@ class NotificationsScreen extends StatelessWidget {
             iconColor: Colors.red,
             type: 'offer', // يوجه إلى OfferScreen
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
 
           const NotificationCard(
             text: 'وصل حديثاً , كولشكن فساتين مناسبات لدى Lovista Store . متوفر بجميع المقاسات والألوان.',
@@ -57,11 +58,11 @@ class NotificationsScreen extends StatelessWidget {
             type: 'new_arrival', // يوجه إلى RecentlyArrivedScreen
           ),
 
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // ------ قسم الأمس ------
           _buildSectionHeader('الأمس'),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
 
           const NotificationCard(
             text: 'عرض 50% على كل القطع المتوفرة لدى محل حكاية .\nاستغل العرض الكمية محدودة',
@@ -70,7 +71,7 @@ class NotificationsScreen extends StatelessWidget {
             iconColor: Colors.red,
             type: 'offer', // يوجه إلى OfferScreen
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
 
           const NotificationCard(
             text: 'وصل حديثاً , كولشكن فساتين مناسبات لدى Lovista Store . متوفر بجميع المقاسات والألوان.',
@@ -90,10 +91,10 @@ class NotificationsScreen extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 18,
+        style: TextStyle(
+          fontSize: 18.sp,
           fontWeight: FontWeight.bold,
-          color: Color(0xff1a1a1a),
+          color: const Color(0xff1a1a1a),
         ),
       ),
     );
@@ -139,10 +140,10 @@ class NotificationCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey.shade200, width: 1.5),
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(color: Colors.grey.shade200, width: 1.5.w),
         ),
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0.r),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -153,38 +154,38 @@ class NotificationCard extends StatelessWidget {
                 children: [
                   Text(
                     text,
-                    style: const TextStyle(
-                      fontSize: 14,
+                    style: TextStyle(
+                      fontSize: 14.sp,
                       height: 1.5,
                       color: Colors.black87,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   Text(
                     time,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       color: Colors.grey.shade500,
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             // الأيقونة الدائرية الملونة جهة اليسار
             Container(
-              width: 50,
-              height: 50,
+              width: 50.w,
+              height: 50.h,
               decoration: BoxDecoration(
                 color: iconColor.withOpacity(0.1),
                 shape: BoxShape.circle,
-                border: Border.all(color: iconColor.withOpacity(0.3), width: 1),
+                border: Border.all(color: iconColor.withOpacity(0.3), width: 1.w),
               ),
               child: Icon(
                 icon,
                 color: iconColor,
-                size: 26,
+                size: 26.sp,
               ),
             ),
           ],
@@ -208,26 +209,26 @@ class RecentlyArrivedScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xff1a1a1a)),
+          icon: Icon(Icons.arrow_back, color: const Color(0xff1a1a1a), size: 24.sp),
           onPressed: () => Navigator.maybePop(context),
         ),
-        title: const Text(
+        title: Text(
           'وصل حديثاً',
           style: TextStyle(
-            color: Color(0xff1a1a1a),
+            color: const Color(0xff1a1a1a),
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 20.sp,
           ),
         ),
         centerTitle: true,
       ),
       body: GridView.builder(
-        padding: const EdgeInsets.all(16.0),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        padding: EdgeInsets.all(16.0.r),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 0.72,
-          crossAxisSpacing: 16.0,
-          mainAxisSpacing: 16.0,
+          crossAxisSpacing: 16.0.w,
+          mainAxisSpacing: 16.0.h,
         ),
         itemCount: 6,
         itemBuilder: (context, index) {
@@ -241,7 +242,7 @@ class RecentlyArrivedScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(16.0.r),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -252,7 +253,7 @@ class RecentlyArrivedScreen extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.circular(16.0.r),
                     image: const DecorationImage(
                       image: NetworkImage('https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=500'),
                       fit: BoxFit.cover,
@@ -260,19 +261,19 @@ class RecentlyArrivedScreen extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 10,
-                  right: 10,
+                  top: 10.h,
+                  right: 10.w,
                   child: Container(
-                    width: 32,
-                    height: 32,
+                    width: 32.w,
+                    height: 30.h,
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.favorite_border_outlined,
                       color: Colors.black54,
-                      size: 18,
+                      size: 18.sp,
                     ),
                   ),
                 ),
@@ -280,37 +281,37 @@ class RecentlyArrivedScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.0.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Text(
+                Text(
                   'فستان سهرة قصير',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff1a1a1a),
+                    color: const Color(0xff1a1a1a),
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
                         _buildColorDot(const Color(0xff912b39)),
-                        const SizedBox(width: 4),
+                        SizedBox(width: 4.w),
                         _buildColorDot(Colors.black),
-                        const SizedBox(width: 4),
+                        SizedBox(width: 4.w),
                         _buildColorDot(const Color(0xff0f4c81)),
                       ],
                     ),
-                    const Text(
+                    Text(
                       '₪220',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w900,
                         color: Colors.black,
                       ),
@@ -327,8 +328,8 @@ class RecentlyArrivedScreen extends StatelessWidget {
 
   Widget _buildColorDot(Color color) {
     return Container(
-      width: 12,
-      height: 12,
+      width: 12.w,
+      height: 12.h,
       decoration: BoxDecoration(color: color, shape: BoxShape.circle),
     );
   }
@@ -348,23 +349,23 @@ class OfferScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xff1a1a1a)),
+          icon: Icon(Icons.arrow_back, color: const Color(0xff1a1a1a), size: 24.sp),
           onPressed: () => Navigator.maybePop(context),
         ),
-        title: const Text(
+        title: Text(
           'العروض والتخفيضات',
           style: TextStyle(
-            color: Color(0xff1a1a1a),
+            color: const Color(0xff1a1a1a),
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 20.sp,
           ),
         ),
         centerTitle: true,
       ),
-      body: const Center(
+      body: Center(
         child: Text(
           'مرحباً بك في واجهة العروض (OfferScreen)',
-          style: TextStyle(fontSize: 18, color: Colors.grey, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 18.sp, color: Colors.grey, fontWeight: FontWeight.bold),
         ),
       ),
     );

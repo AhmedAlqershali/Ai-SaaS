@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CodeTextField extends StatelessWidget {
@@ -21,7 +22,7 @@ class CodeTextField extends StatelessWidget {
         focusNode: focusNode,
         textAlign: TextAlign.center,
         style: GoogleFonts.nunito(
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.bold,
         ),
         maxLength: 1,
@@ -35,12 +36,12 @@ class CodeTextField extends StatelessWidget {
           counterText: '',
           hintText: '*',
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 1),
-            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.grey, width: 1.w),
+            borderRadius: BorderRadius.circular(10.r),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue, width: 1),
-            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.blue, width: 1.w),
+            borderRadius: BorderRadius.circular(10.r),
           ),
         ),
       ),

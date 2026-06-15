@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductModel {
@@ -97,14 +98,14 @@ class _SearchScreenState extends State<SearchScreen> {
               textDirection: TextDirection.rtl,
               child: Container(
                 // أبعاد وتصميم الحواف الدائرية العلوية المطابقة للصورة
-                decoration: const BoxDecoration(
-                  color: Color(0xfffcfdff),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffcfdff),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(24),
-                    topRight: Radius.circular(24),
+                    topLeft: Radius.circular(24.r),
+                    topRight: Radius.circular(24.r),
                   ),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
                 // تحديد الحد الأقصى للارتفاع ليتطابق مع مظهر الـ BottomSheet المرفوع
                 constraints: BoxConstraints(
                   maxHeight: MediaQuery.of(context).size.height * 0.75,
@@ -114,46 +115,46 @@ class _SearchScreenState extends State<SearchScreen> {
                   children: [
                     // شريط السحب العلوي الرمادي الصغير
                     Container(
-                      width: 40,
-                      height: 4,
+                      width: 40.w,
+                      height: 4.h,
                       decoration: BoxDecoration(
                         color: Colors.black12,
-                        borderRadius: BorderRadius.circular(2),
+                        borderRadius: BorderRadius.circular(2.r),
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12.h),
                     // رأس النافذة: زر الإغلاق وعنوان "اختر فئة المتجر"
                     Row(
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.close, size: 20, color: Colors.black54),
+                          icon: Icon(Icons.close, size: 20.sp, color: Colors.black54),
                           onPressed: () => Navigator.pop(context),
                         ),
-                        const Expanded(
+                        Expanded(
                           child: Text(
                             'اختر فئة المتجر',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xff0d1e3d),
+                              color: const Color(0xff0d1e3d),
                             ),
                           ),
                         ),
-                        const SizedBox(width: 40),
+                        SizedBox(width: 40.w),
                       ],
                     ),
                     const Divider(),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
 
                     // شبكة الفئات المكونة من 3 أعمدة متناسقة بداخلها الأيقونة الدائرية والنص
                     Expanded(
                       child: GridView.builder(
                         itemCount: filterCategories.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 16.h,
+                          crossAxisSpacing: 12.w,
                           childAspectRatio: 0.95,
                         ),
                         itemBuilder: (context, index) {
@@ -171,8 +172,8 @@ class _SearchScreenState extends State<SearchScreen> {
                               children: [
                                 // الدائرة المحيطة بالأيقونة (تتغير خلفيتها للبنفسجي الشفاف عند الاختيار)
                                 Container(
-                                  width: 48,
-                                  height: 48,
+                                  width: 48.w,
+                                  height: 48.h,
                                   decoration: BoxDecoration(
                                     color: isSelected
                                         ? const Color(0xff4D41DF).withOpacity(0.2)
@@ -182,15 +183,15 @@ class _SearchScreenState extends State<SearchScreen> {
                                   child: Icon(
                                     category.icon,
                                     color: const Color(0xff4D41DF),
-                                    size: 20,
+                                    size: 20.sp,
                                   ),
                                 ),
-                                const SizedBox(height: 8),
+                                SizedBox(height: 8.h),
                                 Text(
                                   category.name,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 12.sp,
                                     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                                     color: isSelected ? const Color(0xff4D41DF) : const Color(0xff0d1e3d),
                                   ),
@@ -223,30 +224,30 @@ class _SearchScreenState extends State<SearchScreen> {
             return Directionality(
               textDirection: TextDirection.rtl,
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xfffcfdff),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffcfdff),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(24),
-                    topRight: Radius.circular(24),
+                    topLeft: Radius.circular(24.r),
+                    topRight: Radius.circular(24.r),
                   ),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(width: 40, height: 4, decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(2))),
-                    const SizedBox(height: 12),
+                    Container(width: 40.w, height: 4.h, decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(2.r))),
+                    SizedBox(height: 12.h),
                     Row(
                       children: [
-                        IconButton(icon: const Icon(Icons.close, size: 20, color: Colors.black54), onPressed: () => Navigator.pop(context)),
-                        const Expanded(child: Text('المنطقة', textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xff0d1e3d)))),
-                        const SizedBox(width: 40),
+                        IconButton(icon: Icon(Icons.close, size: 20.sp, color: Colors.black54), onPressed: () => Navigator.pop(context)),
+                        Expanded(child: Text('المنطقة', textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff0d1e3d)))),
+                        SizedBox(width: 40.w),
                       ],
                     ),
                     const Divider(),
                     ...['غزة', 'شمال غزة', 'خانيونس', 'رفح', 'دير البلح', 'المغازي', 'النصيرات'].map((region) {
                       return RadioListTile<String>(
-                        title: Text(region, style: const TextStyle(fontSize: 14, color: Color(0xff0d1e3d))),
+                        title: Text(region, style: TextStyle(fontSize: 14.sp, color: const Color(0xff0d1e3d))),
                         value: region,
                         groupValue: _selectedRegion == 'المنطقة' ? null : _selectedRegion,
                         activeColor: const Color(0xff4D41DF),
@@ -257,7 +258,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         },
                       );
                     }).toList(),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                   ],
                 ),
               ),
@@ -279,29 +280,29 @@ class _SearchScreenState extends State<SearchScreen> {
             return Directionality(
               textDirection: TextDirection.rtl,
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xfffcfdff),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffcfdff),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(24),
-                    topRight: Radius.circular(24),
+                    topLeft: Radius.circular(24.r),
+                    topRight: Radius.circular(24.r),
                   ),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(width: 40, height: 4, decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(2))),
-                    const SizedBox(height: 12),
+                    Container(width: 40.w, height: 4.h, decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(2.r))),
+                    SizedBox(height: 12.h),
                     Row(
                       children: [
-                        IconButton(icon: const Icon(Icons.close, size: 20, color: Colors.black54), onPressed: () => Navigator.pop(context)),
-                        const Expanded(child: Text('السعر', textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xff0d1e3d)))),
-                        const SizedBox(width: 40),
+                        IconButton(icon: Icon(Icons.close, size: 20.sp, color: Colors.black54), onPressed: () => Navigator.pop(context)),
+                        Expanded(child: Text('السعر', textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff0d1e3d)))),
+                        SizedBox(width: 40.w),
                       ],
                     ),
                     const Divider(),
                     RadioListTile<String>(
-                      title: const Text('الأعلى سعراً إلى الأقل سعراً', style: TextStyle(fontSize: 14)),
+                      title: Text('الأعلى سعراً إلى الأقل سعراً', style: TextStyle(fontSize: 14.sp)),
                       value: 'الأعلى سعراً',
                       groupValue: _selectedPriceFilter == 'السعر' ? null : _selectedPriceFilter,
                       activeColor: const Color(0xff4D41DF),
@@ -312,7 +313,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       },
                     ),
                     RadioListTile<String>(
-                      title: const Text('الأقل سعراً إلى الأعلى سعراً', style: TextStyle(fontSize: 14)),
+                      title: Text('الأقل سعراً إلى الأعلى سعراً', style: TextStyle(fontSize: 14.sp)),
                       value: 'الأقل سعراً',
                       groupValue: _selectedPriceFilter == 'السعر' ? null : _selectedPriceFilter,
                       activeColor: const Color(0xff4D41DF),
@@ -322,7 +323,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         Navigator.pop(context);
                       },
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                   ],
                 ),
               ),
@@ -346,15 +347,15 @@ class _SearchScreenState extends State<SearchScreen> {
         elevation: 0,
         centerTitle: false,
         title: Padding(
-          padding: const EdgeInsets.only(right: 8.0),
+          padding: EdgeInsets.only(right: 8.0.w),
           child: Row(
             children: [
-              const Icon(Icons.storefront_outlined, color: primaryColor, size: 24),
-              const SizedBox(width: 8),
+              Icon(Icons.storefront_outlined, color: primaryColor, size: 24.sp),
+              SizedBox(width: 8.w),
               Text(
                 'Tradex',
                 style: GoogleFonts.ibmPlexSans(
-                  fontSize: 22,
+                  fontSize: 22.sp,
                   fontWeight: FontWeight.bold,
                   color: primaryColor,
                 ),
@@ -370,39 +371,39 @@ class _SearchScreenState extends State<SearchScreen> {
             children: [
               // شريط البحث العلوي مع ربط الزر الجانبي بواجهة الفلتر المفقودة
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 8.0.h),
                 child: Row(
                   children: [
                     Expanded(
                       child: Container(
-                        height: 50,
+                        height: 50.h,
                         decoration: BoxDecoration(
                           color: const Color(0xfff1f3f9),
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(14.r),
                         ),
-                        child: const TextField(
+                        child: TextField(
                           decoration: InputDecoration(
                             hintText: 'البحث عن منتجات أو متاجر...',
-                            hintStyle: TextStyle(color: Colors.black38, fontSize: 14),
-                            prefixIcon: Icon(Icons.search, color: Colors.black45, size: 22),
+                            hintStyle: TextStyle(color: Colors.black38, fontSize: 14.sp),
+                            prefixIcon: Icon(Icons.search, color: Colors.black45, size: 22.sp),
                             border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(vertical: 14),
+                            contentPadding: EdgeInsets.symmetric(vertical: 14.h),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    SizedBox(width: 12.w),
                     // هنا تفعيل واجهة فئات المتجر عند الضغط على زر التصفية البنفسجي
                     GestureDetector(
                       onTap: _showMainFilterBottomSheet,
                       child: Container(
-                        width: 50,
-                        height: 50,
+                        width: 50.w,
+                        height: 50.h,
                         decoration: BoxDecoration(
                           color: primaryColor.withOpacity(0.12),
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(14.r),
                         ),
-                        child: const Icon(Icons.tune, color: primaryColor, size: 22),
+                        child: Icon(Icons.tune, color: primaryColor, size: 22.sp),
                       ),
                     ),
                   ],
@@ -411,7 +412,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
               // كبسولات فلاتر المنطقة والسعر السريعة
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 6.0.h),
                 child: Row(
                   children: [
                     _buildFilterBadge(
@@ -419,7 +420,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       icon: Icons.location_on_outlined,
                       onTap: _showRegionBottomSheet,
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10.w),
                     _buildFilterBadge(
                       label: _selectedPriceFilter,
                       icon: Icons.payments_outlined,
@@ -427,11 +428,11 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     // لإظهار الفئة المختارة من الفلتر الرئيسي كإشارة مرئية إذا وُجدت
                     if (_selectedStoreCategory.isNotEmpty) ...[
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                       Chip(
-                        label: Text(_selectedStoreCategory, style: const TextStyle(fontSize: 12, color: Colors.white)),
+                        label: Text(_selectedStoreCategory, style: TextStyle(fontSize: 12.sp, color: Colors.white)),
                         backgroundColor: primaryColor,
-                        deleteIcon: const Icon(Icons.close, size: 14, color: Colors.white),
+                        deleteIcon: Icon(Icons.close, size: 14.sp, color: Colors.white),
                         onDeleted: () {
                           setState(() {
                             _selectedStoreCategory = '';
@@ -442,17 +443,17 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
 
               // شبكة المنتجات
               Expanded(
                 child: GridView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                   itemCount: products.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 14,
-                    crossAxisSpacing: 14,
+                    mainAxisSpacing: 14.h,
+                    crossAxisSpacing: 14.w,
                     childAspectRatio: 0.64,
                   ),
                   itemBuilder: (context, index) {
@@ -469,51 +470,30 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: Directionality(
-        textDirection: TextDirection.rtl,
-        child: BottomNavigationBar(
-          currentIndex: _currentNavigationIndex,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          selectedItemColor: primaryColor,
-          unselectedItemColor: Colors.grey,
-          onTap: (index) {
-            setState(() {
-              _currentNavigationIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'الرئيسية'),
-            BottomNavigationBarItem(icon: Icon(Icons.grid_view_outlined), label: 'الفئات'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'بحث'),
-            BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'حسابي'),
-          ],
-        ),
-      ),
     );
   }
 
   Widget _buildFilterBadge({required String label, required IconData icon, required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(20.r),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.black12, width: 1),
+          borderRadius: BorderRadius.circular(20.r),
+          border: Border.all(color: Colors.black12, width: 1.w),
         ),
         child: Row(
           children: [
-            Icon(icon, size: 16, color: Colors.black87),
-            const SizedBox(width: 6),
+            Icon(icon, size: 16.sp, color: Colors.black87),
+            SizedBox(width: 6.w),
             Text(
               label,
-              style: const TextStyle(fontSize: 13, color: Colors.black87, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 13.sp, color: Colors.black87, fontWeight: FontWeight.w500),
             ),
-            const SizedBox(width: 4),
-            const Icon(Icons.keyboard_arrow_down, size: 16, color: Colors.black54),
+            SizedBox(width: 4.w),
+            Icon(Icons.keyboard_arrow_down, size: 16.sp, color: Colors.black54),
           ],
         ),
       ),
@@ -524,8 +504,8 @@ class _SearchScreenState extends State<SearchScreen> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.015), blurRadius: 8, offset: const Offset(0, 4))],
+        borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.015), blurRadius: 8.r, offset: Offset(0, 4.h))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -535,20 +515,20 @@ class _SearchScreenState extends State<SearchScreen> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
                     image: DecorationImage(image: NetworkImage(product.imageUrl), fit: BoxFit.cover),
                   ),
                 ),
                 Positioned(
-                  top: 10,
-                  right: 10,
+                  top: 10.h,
+                  right: 10.w,
                   child: Container(
-                    padding: const EdgeInsets.all(6),
+                    padding: EdgeInsets.all(6.r),
                     decoration: BoxDecoration(color: Colors.white.withOpacity(0.9), shape: BoxShape.circle),
                     child: Icon(
                       product.isFavorite ? Icons.favorite : Icons.favorite_border,
                       color: product.isFavorite ? Colors.red : Colors.black45,
-                      size: 18,
+                      size: 18.sp,
                     ),
                   ),
                 ),
@@ -556,28 +536,28 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(product.title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xff0d1e3d)), maxLines: 1, overflow: TextOverflow.ellipsis),
-                const SizedBox(height: 2),
-                Text(product.storeName, style: const TextStyle(fontSize: 12, color: Colors.black45), maxLines: 1, overflow: TextOverflow.ellipsis),
-                const SizedBox(height: 6),
-                Text('${product.price.toInt()} ₪', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
-                const SizedBox(height: 8),
+                Text(product.title, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xff0d1e3d)), maxLines: 1, overflow: TextOverflow.ellipsis),
+                SizedBox(height: 2.h),
+                Text(product.storeName, style: TextStyle(fontSize: 12.sp, color: Colors.black45), maxLines: 1, overflow: TextOverflow.ellipsis),
+                SizedBox(height: 6.h),
+                Text('${product.price.toInt()} ₪', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
+                SizedBox(height: 8.h),
                 Container(
                   width: double.infinity,
-                  height: 36,
-                  decoration: BoxDecoration(color: whatsappColor, borderRadius: BorderRadius.circular(8)),
+                  height: 36.h,
+                  decoration: BoxDecoration(color: whatsappColor, borderRadius: BorderRadius.circular(8.r)),
                   child: InkWell(
                     onTap: () {},
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.chat_bubble_outline, color: Colors.white, size: 14),
-                        SizedBox(width: 6),
-                        Text('واتساب', style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold)),
+                      children: [
+                        Icon(Icons.chat_bubble_outline, color: Colors.white, size: 14.sp),
+                        SizedBox(width: 6.w),
+                        Text('واتساب', style: TextStyle(color: Colors.white, fontSize: 13.sp, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),

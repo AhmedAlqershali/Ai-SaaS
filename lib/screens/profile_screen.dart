@@ -3,6 +3,7 @@ import 'package:ai_saas/screens/auth/forget_password_screen.dart';
 import 'package:ai_saas/screens/edit_profile_screen.dart';
 import 'package:ai_saas/screens/onboarding2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -28,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Directionality(
           textDirection: TextDirection.rtl, // تنسيق الواجهة بالكامل باللغة العربية
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 24.0.h),
             child: Column(
               children: [
                 // 1. قسم الصورة الشخصية والاسم والموقع
@@ -36,62 +37,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     children: [
                       Container(
-                        width: 90,
-                        height: 90,
+                        width: 90.w,
+                        height: 90.h,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: primaryColor, width: 2),
+                          border: Border.all(color: primaryColor, width: 2.w),
                           image: const DecorationImage(
                             image: NetworkImage('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300'), // رابط تجريبي لصورة المستخدم الشخصية
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 12),
-                      const Text(
+                      SizedBox(height: 12.h),
+                      Text(
                         'أحمد القرشلي',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                           color: textColor,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.location_on_outlined, size: 16, color: Colors.grey),
-                          SizedBox(width: 4),
+                        children: [
+                          Icon(Icons.location_on_outlined, size: 16.sp, color: Colors.grey),
+                          SizedBox(width: 4.w),
                           Text(
                             'غزة، فلسطين',
-                            style: TextStyle(fontSize: 13, color: Colors.grey),
+                            style: TextStyle(fontSize: 13.sp, color: Colors.grey),
                           ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 28),
+                SizedBox(height: 28.h),
 
                 // 2. قائمة خيارات الحساب والتحكم
-                GestureDetector(
-
-                  child: _buildMenuOption(
-                    title: 'المعلومات الشخصية',
-                    icon: Icons.person_outline,
-                    backgroundColor: itemBackgroundColor,
-                    textColor: textColor,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          // نمرر النوع هنا
-                          builder: (context) =>  EditProfileScreen(),
-                        ),
-                      );
-                    },                  ),
+                _buildMenuOption(
+                  title: 'المعلومات الشخصية',
+                  icon: Icons.person_outline,
+                  backgroundColor: itemBackgroundColor,
+                  textColor: textColor,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfileScreen(),
+                      ),
+                    );
+                  },
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 _buildMenuOption(
                   title: 'تغيير كلمة المرور',
                   icon: Icons.lock_open_outlined,
@@ -101,64 +99,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        // نمرر النوع هنا
-                        builder: (context) =>  ForgotPasswordScreen(type: AppType.client??AppType.merchant),
+                        builder: (context) => const ForgotPasswordScreen(type: AppType.client),
                       ),
                     );
-                  },                ),
-                const SizedBox(height: 12),
+                  },
+                ),
+                SizedBox(height: 12.h),
                 _buildMenuOption(
                   title: 'تسجيل خروج',
                   icon: Icons.logout_outlined,
                   backgroundColor: itemBackgroundColor,
                   textColor: textColor,
                   onTap: () {
-                    // كود التفعيل للانتقال إلى شاشة الـ OnboardingAIPage وإفراغ مكدس الشاشات السابقة
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const OnboardingAIPage(),
                       ),
-                          (route) => false, // هذا السطر يمنع المستخدم من العودة للخلف بعد تسجيل الخروج
+                          (route) => false,
                     );
                   },
                 ),
-                const SizedBox(height: 28),
+                SizedBox(height: 28.h),
 
                 // 3. رأس قسم "منتجاتي المفضلة" مع زر عرض الكل
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'منتجاتي المفضلة',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
                         color: textColor,
                       ),
                     ),
                     TextButton(
                       onPressed: () {},
-                      child: const Text(
+                      child: Text(
                         'عرض الكل',
                         style: TextStyle(
                           color: primaryColor,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
 
                 // 4. شبكة عرض المنتجات المفضلة (عمودين متناسقين)
                 GridView.count(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16.h,
+                  crossAxisSpacing: 16.w,
                   childAspectRatio: 0.78,
                   children: [
                     _buildProductCard(
@@ -187,7 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
               ],
             ),
           ),
@@ -203,8 +200,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: Colors.white,
           selectedItemColor: primaryColor,
           unselectedItemColor: Colors.grey,
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-          unselectedLabelStyle: const TextStyle(fontSize: 12),
+          selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+          unselectedLabelStyle: TextStyle(fontSize: 12.sp),
           onTap: (index) {
             setState(() {
               _currentIndex = index;
@@ -247,22 +244,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(12.r),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         child: Row(
           children: [
-            Icon(icon, color: Colors.grey, size: 22),
-            const SizedBox(width: 14),
+            Icon(icon, color: Colors.grey, size: 22.sp),
+            SizedBox(width: 14.w),
             Text(
               title,
               style: TextStyle(
                 color: textColor,
-                fontSize: 15,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -282,12 +279,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            blurRadius: 10.r,
+            offset: Offset(0, 4.h),
           ),
         ],
       ),
@@ -300,7 +297,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
                     image: DecorationImage(
                       image: NetworkImage(imageUrl),
                       fit: BoxFit.cover,
@@ -309,18 +306,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 // زر الإعجاب (القلب الأحمر الدائري في أعلى اليسار)
                 Positioned(
-                  top: 8,
-                  left: 8,
+                  top: 8.h,
+                  left: 8.w,
                   child: Container(
-                    padding: const EdgeInsets.all(6),
+                    padding: EdgeInsets.all(6.r),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.favorite,
                       color: Colors.red,
-                      size: 16,
+                      size: 16.sp,
                     ),
                   ),
                 ),
@@ -330,25 +327,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
           // تفاصيل المنتج (الاسم والسعر) أسفل الصورة
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: EdgeInsets.all(12.0.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff0d1e3d),
+                    color: const Color(0xff0d1e3d),
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4.h),
                 Text(
                   price,
                   style:  TextStyle(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
                     color: primaryColor, // اللون البنفسجي المعتمد للأسعار
                   ),

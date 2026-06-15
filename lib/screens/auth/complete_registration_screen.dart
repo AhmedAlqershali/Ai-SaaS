@@ -1,6 +1,7 @@
 import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
   final AppType type;
@@ -45,28 +46,28 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
           textDirection: TextDirection.rtl,
           child: Container(
             // أبعاد وتصميم الصندوق الأبيض العائم في الصورة الثانية
-            margin: const EdgeInsets.only(top: 80),
-            decoration: const BoxDecoration(
-              color: Color(0xfffcfdff), // لون الخلفية الفاتح جداً مثل الصورة
+            margin: EdgeInsets.only(top: 80.h),
+            decoration: BoxDecoration(
+              color: const Color(0xfffcfdff), // لون الخلفية الفاتح جداً مثل الصورة
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
+                topLeft: Radius.circular(30.r),
+                topRight: Radius.circular(30.r),
               ),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 // مقبض السحب العلوي التجميلي
                 Container(
-                  width: 40,
-                  height: 4,
+                  width: 40.w,
+                  height: 4.h,
                   decoration: BoxDecoration(
                     color: Colors.black12,
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: BorderRadius.circular(2.r),
                   ),
                 ),
-                const SizedBox(height: 14),
+                SizedBox(height: 14.h),
 
                 // رأس النافذة: زر الإغلاق وعنوان "اختر فئة المتجر"
                 Row(
@@ -74,38 +75,38 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                     InkWell(
                       onTap: () => Navigator.pop(context),
                       child: Container(
-                        padding: const EdgeInsets.all(4),
+                        padding: EdgeInsets.all(4.r),
                         decoration: BoxDecoration(
                           color: Colors.transparent,
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.black12, width: 1),
+                          border: Border.all(color: Colors.black12, width: 1.w),
                         ),
-                        child: const Icon(Icons.close, size: 16, color: Colors.black54),
+                        child: Icon(Icons.close, size: 16.sp, color: Colors.black54),
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'اختر فئة المتجر',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xff0d1e3d),
+                          color: const Color(0xff0d1e3d),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 28), // لضمان توسط العنوان تماماً
+                    SizedBox(width: 28.w), // لضمان توسط العنوان تماماً
                   ],
                 ),
-                const Divider(color: Color(0xfff0f4f8), height: 32),
+                Divider(color: const Color(0xfff0f4f8), height: 32.h),
 
                 // شبكة الفئات التفاعلية (Grid) المقسمة لـ 3 أعمدة كما في الصورة الثانية
                 Flexible(
                   child: GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: 3,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 20.h,
+                    crossAxisSpacing: 16.w,
                     childAspectRatio: 0.9,
                     children: [
                       _buildCategoryItem('مطاعم', Icons.restaurant, const Color(0xff623ce7)),
@@ -126,7 +127,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
               ],
             ),
           ),
@@ -149,21 +150,21 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
         children: [
           // الدائرة الملونة بنفسجية فاتحة وبداخلها الأيقونة
           Container(
-            width: 52,
-            height: 52,
+            width: 52.w,
+            height: 52.h,
             decoration: BoxDecoration(
               color: primaryColor.withOpacity(0.08), // لون شفاف خفيف جداً مثل الصورة الثانية
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: primaryColor, size: 22),
+            child: Icon(icon, color: primaryColor, size: 22.sp),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           // اسم الفئة أسفل الدائرة
           Text(
             name,
-            style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xff4a5568),
+            style: TextStyle(
+                fontSize: 12.sp,
+                color: const Color(0xff4a5568),
                 fontWeight: FontWeight.w500
             ),
             textAlign: TextAlign.center,
@@ -186,35 +187,36 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: textColor),
+          icon: Icon(Icons.arrow_back, color: textColor, size: 24.sp),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'اكمال بروفايل التاجر',
-          style: TextStyle(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w500),
+          style: TextStyle(color: Colors.grey, fontSize: 16.sp, fontWeight: FontWeight.w500),
         ),
       ),
       body: SafeArea(
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'الخطوة الأخيرة: إكمال بيانات المتجر',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor),
+                    style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: textColor),
                   ),
-                  const SizedBox(height: 6),
-                  const LinearProgressIndicator(
+                  SizedBox(height: 6.h),
+                  LinearProgressIndicator(
                     value: 1.0,
-                    backgroundColor: Color(0xffeff3ff),
-                    valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+                    minHeight: 4.h,
+                    backgroundColor: const Color(0xffeff3ff),
+                    valueColor: const AlwaysStoppedAnimation<Color>(primaryColor),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
 
                   // زر رفع شعار المتجر الدائري
                   Center(
@@ -224,39 +226,40 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                           alignment: Alignment.bottomRight,
                           children: [
                             Container(
-                              width: 90,
-                              height: 90,
+                              width: 90.w,
+                              height: 90.h,
                               decoration: BoxDecoration(
                                 color: primaryColor.withOpacity(0.05),
                                 shape: BoxShape.circle,
-                                border: Border.all(color: primaryColor.withOpacity(0.2), width: 1.5),
+                                border: Border.all(color: primaryColor.withOpacity(0.2), width: 1.5.w),
                               ),
-                              child: const Icon(Icons.add_a_photo_outlined, size: 32, color: primaryColor),
+                              child: Icon(Icons.add_a_photo_outlined, size: 32.sp, color: primaryColor),
                             ),
                             Container(
-                              padding: const EdgeInsets.all(4),
+                              padding: EdgeInsets.all(4.r),
                               decoration: const BoxDecoration(color: primaryColor, shape: BoxShape.circle),
-                              child: const Icon(Icons.edit, size: 14, color: Colors.white),
+                              child: Icon(Icons.edit, size: 14.sp, color: Colors.white),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 8),
-                        const Text(
+                        SizedBox(height: 8.h),
+                        Text(
                           'رفع شعار المتجر',
-                          style: TextStyle(fontSize: 13, color: Colors.grey, fontWeight: FontWeight.w500),
+                          style: TextStyle(fontSize: 13.sp, color: Colors.grey, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
 
                   // حقل اسم المتجر
                   _buildFieldLabel('اسم المتجر'),
                   TextFormField(
                     controller: _storeNameController,
+                    style: TextStyle(fontSize: 14.sp),
                     decoration: _inputDecoration(hint: 'مثال: متجر التقنية الحديثة', fillColor: inputFillColor),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // حقول (فئة المتجر والمنطقة) المتجاورة
                   Row(
@@ -271,11 +274,11 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                             InkWell(
                               onTap: _showCategoryBottomSheet, // عند الضغط يفتح النافذة المطابقة للصورة الثانية
                               child: Container(
-                                height: 54,
-                                padding: const EdgeInsets.symmetric(horizontal: 14),
+                                height: 54.h,
+                                padding: EdgeInsets.symmetric(horizontal: 14.w),
                                 decoration: BoxDecoration(
                                   color: inputFillColor,
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(12.r),
                                   border: Border.all(color: Colors.black12.withOpacity(0.05)),
                                 ),
                                 child: Row(
@@ -286,12 +289,12 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                                         _selectedCategory ?? 'اختر الفئة', // يعرض الفئة المحددة تلقائياً
                                         style: TextStyle(
                                           color: _selectedCategory != null ? textColor : Colors.black38,
-                                          fontSize: 14,
+                                          fontSize: 14.sp,
                                         ),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                    const Icon(Icons.keyboard_arrow_down, color: Colors.black45),
+                                    Icon(Icons.keyboard_arrow_down, color: Colors.black45, size: 20.sp),
                                   ],
                                 ),
                               ),
@@ -299,7 +302,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                           ],
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 12.w),
                       // حقل المنطقة
                       Expanded(
                         child: Column(
@@ -308,13 +311,13 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                             _buildFieldLabel('المنطقة'),
                             DropdownButtonFormField<String>(
                               value: _selectedRegion,
-                              hint: const Text('اختر المنطقة', style: TextStyle(color: Colors.black38, fontSize: 14)),
+                              hint: Text('اختر المنطقة', style: TextStyle(color: Colors.black38, fontSize: 14.sp)),
                               decoration: _inputDecoration(hint: '', fillColor: inputFillColor),
                               dropdownColor: Colors.white,
                               items: <String>['غزة', 'شمال غزة', 'الوسطى', 'خانيونس', 'رفح'].map((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
-                                  child: Text(value),
+                                  child: Text(value, style: TextStyle(fontSize: 14.sp)),
                                 );
                               }).toList(),
                               onChanged: (newValue) {
@@ -328,45 +331,46 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // حقل العنوان بالتفصيل
                   _buildFieldLabel('العنوان بالتفصيل'),
                   TextFormField(
                     controller: _addressDetailController,
                     maxLines: 2,
+                    style: TextStyle(fontSize: 14.sp),
                     decoration: _inputDecoration(hint: 'الشارع، رقم المبنى، المعلم القريب...', fillColor: inputFillColor),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // صندوق تلميح الذكاء الاصطناعي التجميلي
                   Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: EdgeInsets.all(16.r),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [const Color(0xff623ce7).withOpacity(0.4), const Color(0xff00d4ff).withOpacity(0.3)],
                         begin: Alignment.centerRight,
                         end: Alignment.centerLeft,
                       ),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(Icons.auto_awesome_outlined, color: primaryColor, size: 20),
-                        const SizedBox(width: 10),
+                        Icon(Icons.auto_awesome_outlined, color: primaryColor, size: 20.sp),
+                        SizedBox(width: 10.w),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'تلميح الذكاء الاصطناعي',
-                                style: TextStyle(fontWeight: FontWeight.bold, color: textColor, fontSize: 14),
+                                style: TextStyle(fontWeight: FontWeight.bold, color: textColor, fontSize: 14.sp),
                               ),
-                              SizedBox(height: 4),
+                              SizedBox(height: 4.h),
                               Text(
                                 'إضافة وصف دقيق يزيد من نسبة ظهور متجرك في نتائج البحث بنسبة 40%.',
-                                style: TextStyle(color: textColor, fontSize: 12, height: 1.4),
+                                style: TextStyle(color: textColor, fontSize: 12.sp, height: 1.4),
                               ),
                             ],
                           ),
@@ -374,61 +378,64 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // حقل وصف المتجر
                   _buildFieldLabel('وصف المتجر'),
                   TextFormField(
                     controller: _descriptionController,
                     maxLines: 3,
+                    style: TextStyle(fontSize: 14.sp),
                     decoration: _inputDecoration(hint: 'تحدث عن منتجاتك وما يميز متجرك...', fillColor: inputFillColor),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // حقل رقم الواتساب
                   _buildFieldLabel('رقم الواتساب'),
                   Row(
                     children: [
                       Container(
-                        width: 75,
-                        height: 54,
+                        width: 75.w,
+                        height: 54.h,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: const Color(0xffeff3ff),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
-                        child: const Text(
+                        child: Text(
                           '+970',
-                          style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 15),
+                          style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 15.sp),
                           textDirection: TextDirection.ltr,
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 12.w),
                       Expanded(
                         child: TextFormField(
                           controller: _whatsappController,
                           keyboardType: TextInputType.phone,
                           textDirection: TextDirection.ltr,
+                          style: TextStyle(fontSize: 14.sp),
                           decoration: _inputDecoration(hint: '59XXXXXXX', fillColor: inputFillColor),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // حقل مواعيد العمل
                   _buildFieldLabel('مواعيد العمل'),
                   TextFormField(
                     controller: _workHoursController,
+                    style: TextStyle(fontSize: 14.sp),
                     decoration: _inputDecoration(hint: '10 صباحاً - 8 مساءً', fillColor: inputFillColor),
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: 32.h),
 
                   // زر الحفظ والدخول للرئيسية التابع للواجهة الأولى
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(14.r),
                       gradient: const LinearGradient(
                         colors: [Color(0xff4a148c), Color(0xff623ce7)],
                         begin: Alignment.centerLeft,
@@ -452,23 +459,23 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         shadowColor: Colors.transparent,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Text(
                             'حفظ والدخول للرئيسية',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),
                           ),
-                          SizedBox(width: 8),
-                          Icon(Icons.rocket_launch_outlined, color: Colors.white, size: 18),
+                          SizedBox(width: 8.w),
+                          Icon(Icons.rocket_launch_outlined, color: Colors.white, size: 18.sp),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                 ],
               ),
             ),
@@ -480,29 +487,31 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
 
   Widget _buildFieldLabel(String label) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0, top: 4.0),
-      // style: const TextStyle(color: Color(0xff0d1e3d), fontWeight: FontWeight.w500, fontSize: 14),
-      child: Text(label),
+      padding: EdgeInsets.only(bottom: 8.0.h, top: 4.0.h),
+      child: Text(
+        label,
+        style: TextStyle(color: const Color(0xff0d1e3d), fontWeight: FontWeight.w500, fontSize: 14.sp),
+      ),
     );
   }
 
   InputDecoration _inputDecoration({required String hint, required Color fillColor}) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: const TextStyle(color: Colors.black38, fontSize: 14),
+      hintStyle: TextStyle(color: Colors.black38, fontSize: 14.sp),
       filled: true,
       fillColor: fillColor,
-      contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      contentPadding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         borderSide: BorderSide(color: Colors.black12.withOpacity(0.05)),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         borderSide: BorderSide(color: Colors.black12.withOpacity(0.05)),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         borderSide: const BorderSide(color: Color(0xff623ce7), width: 1.5),
       ),
     );

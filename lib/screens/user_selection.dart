@@ -1,9 +1,9 @@
 import 'package:ai_saas/screens/auth/register_screen.dart';
-import 'package:ai_saas/screens/splash_screen.dart';
 import 'package:ai_saas/screens/widgets/card_splash.dart';
 import 'package:ai_saas/screens/widgets/bn_screen.dart';
 import 'package:ai_saas/models/app_type.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UserSelection extends StatefulWidget {
@@ -27,19 +27,19 @@ class _UserSelectionState extends State<UserSelection> {
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
 
             Text(
               'Tradex مرحبا بك في',
-              style: GoogleFonts.ibmPlexSans(fontSize: 36),
+              style: GoogleFonts.ibmPlexSans(fontSize: 36.sp),
             ),
 
             Text(
               'اختر كيف تود البدء اليوم',
-              style: GoogleFonts.ibmPlexSans(fontSize: 18),
+              style: GoogleFonts.ibmPlexSans(fontSize: 18.sp),
             ),
 
-            const SizedBox(height: 15),
+            SizedBox(height: 15.h),
 
             // 1. كارت صاحب المشروع (العميل)
             GestureDetector(
@@ -81,41 +81,47 @@ class _UserSelectionState extends State<UserSelection> {
               ),
             ),
 
-        Spacer(),
+        const Spacer(),
 
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
-                    blurRadius: 10,
-                    offset: const Offset(6, 0),
+                    blurRadius: 10.r,
+                    offset: Offset(6.w, 0),
                   ),
                 ],
               ),
-              child: const Card(
+              child: Card(
                 elevation: 8,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
                 child: Padding(
-                  padding: EdgeInsets.all(15.0),
+                  padding: EdgeInsets.all(15.0.r),
                   child: Column(
                     children: [
-                      Text('أمان بياناتك أولويتنا'),
-                      SizedBox(height: 10),
+                      Text(
+                        'أمان بياناتك أولويتنا',
+                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 10.h),
                       Text(
                         'نحن نستخدم أحدث تقنيات التشفير لضمان خصوصيتك وأمان تعاملاتك المالية داخل منصتنا.',
                         textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 14.sp),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 15.h),
                       CircleAvatar(
-                        radius: 24,
-                        backgroundImage: AssetImage('assets/images/bank.jpg'),
+                        radius: 24.r,
+                        backgroundImage: const AssetImage('assets/images/bank.jpg'),
                       ),
                     ],
                   ),
                 ),
               ),
             ),
+            SizedBox(height: 20.h),
           ],
         ),
       ),

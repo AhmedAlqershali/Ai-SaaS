@@ -1,17 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HistoryItemTile extends StatefulWidget {
-  String name;
-  String time;
-  IconData icon1;
+  final String name;
+  final String time;
+  final IconData icon1;
 
-   HistoryItemTile({
+  const HistoryItemTile({
     required this.name,
     required this.time,
     required this.icon1,
-
     super.key,
   });
 
@@ -25,19 +24,19 @@ class _HistoryItemTileState extends State<HistoryItemTile> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(24.r),
       ),
-      width: 282,
-      height: 96,
+      width: 282.w,
+      height: 96.h,
       child: Row(
         children: [
           Expanded(
             child: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.copy),
+              icon: Icon(Icons.copy, size: 24.sp),
             ),
           ),
-          SizedBox(width: 10,),
+          SizedBox(width: 10.w,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,43 +45,42 @@ class _HistoryItemTileState extends State<HistoryItemTile> {
                 widget.name,
                 style: GoogleFonts.ibmPlexSans(
                   color: Colors.black,
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
                 widget.time,
                 style: GoogleFonts.ibmPlexSans(
-                  color: Color(0xff464555),
-                  fontSize: 12,
+                  color: const Color(0xff464555),
+                  fontSize: 12.sp,
                 ),
               ),
             ],
           ),
-          SizedBox(width: 10,),
+          SizedBox(width: 10.w,),
           Expanded(
             child: Center(
               child: Container(
-                width: 32,
-                height: 32,
+                width: 32.w,
+                height: 32.h,
                 decoration: BoxDecoration(
                   color: const Color(0xffC4C0FF),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: IconButton(
                   padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(), // إزالة القيود الافتراضية للحجم
+                  constraints: const BoxConstraints(),
                   onPressed: () {},
-                  icon:  Icon(
+                  icon: Icon(
                     widget.icon1,
-                    color: Color(0xff4D41DF),
-                    size: 20,
+                    color: const Color(0xff4D41DF),
+                    size: 20.sp,
                   ),
                 ),
               ),
             ),
           ),
-
         ],
       ),
     );

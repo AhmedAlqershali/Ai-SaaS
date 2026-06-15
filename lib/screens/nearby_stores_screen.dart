@@ -1,7 +1,6 @@
 import 'package:ai_saas/screens/store_details_screen.dart';
 import 'package:flutter/material.dart';
-// تأكد من استيراد كلاس تفاصيل المتجر هنا إذا كان في ملف منفصل
-// import 'store_details_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NearbyStoresScreen extends StatelessWidget {
   const NearbyStoresScreen({Key? key}) : super(key: key);
@@ -14,21 +13,21 @@ class NearbyStoresScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xff1a1a1a)),
+          icon: Icon(Icons.arrow_back, color: const Color(0xff1a1a1a), size: 24.sp),
           onPressed: () => Navigator.maybePop(context),
         ),
-        title: const Text(
+        title: Text(
           'المتاجر القريبة',
           style: TextStyle(
-            color: Color(0xff1a1a1a),
+            color: const Color(0xff1a1a1a),
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 20.sp,
           ),
         ),
         centerTitle: true,
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 10.0.h),
         children: const [
           // المتجر الأول: الرئيسي كوزمتكس
           StoreCard(
@@ -64,15 +63,12 @@ class NearbyStoresScreen extends StatelessWidget {
   }
 }
 
-// ==========================================
-// التعديل هنا: كلاس كرت المتجر المحدث ليستقبل الهدف
-// ==========================================
 class StoreCard extends StatelessWidget {
   final String storeName;
   final String location;
   final String rating;
   final String imageUrl;
-  final Widget targetScreen; // 1. أضفنا متغير لاستقبال الواجهة المستهدفة
+  final Widget targetScreen;
 
   const StoreCard({
     Key? key,
@@ -80,14 +76,13 @@ class StoreCard extends StatelessWidget {
     required this.location,
     required this.rating,
     required this.imageUrl,
-    required this.targetScreen, // 2. أصبح مطلوباً عند الاستدعاء
+    required this.targetScreen,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // 3. عند الضغط ينتقل تلقائياً للواجهة الممررة
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => targetScreen),
@@ -96,12 +91,12 @@ class StoreCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(24.0),
+          borderRadius: BorderRadius.circular(24.0.r),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.02),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
+              blurRadius: 10.r,
+              offset: Offset(0, 4.h),
             ),
           ],
         ),
@@ -112,7 +107,7 @@ class StoreCard extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 160,
+                  height: 160.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -122,22 +117,22 @@ class StoreCard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 12,
-                  left: 12,
+                  top: 12.h,
+                  left: 12.w,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.9),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.star, color: Colors.amber, size: 14),
-                        const SizedBox(width: 4),
+                        Icon(Icons.star, color: Colors.amber, size: 14.sp),
+                        SizedBox(width: 4.w),
                         Text(
                           rating,
-                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -146,24 +141,24 @@ class StoreCard extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     storeName,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xff1a1a1a)),
+                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff1a1a1a)),
                   ),
-                  const SizedBox(height: 6),
+                  SizedBox(height: 6.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
                         location,
-                        style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
+                        style: TextStyle(fontSize: 13.sp, color: Colors.grey.shade600),
                       ),
-                      const SizedBox(width: 4),
-                      Icon(Icons.location_on_outlined, size: 16, color: Colors.grey.shade700),
+                      SizedBox(width: 4.w),
+                      Icon(Icons.location_on_outlined, size: 16.sp, color: Colors.grey.shade700),
                     ],
                   ),
                 ],

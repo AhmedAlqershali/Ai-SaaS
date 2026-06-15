@@ -1,5 +1,6 @@
 import 'package:ai_saas/screens/recently_arrived_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ==========================================
 // 1. شاشة الإشعارات الأساسية (Notifications Screen)
@@ -15,31 +16,31 @@ class NotificationsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xff3f2d56)),
+          icon: Icon(Icons.arrow_back, color: const Color(0xff3f2d56), size: 24.sp),
           onPressed: () => Navigator.maybePop(context),
         ),
-        title: const Text(
+        title: Text(
           'الاشعارات',
           style: TextStyle(
-            color: Color(0xff1a1a1a),
+            color: const Color(0xff1a1a1a),
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 20.sp,
           ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings_outlined, color: Color(0xff3f2d56)),
+            icon: Icon(Icons.settings_outlined, color: const Color(0xff3f2d56), size: 24.sp),
             onPressed: () {},
           ),
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 10.0.h),
         children: [
           // ------ قسم اليوم ------
           _buildSectionHeader('اليوم'),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
 
           const NotificationCard(
             text: 'عرض 50% على كل القطع المتوفرة لدى محل حكاية .\nاستغل العرض الكمية محدودة',
@@ -48,7 +49,7 @@ class NotificationsScreen extends StatelessWidget {
             iconColor: Colors.red,
             type: 'offer', // يوجه إلى شاشة العروض
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
 
           const NotificationCard(
             text: 'وصل حديثاً , كولشكن فساتين مناسبات لدى Lovista Store . متوفر بجميع المقاسات والألوان.',
@@ -58,11 +59,11 @@ class NotificationsScreen extends StatelessWidget {
             type: 'new_arrival', // يوجه إلى شاشة وصل حديثاً
           ),
 
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // ------ قسم الأمس ------
           _buildSectionHeader('الأمس'),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
 
           const NotificationCard(
             text: 'عرض 50% على كل القطع المتوفرة لدى محل حكاية .\nاستغل العرض الكمية محدودة',
@@ -71,7 +72,7 @@ class NotificationsScreen extends StatelessWidget {
             iconColor: Colors.red,
             type: 'offer',
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
 
           const NotificationCard(
             text: 'وصل حديثاً , كولشكن فساتين مناسبات لدى Lovista Store . متوفر بجميع المقاسات والألوان.',
@@ -91,10 +92,10 @@ class NotificationsScreen extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 18,
+        style: TextStyle(
+          fontSize: 18.sp,
           fontWeight: FontWeight.bold,
-          color: Color(0xff1a1a1a),
+          color: const Color(0xff1a1a1a),
         ),
       ),
     );
@@ -128,7 +129,7 @@ class NotificationCard extends StatelessWidget {
         if (type == 'new_arrival') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => RecentlyArrivedScreen()),
+            MaterialPageRoute(builder: (context) => const RecentlyArrivedScreen()),
           );
         } else if (type == 'offer') {
 
@@ -137,10 +138,10 @@ class NotificationCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey.shade200, width: 1.5),
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(color: Colors.grey.shade200, width: 1.5.w),
         ),
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0.r),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -151,38 +152,38 @@ class NotificationCard extends StatelessWidget {
                 children: [
                   Text(
                     text,
-                    style: const TextStyle(
-                      fontSize: 14,
+                    style: TextStyle(
+                      fontSize: 14.sp,
                       height: 1.5,
                       color: Colors.black87,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   Text(
                     time,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       color: Colors.grey.shade500,
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             // الأيقونة الدائرية الملونة جهة اليسار
             Container(
-              width: 50,
-              height: 50,
+              width: 50.w,
+              height: 50.h,
               decoration: BoxDecoration(
                 color: iconColor.withOpacity(0.1),
                 shape: BoxShape.circle,
-                border: Border.all(color: iconColor.withOpacity(0.3), width: 1),
+                border: Border.all(color: iconColor.withOpacity(0.3), width: 1.w),
               ),
               child: Icon(
                 icon,
                 color: iconColor,
-                size: 26,
+                size: 26.sp,
               ),
             ),
           ],
@@ -191,4 +192,3 @@ class NotificationCard extends StatelessWidget {
     );
   }
 }
-

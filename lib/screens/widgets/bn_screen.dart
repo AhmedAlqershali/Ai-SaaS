@@ -1,6 +1,7 @@
 import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/models/bn_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BnScreen extends StatefulWidget {
   final AppType type;
@@ -16,23 +17,22 @@ class _BnScreenState extends State<BnScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("CURRENT TYPE: ${widget.type}");
+    debugPrint("CURRENT TYPE: ${widget.type}");
     final items = NavConfig.getItems(widget.type);
 
     return Scaffold(
-
       body: items[_currentIndex].widget,
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
-
+        selectedFontSize: 12.sp,
+        unselectedFontSize: 12.sp,
+        iconSize: 24.sp,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
-
         items: List.generate(items.length, (index) {
           final item = items[index];
           return BottomNavigationBarItem(

@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CardSplash extends StatefulWidget {
@@ -26,12 +26,13 @@ class _CardSplashState extends State<CardSplash> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       color: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26.r)),
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.all(12.r),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(26)
+          borderRadius: BorderRadius.circular(26.r)
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,12 +41,12 @@ class _CardSplashState extends State<CardSplash> {
             Text(
               widget.name,
               style: GoogleFonts.ibmPlexSans(
-                fontSize: 20,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
 
-            SizedBox(height: 8),
+            SizedBox(height: 8.h),
 
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,35 +54,34 @@ class _CardSplashState extends State<CardSplash> {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.arrow_back_ios_new),
+                  icon: Icon(Icons.arrow_back_ios_new, size: 20.sp),
                 ),
-                SizedBox(width: 40,),
+                SizedBox(width: 40.w,),
                 Expanded(
                   child: Text(
                     widget.subname,
                     textAlign: TextAlign.right,
-                    style: GoogleFonts.ibmPlexSans(fontSize: 14),
+                    style: GoogleFonts.ibmPlexSans(fontSize: 14.sp),
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: 10.w),
 
                 Container(
-                  height: 64,
-                  width: 64,
+                  height: 64.h,
+                  width: 64.w,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: BorderRadius.circular(24.r),
                     color: Color(widget.color),
                   ),
                   child: Icon(
                     widget.icon,
                     color: Color(widget.color1),
-                    size: 30,
+                    size: 30.sp,
                   ),
                 ),
               ],
             ),
-            SizedBox(height:  15),
-
+            SizedBox(height: 15.h),
           ],
         ),
       ),

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Size_Button extends StatelessWidget {
-  String name;
-  VoidCallback onPressed;
-  Color color;
-  Color colorname;
-  Size size;
-  Size_Button({
+  final String name;
+  final VoidCallback onPressed;
+  final Color color;
+  final Color colorname;
+  final Size size;
+  
+  const Size_Button({
     required this.name,
     required this.onPressed,
     required this.color,
@@ -21,12 +23,13 @@ class Size_Button extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           backgroundColor: color,
-          minimumSize: (size)
+          minimumSize: size,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r))
       ),
-      onPressed:onPressed,
+      onPressed: onPressed,
       child: Text(name,
         style: GoogleFonts.ibmPlexSans(
-          fontSize: 18,
+          fontSize: 18.sp,
           fontWeight: FontWeight.bold,
           color: colorname,
         ),

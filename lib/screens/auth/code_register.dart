@@ -2,6 +2,7 @@ import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:ai_saas/screens/widgets/code_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CodeRegister extends StatefulWidget {
@@ -27,7 +28,6 @@ class _CodeRegisterState extends State<CodeRegister> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _firstCodeTextController = TextEditingController();
     _secondCodeTextController = TextEditingController();
@@ -70,40 +70,41 @@ class _CodeRegisterState extends State<CodeRegister> {
           title: Text(
             'Tradex',
             style: GoogleFonts.ibmPlexSans(
-              fontSize: 32,
-              color: Color(0xff8127CF),
+              fontSize: 32.sp,
+              color: const Color(0xff8127CF),
             ),
           ),
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_forward_ios)),
           ],
         ),
         body: Padding(
-          padding: EdgeInsetsGeometry.all(18),
+          padding: EdgeInsets.all(18.r),
           child: Column(
             children: [
               Container(
-                height: 80,
-                width: 80,
+                height: 80.h,
+                width: 80.w,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(24.r),
                 ),
-                child: Icon(Icons.security, size: 40, color: Color(0xff8127CF)),
+                child: Icon(Icons.security, size: 40.sp, color: const Color(0xff8127CF)),
               ),
+              SizedBox(height: 20.h),
               Text(
                 'كود التحقق ',
                 style: GoogleFonts.ibmPlexSans(
-                  fontSize: 26,
+                  fontSize: 26.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 25),
+              SizedBox(height: 25.h),
 
               Text(
                 'لقد أرسلنا رمزاً مكوناً من 4 أرقام إلى هاتفك',
                 style: GoogleFonts.ibmPlexSans(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   height: 1.0,
                   color: Colors.black45,
                   fontWeight: FontWeight.normal,
@@ -112,15 +113,16 @@ class _CodeRegisterState extends State<CodeRegister> {
               Text(
                 '+966 50 XXX XXXX',
                 style: GoogleFonts.ibmPlexSans(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   height: 1.0,
                   color: Colors.black45,
                   fontWeight: FontWeight.normal,
                 ),
               ),
 
-              const SizedBox(height: 25),
+              SizedBox(height: 25.h),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CodeTextField(
                     editingController: _firstCodeTextController,
@@ -131,7 +133,7 @@ class _CodeRegisterState extends State<CodeRegister> {
                       }
                     },
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: 10.w),
                   CodeTextField(
                     editingController: _secondCodeTextController,
                     focusNode: _secondFocusNode,
@@ -141,7 +143,7 @@ class _CodeRegisterState extends State<CodeRegister> {
                           : _firstFocusNode.requestFocus();
                     },
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: 10.w),
                   CodeTextField(
                     editingController: _thirdCodeTextController,
                     focusNode: _thirdFocusNode,
@@ -151,7 +153,7 @@ class _CodeRegisterState extends State<CodeRegister> {
                           : _secondFocusNode.requestFocus();
                     },
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: 10.w),
                   CodeTextField(
                     editingController: _fourthCodeTextController,
                     focusNode: _fourthFocusNode,
@@ -163,7 +165,7 @@ class _CodeRegisterState extends State<CodeRegister> {
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -171,18 +173,19 @@ class _CodeRegisterState extends State<CodeRegister> {
                   Text(
                     'لم يصلك الكود',
                     style: GoogleFonts.ibmPlexSans(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       height: 1.0,
                       color: Colors.black45,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
+                  SizedBox(width: 5.w),
                   Text(
                     '0:59',
                     style: GoogleFonts.ibmPlexSans(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       height: 1.0,
-                      color: Color(0xff8127CF),
+                      color: const Color(0xff8127CF),
                       fontWeight: FontWeight.normal,
                     ),
                   ),
@@ -194,41 +197,38 @@ class _CodeRegisterState extends State<CodeRegister> {
                 child: Text(
                   'اعادة ارسال الكود',
                   style: GoogleFonts.ibmPlexSans(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     height: 1.0,
                     color: Colors.black45,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
               ),
+              SizedBox(height: 20.h),
               ElevatedButton(
                 onPressed:(){
-                  {
-                    // نقوم بالفحص بناءً على النوع الممرر للواجهة باستخدام widget.type
-                    if (widget.type == AppType.merchant) {
-                      // إذا كان القادم متسوق (صاحب المتجر/المسوق) -> ينقله لواجهة إكمال الملف الشخصي
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(type: AppType.merchant), // واجهة غزة ورقم الجوال
-                        ),
-                      );
-
-                    } else if (widget.type == AppType.client) {
-
-                      // إذا كان القادم صاحب المشروع (العميل) -> ينقله مباشرة لواجهة تسجيل الدخول (أو الرئيسية)
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(type: AppType.client), // واجهة تسجيل الدخول الخاصة بك
-                        ),
-                      );
-
-                    }
+                  if (widget.type == AppType.merchant) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(type: AppType.merchant),
+                      ),
+                    );
+                  } else if (widget.type == AppType.client) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(type: AppType.client),
+                      ),
+                    );
                   }
                 },
-                child: Text('تأكيد الرمز', style: GoogleFonts.cairo()),
-                style: ElevatedButton.styleFrom(minimumSize: const Size(0, 50)),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50.h),
+                  backgroundColor: const Color(0xff8127CF),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                ),
+                child: Text('تأكيد الرمز', style: GoogleFonts.cairo(fontSize: 16.sp, color: Colors.white)),
               ),
             ],
           ),

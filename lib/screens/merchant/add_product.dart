@@ -1,6 +1,7 @@
 import 'package:ai_saas/screens/widgets/add_product_textfield.dart';
 import 'package:ai_saas/screens/widgets/size_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddProduct extends StatefulWidget {
@@ -20,13 +21,13 @@ class _AddProductState extends State<AddProduct> {
       appBar: AppBar(
         title: Row(
           children: [
-            const CircleAvatar(radius: 24, backgroundColor: Colors.red),
+            CircleAvatar(radius: 24.r, backgroundColor: Colors.red),
             TextButton(
               onPressed: () {},
               child: Text(
                 'حفظ كمسودة',
                 style: GoogleFonts.ibmPlexSans(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xff4D41DF),
                 ),
@@ -37,7 +38,7 @@ class _AddProductState extends State<AddProduct> {
               child: Text(
                 'إضافة منتج جديد',
                 style: GoogleFonts.ibmPlexSans(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
@@ -45,33 +46,32 @@ class _AddProductState extends State<AddProduct> {
             ),
           ],
         ),
-
         elevation: 0,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.close))],
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.close, size: 24.sp))],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: EdgeInsets.all(18.0.r),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       'بيانات المنتج الأساسية',
                       style: GoogleFonts.ibmPlexSans(
-                        fontSize: 16,
-
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xff464555),
                       ),
                       textAlign: TextAlign.right,
                     ),
-                    const Icon(
+                    SizedBox(width: 8.w),
+                    Icon(
                       Icons.storefront,
-                      color: Color(0xff4D41DF),
-                      size: 20,
+                      color: const Color(0xff4D41DF),
+                      size: 20.sp,
                     ),
                   ],
                 ),
@@ -79,74 +79,70 @@ class _AddProductState extends State<AddProduct> {
               Text(
                 'اسم المنتج',
                 style: GoogleFonts.ibmPlexSans(
-                  fontSize: 16,
-
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xff464555),
                 ),
                 textAlign: TextAlign.right,
               ),
-              const SizedBox(height: 10),
-              const SizedBox(
-                height: 56,
-                width: 278,
-                child: add_product_textfield(name: 'مثال: سماعات لاسلكي'),
+              SizedBox(height: 10.h),
+              SizedBox(
+                height: 56.h,
+                width: 278.w,
+                child: const add_product_textfield(name: 'مثال: سماعات لاسلكي'),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Text(
                 '(USD)',
                 style: GoogleFonts.ibmPlexSans(
-                  fontSize: 16,
-
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xff464555),
                 ),
                 textAlign: TextAlign.right,
               ),
-              const SizedBox(height: 10),
-              const SizedBox(
-                height: 56,
-                width: 278,
-                child: add_product_textfield(name: '0.00'),
+              SizedBox(height: 10.h),
+              SizedBox(
+                height: 56.h,
+                width: 278.w,
+                child: const add_product_textfield(name: '0.00'),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Text(
                 'الفئة',
                 style: GoogleFonts.ibmPlexSans(
-                  fontSize: 16,
-
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xff464555),
                 ),
                 textAlign: TextAlign.right,
               ),
-              const SizedBox(height: 10),
-              const SizedBox(
-                height: 56,
-                width: 278,
-                child: add_product_textfield(name: 'الالكترونيات'),
+              SizedBox(height: 10.h),
+              SizedBox(
+                height: 56.h,
+                width: 278.w,
+                child: const add_product_textfield(name: 'الالكترونيات'),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
 
               Container(
-                width: 320,
-                height: 534,
+                width: 320.w,
+                height: 534.h,
                 decoration: BoxDecoration(
                   color: Colors.white,
-
                   borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(16),
+                    topRight: Radius.circular(16.r),
                   ),
                 ),
                 child: Stack(
                   children: [
                     Container(
                       padding: EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 20,
+                        horizontal: 30.w,
+                        vertical: 20.h,
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(16.r),
                       ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -154,13 +150,13 @@ class _AddProductState extends State<AddProduct> {
                           Row(
                             children: [
                               Container(
-                                width: 180,
-                                height: 72,
+                                width: 180.w,
+                                height: 72.h,
                                 decoration: BoxDecoration(
                                   color: const Color(0xff4D41DF),
-                                  borderRadius: BorderRadius.circular(24),
+                                  borderRadius: BorderRadius.circular(24.r),
                                 ),
-                                child: const Row(
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -170,86 +166,85 @@ class _AddProductState extends State<AddProduct> {
                                         'توليد وصف بالذكاء\n الاصطناعي',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 16,
+                                          fontSize: 16.sp,
                                           fontWeight: FontWeight.bold,
                                         ),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                    SizedBox(width: 14),
+                                    SizedBox(width: 14.w),
                                     Icon(
                                       Icons.auto_awesome,
                                       color: Colors.white,
-                                      size: 22,
+                                      size: 22.sp,
                                     ),
-                                    SizedBox(width: 15),
+                                    SizedBox(width: 15.w),
                                   ],
                                 ),
                               ),
-                              const SizedBox(width: 10),
-
-                              const Text(
+                              SizedBox(width: 10.w),
+                              Text(
                                 'وصف\n المنتج',
-                                style: TextStyle(fontSize: 14),
+                                style: TextStyle(fontSize: 14.sp),
                               ),
-                              const SizedBox(width: 8),
-
-                              const Icon(
+                              SizedBox(width: 8.w),
+                              Icon(
                                 Icons.insert_drive_file,
-                                color: Color(0xff4D41DF),
+                                color: const Color(0xff4D41DF),
+                                size: 24.sp,
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
-                          Container(
-                            height: 300,
-                            width: 278,
+                          SizedBox(height: 16.h),
+                          SizedBox(
+                            height: 300.h,
+                            width: 278.w,
                             child: TextField(
                               maxLines: null,
                               expands: true,
                               textAlign: TextAlign.right,
+                              style: TextStyle(fontSize: 14.sp),
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: const Color(0xffF2F3F6),
                                 hintText:
                                     'ابدأ بكتابة وصف المنتج أو استخدم الذكاء\nالاصطناعي لتوليد وصف احترافي تلقائياً...',
                                 hintStyle: GoogleFonts.ibmPlexSans(
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                 ),
-
                                 focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(24),
+                                  borderRadius: BorderRadius.circular(24.r),
                                 ),
                                 border: InputBorder.none,
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          Container(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'نصحية الذكاء الاصطناعي',
-                                  style: GoogleFonts.ibmPlexSans(
-                                    fontSize: 14,
-                                    color: Color(0xff3622CA),
-                                  ),
+                          SizedBox(height: 20.h),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'نصحية الذكاء الاصطناعي',
+                                style: GoogleFonts.ibmPlexSans(
+                                  fontSize: 14.sp,
+                                  color: const Color(0xff3622CA),
                                 ),
-                                const Icon(
-                                  Icons.lightbulb,
-                                  color: Color(0xff3622CA),
-                                ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(width: 4.w),
+                              Icon(
+                                Icons.lightbulb,
+                                color: const Color(0xff3622CA),
+                                size: 20.sp,
+                              ),
+                            ],
                           ),
                           Text(
                             textAlign: TextAlign.right,
                             'بالكلمات المفتاحية يزيد من ظهور منتجك في نتائج البحث بنسبة تصل إلى40%.الوصف الغني',
                             style: GoogleFonts.ibmPlexSans(
-                              fontSize: 14,
-                              color: Color(0xff3622CA),
+                              fontSize: 14.sp,
+                              color: const Color(0xff3622CA),
                             ),
                           ),
                         ],
@@ -261,12 +256,12 @@ class _AddProductState extends State<AddProduct> {
                       top: 0,
                       bottom: 0,
                       child: Container(
-                        width: 6,
-                        decoration: const BoxDecoration(
+                        width: 6.w,
+                        decoration: BoxDecoration(
                           color: Colors.deepPurple,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(16),
-                            bottomLeft: Radius.circular(16),
+                            topLeft: Radius.circular(16.r),
+                            bottomLeft: Radius.circular(16.r),
                           ),
                         ),
                       ),
@@ -274,32 +269,32 @@ class _AddProductState extends State<AddProduct> {
                   ],
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30.h),
               Container(
-                height: 294,
-                width: 294,
+                height: 294.h,
+                width: 294.w,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(16.r),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Color(0xffC7C4D8),
+                      radius: 30.r,
+                      backgroundColor: const Color(0xffC7C4D8),
                       child: Icon(
                         Icons.add_a_photo,
-                        color: Color(0xff3622CA),
-                        size: 28,
+                        color: const Color(0xff3622CA),
+                        size: 28.sp,
                       ),
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(height: 15.h),
                     Text(
                       'رفع صورة المنتج',
                       style: GoogleFonts.ibmPlexSans(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
@@ -307,145 +302,144 @@ class _AddProductState extends State<AddProduct> {
                     Text(
                       'يدعم JPG, PNG. الحجم الأقصى 5 ميجابايت.',
                       style: GoogleFonts.ibmPlexSans(
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         color: Colors.black54,
                       ),
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(height: 15.h),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
-                          width: 90,
-                          height: 90,
+                          width: 90.w,
+                          height: 90.h,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            color: Color(0xffC7C4D8),
+                            borderRadius: BorderRadius.circular(24.r),
+                            color: const Color(0xffC7C4D8),
                           ),
-
-                          child: Center(child: Icon(Icons.add)),
+                          child: Center(child: Icon(Icons.add, size: 24.sp)),
                         ),
                         Container(
-                          width: 90,
-                          height: 90,
+                          width: 90.w,
+                          height: 90.h,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            color: Color(0xffC7C4D8),
+                            borderRadius: BorderRadius.circular(24.r),
+                            color: const Color(0xffC7C4D8),
                           ),
-
-                          child: Center(child: Icon(Icons.add)),
+                          child: Center(child: Icon(Icons.add, size: 24.sp)),
                         ),
                         Container(
-                          width: 90,
-                          height: 90,
+                          width: 90.w,
+                          height: 90.h,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            color: Color(0xffC7C4D8),
+                            borderRadius: BorderRadius.circular(24.r),
+                            color: const Color(0xffC7C4D8),
                           ),
-
-                          child: Center(child: Icon(Icons.add)),
+                          child: Center(child: Icon(Icons.add, size: 24.sp)),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 30),
-              Container(
-                child: Column(
-                  children: [
-                    Text('الحالة والظهور'),
-                    SizedBox(height: 10),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xffC7C4D8),
-                      ),
-                      height: 44,
-                      width: 294,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Switch(
-                            activeThumbColor: Color(0xff006B5C),
-                            value: isEnabled1,
-                            onChanged: (value) {
-                              setState(() {
-                                isEnabled1 = value;
-                              });
-                            },
-                          ),
-                          SizedBox(width: 100),
-                          Text(
-                            'مرئي للجميع',
-                            style: GoogleFonts.ibmPlexSans(
-                              fontSize: 16,
-                              color: Colors.black54,
-                            ),
-                          ),
-                          SizedBox(width: 15),
-                          Icon(Icons.remove_red_eye, color: Color(0xff006B5C)),
-                        ],
-                      ),
+              SizedBox(height: 30.h),
+              Column(
+                children: [
+                  Text(
+                    'الحالة والظهور',
+                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 10.h),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.r),
+                      color: const Color(0xffC7C4D8),
                     ),
-                    SizedBox(height: 15),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xffC7C4D8),
-                      ),
-                      height: 44,
-                      width: 294,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Switch(
-                            activeThumbColor: Color(0xff006B5C),
-                            value: isEnabled2,
-                            onChanged: (value) {
-                              setState(() {
-                                isEnabled2 = value;
-                              });
-                            },
+                    height: 44.h,
+                    width: 294.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Switch(
+                          activeThumbColor: const Color(0xff006B5C),
+                          value: isEnabled1,
+                          onChanged: (value) {
+                            setState(() {
+                              isEnabled1 = value;
+                            });
+                          },
+                        ),
+                        const Spacer(),
+                        Text(
+                          'مرئي للجميع',
+                          style: GoogleFonts.ibmPlexSans(
+                            fontSize: 16.sp,
+                            color: Colors.black54,
                           ),
-                          SizedBox(width: 115),
-                          Text(
-                            'منتج مميز',
-                            style: GoogleFonts.ibmPlexSans(
-                              fontSize: 16,
-                              color: Colors.black54,
-                            ),
+                        ),
+                        SizedBox(width: 15.w),
+                        Icon(Icons.remove_red_eye, color: const Color(0xff006B5C), size: 24.sp),
+                        SizedBox(width: 15.w),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15.h),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.r),
+                      color: const Color(0xffC7C4D8),
+                    ),
+                    height: 44.h,
+                    width: 294.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Switch(
+                          activeThumbColor: const Color(0xff006B5C),
+                          value: isEnabled2,
+                          onChanged: (value) {
+                            setState(() {
+                              isEnabled2 = value;
+                            });
+                          },
+                        ),
+                        const Spacer(),
+                        Text(
+                          'منتج مميز',
+                          style: GoogleFonts.ibmPlexSans(
+                            fontSize: 16.sp,
+                            color: Colors.black54,
                           ),
-                          SizedBox(width: 15),
-                          Icon(
-                            Icons.local_fire_department_outlined,
-                            color: Color(0xff914800),
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(width: 15.w),
+                        Icon(
+                          Icons.local_fire_department_outlined,
+                          color: const Color(0xff914800),
+                          size: 24.sp,
+                        ),
+                        SizedBox(width: 15.w),
+                      ],
                     ),
-                    SizedBox(height: 15),
-                    Size_Button(
-                      onPressed:(){},
-
-                      name: 'نشر المنتج الآن',
-                      color: Color(0xff3622CA),
-                      size: Size(294, 60),
-                      colorname: Colors.white,
-                    ),
-                    SizedBox(height: 20,),
-                    Size_Button(
-                      onPressed:(){},
-
-                      name: 'معاينة المتجر',
-                      color: Color(0xffC7C4D8),
-                      size: Size(294, 60),
-                      colorname:Color(0xff191C1E) ,
-                    ),
-                    SizedBox(height: 20,),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 15.h),
+                  Size_Button(
+                    onPressed:(){},
+                    name: 'نشر المنتج الآن',
+                    color: const Color(0xff3622CA),
+                    size: Size(294.w, 60.h),
+                    colorname: Colors.white,
+                  ),
+                  SizedBox(height: 20.h),
+                  Size_Button(
+                    onPressed:(){},
+                    name: 'معاينة المتجر',
+                    color: const Color(0xffC7C4D8),
+                    size: Size(294.w, 60.h),
+                    colorname: const Color(0xff191C1E) ,
+                  ),
+                  SizedBox(height: 20.h),
+                ],
               ),
             ],
           ),

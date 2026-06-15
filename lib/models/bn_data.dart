@@ -54,12 +54,7 @@ class NavConfig {
             icon: Icons.search_outlined,
             activeIcon: Icons.search,
           ),
-          BnItem(
-            widget: AiMarketingTools(), // 🔥 مهم
-            title: "Dashbord",
-            icon: Icons.shopping_cart_outlined,
-            activeIcon: Icons.shopping_cart,
-          ),
+
           BnItem(
             widget: ProfileScreen(),
             title: "Profile",
