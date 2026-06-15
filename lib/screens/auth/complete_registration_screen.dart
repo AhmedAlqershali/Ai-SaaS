@@ -1,12 +1,11 @@
 import 'package:ai_saas/models/app_type.dart';
-import 'package:ai_saas/screens/auth/code_register.dart';
 import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
   final AppType type;
 
-  const CompleteProfileScreen({super.key,required this.type});
+  const CompleteProfileScreen({super.key, required this.type});
 
   @override
   State<CompleteProfileScreen> createState() => _CompleteProfileScreenState();
@@ -15,327 +14,478 @@ class CompleteProfileScreen extends StatefulWidget {
 class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // التحكم في المدخلات
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
-  final _phoneController = TextEditingController();
+  // المتحكمات والمتغيرات لبيانات الواجهة
+  final _storeNameController = TextEditingController();
+  final _addressDetailController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _whatsappController = TextEditingController();
+  final _workHoursController = TextEditingController();
+
   String? _selectedRegion;
+  String? _selectedCategory; // لتخزين الفئة المختارة وعرضها في الحقل
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _phoneController.dispose();
+    _storeNameController.dispose();
+    _addressDetailController.dispose();
+    _descriptionController.dispose();
+    _whatsappController.dispose();
+    _workHoursController.dispose();
     super.dispose();
+  }
+
+  // الدالة المحدثة لإظهار نافذة الفئات لتطابق الصورة الثانية تماماً
+  void _showCategoryBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent, // لجعل الحواف دائرية وخلفية الشاشة شفافة
+      builder: (context) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Container(
+            // أبعاد وتصميم الصندوق الأبيض العائم في الصورة الثانية
+            margin: const EdgeInsets.only(top: 80),
+            decoration: const BoxDecoration(
+              color: Color(0xfffcfdff), // لون الخلفية الفاتح جداً مثل الصورة
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // مقبض السحب العلوي التجميلي
+                Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                const SizedBox(height: 14),
+
+                // رأس النافذة: زر الإغلاق وعنوان "اختر فئة المتجر"
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.black12, width: 1),
+                        ),
+                        child: const Icon(Icons.close, size: 16, color: Colors.black54),
+                      ),
+                    ),
+                    const Expanded(
+                      child: Text(
+                        'اختر فئة المتجر',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff0d1e3d),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 28), // لضمان توسط العنوان تماماً
+                  ],
+                ),
+                const Divider(color: Color(0xfff0f4f8), height: 32),
+
+                // شبكة الفئات التفاعلية (Grid) المقسمة لـ 3 أعمدة كما في الصورة الثانية
+                Flexible(
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 16,
+                    childAspectRatio: 0.9,
+                    children: [
+                      _buildCategoryItem('مطاعم', Icons.restaurant, const Color(0xff623ce7)),
+                      _buildCategoryItem('كافيهات', Icons.local_cafe_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('ملابس', Icons.checkroom_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('مساحات عمل', Icons.laptop_chromebook_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('هدايا', Icons.card_giftcard_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('أحذية', Icons.roller_skating_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('سيارات', Icons.directions_car_filled_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('مجوهرات', Icons.diamond_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('كوزمتكس', Icons.content_cut_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('سوبرماركت', Icons.shopping_cart_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('مول', Icons.business_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('متجر', Icons.storefront_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('إلكترونيات', Icons.devices_other_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('مستلزمات طبية', Icons.medical_services_outlined, const Color(0xff623ce7)),
+                      _buildCategoryItem('بصريات', Icons.visibility_outlined, const Color(0xff623ce7)),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // بناء أزرار الفئات داخل الـ Grid لتطابق التصميم والألوان في الصورة الثانية
+  Widget _buildCategoryItem(String name, IconData icon, Color primaryColor) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _selectedCategory = name; // حفظ الفئة المختارة في الحالة (State) ليتم عرضها في الواجهة الرئيسية
+        });
+        Navigator.pop(context); // إغلاق النافذة بعد الاختيار تلقائياً
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // الدائرة الملونة بنفسجية فاتحة وبداخلها الأيقونة
+          Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: primaryColor.withOpacity(0.08), // لون شفاف خفيف جداً مثل الصورة الثانية
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: primaryColor, size: 22),
+          ),
+          const SizedBox(height: 8),
+          // اسم الفئة أسفل الدائرة
+          Text(
+            name,
+            style: const TextStyle(
+                fontSize: 12,
+                color: Color(0xff4a5568),
+                fontWeight: FontWeight.w500
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // الألوان المستخدمة في التصميم
     const Color primaryColor = Color(0xff623ce7);
     const Color textColor = Color(0xff0d1e3d);
-    const Color inputFillColor = Color(0xffeff3ff);
-    const Color backgroundColor = Color(0xfff8faff);
+    const Color inputFillColor = Color(0xfff8faff);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false, // يمنع الشاشة من التغير عند ظهور الكيبورد
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          'Tradex',
-          style: TextStyle(
-            color: primaryColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: textColor),
+          onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.arrow_forward, color: primaryColor),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
+        title: const Text(
+          'اكمال بروفايل التاجر',
+          style: TextStyle(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.w500),
+        ),
       ),
       body: SafeArea(
         child: Directionality(
-          textDirection: TextDirection.rtl, // لتنسيق الواجهة بالكامل باللغة العربية
-          child: Container(
+          textDirection: TextDirection.rtl,
+          child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // النص الرئيسي والفرعي
-                const Text(
-                  'إكمال ملفك الشخصي',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: textColor,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'الخطوة الأخيرة: إكمال بيانات المتجر',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'ساعدنا في تخصيص تجربتك التسويقية بشكل أفضل',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
+                  const SizedBox(height: 6),
+                  const LinearProgressIndicator(
+                    value: 1.0,
+                    backgroundColor: Color(0xffeff3ff),
+                    valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
-                // البطاقة البيضاء التي تحتوي على الحقول
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.black12.withOpacity(0.05)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.02),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // صف حقول الاسم (الاسم الأول واسم العائلة)
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'اسم المتجر',
-                            style: TextStyle(color: textColor, fontWeight: FontWeight.w500),
-                          ),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                            controller: _firstNameController,
-                            decoration: _inputDecoration(hint: 'مثال: فيولا', fillColor: inputFillColor),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 12),
-                      const SizedBox(height: 20),
-
-                      // حقل المنطقة في قطاع غزة
-                      const Text(
-                        'المنطقة في قطاع غزة',
-                        style: TextStyle(color: textColor, fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(height: 8),
-                      DropdownButtonFormField<String>(
-                        value: _selectedRegion,
-                        hint: Row(
-                          children: const [
-                            Icon(Icons.location_on_outlined, color: Colors.black45, size: 20),
-                            SizedBox(width: 8),
-                            Text('اختر منطقتك', style: TextStyle(color: Colors.black38, fontSize: 14)),
+                  // زر رفع شعار المتجر الدائري
+                  Center(
+                    child: Column(
+                      children: [
+                        Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                              width: 90,
+                              height: 90,
+                              decoration: BoxDecoration(
+                                color: primaryColor.withOpacity(0.05),
+                                shape: BoxShape.circle,
+                                border: Border.all(color: primaryColor.withOpacity(0.2), width: 1.5),
+                              ),
+                              child: const Icon(Icons.add_a_photo_outlined, size: 32, color: primaryColor),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(color: primaryColor, shape: BoxShape.circle),
+                              child: const Icon(Icons.edit, size: 14, color: Colors.white),
+                            ),
                           ],
                         ),
-                        decoration: _inputDecoration(hint: '', fillColor: inputFillColor),
-                        dropdownColor: Colors.white,
-                        items: <String>['غزة', 'شمال غزة', 'الوسطى', 'خانيونس', 'رفح']
-                            .map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedRegion = newValue;
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 20),
-
-                      // حقل رقم الجوال
-                      const Text(
-                        'رقم الجوال',
-                        style: TextStyle(color: textColor, fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          // رمز الدولة المستقل تلقائياً (يمين بالـ RTL)
-                          Container(
-                            width: 80,
-                            height: 54,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: const Color(0xffe2ebff), // لون أفتح قليلاً لرمز الدولة مثل الصورة
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Text(
-                              '+970',
-                              style: TextStyle(
-                                color: primaryColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                              textDirection: TextDirection.ltr,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          // حقل إدخال رقم الجوال
-                          Expanded(
-                            child: TextFormField(
-                              controller: _phoneController,
-                              keyboardType: TextInputType.phone,
-                              textDirection: TextDirection.ltr, // لكتابة الأرقام الإنجليزية بشكل صحيح
-                              decoration: _inputDecoration(hint: '59XXXXXXX', fillColor: inputFillColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                // 1. عنوان "اهتماماتك"
-                const Padding(
-                  padding: EdgeInsets.only(top: 24.0, bottom: 16.0),
-                  child: Text(
-                    'اهتماماتك',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff0d1e3d),
-                    ),
-                  ),
-                ),
-
-            // 2. قسم شارات الاهتمامات (التاغات) باستخدام Wrap ليتوزع تلقائياً
-                Wrap(
-                  spacing: 8.0, // المسافة الأفقية بين الشارات
-                  runSpacing: 10.0, // المسافة الرأسية بين السطور
-                  children: [
-                    _buildInterestTag('مطاعم', Icons.restaurant_menu),
-                    _buildInterestTag('ملابس', Icons.checkroom),
-                    _buildInterestTag('أحذية', Icons.roller_skating_outlined), // أو أيقونة حذاء مناسبة
-                    _buildInterestTag('مساحات عمل', Icons.laptop_mac),
-                    _buildInterestTag('إلكترونيات', Icons.devices),
-                  ],
-                ),
-                const SizedBox(height: 24),
-
-
-            // 4. زر حفظ ومتابعة (بتدرج لوني وبداخله أيقونة اتجاه السهم لليسار)
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    gradient: const LinearGradient(
-                      colors: [Color(0xff512da8), Color(0xff7c4dff)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xff7c4dff).withOpacity(0.3),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {
-// نقوم بالفحص بناءً على النوع الممرر للواجهة باستخدام widget.type
-                      if (widget.type == AppType.merchant) {
-                        // إذا كان القادم متسوق (صاحب المتجر/المسوق) -> ينقله لواجهة إكمال الملف الشخصي
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(type: AppType.merchant), // واجهة غزة ورقم الجوال
-                          ),
-                        );
-
-                      } else if (widget.type == AppType.client) {
-
-                        // إذا كان القادم صاحب المشروع (العميل) -> ينقله مباشرة لواجهة تسجيل الدخول (أو الرئيسية)
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(type: AppType.client), // واجهة تسجيل الدخول الخاصة بك
-                          ),
-                        );
-
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          'حفظ ومتابعة',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'رفع شعار المتجر',
+                          style: TextStyle(fontSize: 13, color: Colors.grey, fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(width: 8),
-                        Icon(Icons.arrow_back_ios, color: Colors.white, size: 16), // سهم لليسار يناسب الـ RTL والتقدم للامام
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(height: 16),
+                  const SizedBox(height: 24),
 
-            // 5. النص التوضيحي السفلي
-                const Text(
-                  'يمكنك تعديل هذه البيانات لاحقاً من إعدادات الملف الشخصي.',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey,
-                    height: 1.5,
+                  // حقل اسم المتجر
+                  _buildFieldLabel('اسم المتجر'),
+                  TextFormField(
+                    controller: _storeNameController,
+                    decoration: _inputDecoration(hint: 'مثال: متجر التقنية الحديثة', fillColor: inputFillColor),
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                  const SizedBox(height: 16),
 
+                  // حقول (فئة المتجر والمنطقة) المتجاورة
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // زر فئة المتجر التفاعلي الذي يستدعي النافذة المحدثة عند النقر
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildFieldLabel('فئة المتجر'),
+                            InkWell(
+                              onTap: _showCategoryBottomSheet, // عند الضغط يفتح النافذة المطابقة للصورة الثانية
+                              child: Container(
+                                height: 54,
+                                padding: const EdgeInsets.symmetric(horizontal: 14),
+                                decoration: BoxDecoration(
+                                  color: inputFillColor,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(color: Colors.black12.withOpacity(0.05)),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        _selectedCategory ?? 'اختر الفئة', // يعرض الفئة المحددة تلقائياً
+                                        style: TextStyle(
+                                          color: _selectedCategory != null ? textColor : Colors.black38,
+                                          fontSize: 14,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    const Icon(Icons.keyboard_arrow_down, color: Colors.black45),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      // حقل المنطقة
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildFieldLabel('المنطقة'),
+                            DropdownButtonFormField<String>(
+                              value: _selectedRegion,
+                              hint: const Text('اختر المنطقة', style: TextStyle(color: Colors.black38, fontSize: 14)),
+                              decoration: _inputDecoration(hint: '', fillColor: inputFillColor),
+                              dropdownColor: Colors.white,
+                              items: <String>['غزة', 'شمال غزة', 'الوسطى', 'خانيونس', 'رفح'].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _selectedRegion = newValue;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
 
-              ],
+                  // حقل العنوان بالتفصيل
+                  _buildFieldLabel('العنوان بالتفصيل'),
+                  TextFormField(
+                    controller: _addressDetailController,
+                    maxLines: 2,
+                    decoration: _inputDecoration(hint: 'الشارع، رقم المبنى، المعلم القريب...', fillColor: inputFillColor),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // صندوق تلميح الذكاء الاصطناعي التجميلي
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [const Color(0xff623ce7).withOpacity(0.4), const Color(0xff00d4ff).withOpacity(0.3)],
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.auto_awesome_outlined, color: primaryColor, size: 20),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'تلميح الذكاء الاصطناعي',
+                                style: TextStyle(fontWeight: FontWeight.bold, color: textColor, fontSize: 14),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                'إضافة وصف دقيق يزيد من نسبة ظهور متجرك في نتائج البحث بنسبة 40%.',
+                                style: TextStyle(color: textColor, fontSize: 12, height: 1.4),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // حقل وصف المتجر
+                  _buildFieldLabel('وصف المتجر'),
+                  TextFormField(
+                    controller: _descriptionController,
+                    maxLines: 3,
+                    decoration: _inputDecoration(hint: 'تحدث عن منتجاتك وما يميز متجرك...', fillColor: inputFillColor),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // حقل رقم الواتساب
+                  _buildFieldLabel('رقم الواتساب'),
+                  Row(
+                    children: [
+                      Container(
+                        width: 75,
+                        height: 54,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: const Color(0xffeff3ff),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Text(
+                          '+970',
+                          style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 15),
+                          textDirection: TextDirection.ltr,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: TextFormField(
+                          controller: _whatsappController,
+                          keyboardType: TextInputType.phone,
+                          textDirection: TextDirection.ltr,
+                          decoration: _inputDecoration(hint: '59XXXXXXX', fillColor: inputFillColor),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+
+                  // حقل مواعيد العمل
+                  _buildFieldLabel('مواعيد العمل'),
+                  TextFormField(
+                    controller: _workHoursController,
+                    decoration: _inputDecoration(hint: '10 صباحاً - 8 مساءً', fillColor: inputFillColor),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // زر الحفظ والدخول للرئيسية التابع للواجهة الأولى
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xff4a148c), Color(0xff623ce7)],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (widget.type == AppType.merchant) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LoginScreen(type: AppType.merchant)),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LoginScreen(type: AppType.client)),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            'حفظ والدخول للرئيسية',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                          SizedBox(width: 8),
+                          Icon(Icons.rocket_launch_outlined, color: Colors.white, size: 18),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
-// دالة بناء شارة الاهتمام (Tag)
-  Widget _buildInterestTag(String label, IconData icon) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: Colors.black12.withOpacity(0.08)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 18, color: const Color(0xff0d1e3d).withOpacity(0.7)),
-          const SizedBox(width: 8),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xff0d1e3d),
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
+
+  Widget _buildFieldLabel(String label) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0, top: 4.0),
+      // style: const TextStyle(color: Color(0xff0d1e3d), fontWeight: FontWeight.w500, fontSize: 14),
+      child: Text(label),
     );
   }
 
-  // تجميع ستايل الحقول لتقليل تكرار الكود وثبات المظهر
   InputDecoration _inputDecoration({required String hint, required Color fillColor}) {
     return InputDecoration(
       hintText: hint,
@@ -345,11 +495,11 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
       contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
+        borderSide: BorderSide(color: Colors.black12.withOpacity(0.05)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
+        borderSide: BorderSide(color: Colors.black12.withOpacity(0.05)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),

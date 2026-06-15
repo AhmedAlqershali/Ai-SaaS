@@ -48,7 +48,7 @@ class _UserSelectionState extends State<UserSelection> {
                   context,
                   MaterialPageRoute(
                     // نمرر النوع هنا
-                    builder: (context) =>  RegisterScreen(type: AppType.client),
+                    builder: (context) =>  RegisterScreen(type: AppType.merchant),
                   ),
                 );
               },
@@ -68,7 +68,7 @@ class _UserSelectionState extends State<UserSelection> {
                   context,
                   MaterialPageRoute(
                     // نمرر النوع هنا
-                    builder: (context) =>  RegisterScreen(type: AppType.merchant),
+                    builder: (context) =>  RegisterScreen(type: AppType.client),
                   ),
                 );
               },
