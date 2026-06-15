@@ -25,114 +25,98 @@ class _UserSelectionState extends State<UserSelection> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView( // أضفتها لحمايتك من مشاكل أبعاد الشاشات الصغيرة
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
 
-              Text(
-                'Tradex مرحبا بك في',
-                style: GoogleFonts.ibmPlexSans(fontSize: 36),
+            Text(
+              'Tradex مرحبا بك في',
+              style: GoogleFonts.ibmPlexSans(fontSize: 36),
+            ),
+
+            Text(
+              'اختر كيف تود البدء اليوم',
+              style: GoogleFonts.ibmPlexSans(fontSize: 18),
+            ),
+
+            const SizedBox(height: 15),
+
+            // 1. كارت صاحب المشروع (العميل)
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    // نمرر النوع هنا
+                    builder: (context) =>  RegisterScreen(type: AppType.client),
+                  ),
+                );
+              },
+              child: CardSplash(
+                icon: Icons.storefront,
+                name: 'صاحب المشروع',
+                subname: 'قم بإدارة أعمالك، عرض منتجاتك والوصول لآلاف المشترين في منطقتك',
+                color: 0xffE3DFFF,
+                color1: 0xff4D41DF,
               ),
+            ),
 
-              Text(
-                'اختر كيف تود البدء اليوم',
-                style: GoogleFonts.ibmPlexSans(fontSize: 18),
+            // 2. كارت المتسوق (التاجر/المسوق)
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    // نمرر النوع هنا
+                    builder: (context) =>  RegisterScreen(type: AppType.merchant),
+                  ),
+                );
+              },
+              child: CardSplash(
+                icon: Icons.shopping_bag_outlined,
+                name: 'متسوق',
+                subname: 'استكشف أفضل العروض، تتبع طلباتك، واحصل على تجربة تسوق ذكية وفريدة',
+                color: 0xff68FADE,
+                color1: 0xff007162,
               ),
+            ),
 
-              const SizedBox(height: 15),
+        Spacer(),
 
-              // 1. كارت صاحب المشروع (العميل)
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      // نمرر النوع هنا
-                      builder: (context) =>  RegisterScreen(type: AppType.client),
-                    ),
-                  );
-                },
-                child: CardSplash(
-                  icon: Icons.storefront,
-                  name: 'صاحب المشروع',
-                  subname: 'قم بإدارة أعمالك، عرض منتجاتك والوصول لآلاف المشترين في منطقتك',
-                  color: 0xffE3DFFF,
-                  color1: 0xff4D41DF,
-                ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 10,
+                    offset: const Offset(6, 0),
+                  ),
+                ],
               ),
-
-              // 2. كارت المتسوق (التاجر/المسوق)
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      // نمرر النوع هنا
-                      builder: (context) =>  RegisterScreen(type: AppType.merchant),
-                    ),
-                  );
-                },
-                child: CardSplash(
-                  icon: Icons.shopping_bag_outlined,
-                  name: 'متسوق',
-                  subname: 'استكشف أفضل العروض، تتبع طلباتك، واحصل على تجربة تسوق ذكية وفريدة',
-                  color: 0xff68FADE,
-                  color1: 0xff007162,
-                ),
-              ),
-
-              // 3. كارت الزائر
-              GestureDetector(
-                onTap: () {
-                  selectType(AppType.guest);
-                },
-                child: CardSplash(
-                  icon: Icons.remove_red_eye,
-                  name: 'زائر',
-                  subname: 'تصفح المنتجات والأسواق المحلية المتاحة دون الحاجة لإنشاء حساب حالياً',
-                  color: 0xffFFDCC6,
-                  color1: 0xff914800,
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 10,
-                      offset: const Offset(6, 0),
-                    ),
-                  ],
-                ),
-                child: const Card(
-                  elevation: 8,
-                  child: Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        Text('أمان بياناتك أولويتنا'),
-                        SizedBox(height: 10),
-                        Text(
-                          'نحن نستخدم أحدث تقنيات التشفير لضمان خصوصيتك وأمان تعاملاتك المالية داخل منصتنا.',
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: 15),
-                        CircleAvatar(
-                          radius: 24,
-                          backgroundImage: AssetImage('assets/images/bank.jpg'),
-                        ),
-                      ],
-                    ),
+              child: const Card(
+                elevation: 8,
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Column(
+                    children: [
+                      Text('أمان بياناتك أولويتنا'),
+                      SizedBox(height: 10),
+                      Text(
+                        'نحن نستخدم أحدث تقنيات التشفير لضمان خصوصيتك وأمان تعاملاتك المالية داخل منصتنا.',
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 15),
+                      CircleAvatar(
+                        radius: 24,
+                        backgroundImage: AssetImage('assets/images/bank.jpg'),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

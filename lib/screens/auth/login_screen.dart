@@ -161,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoginScreen(type: AppType.merchant), // واجهة غزة ورقم الجوال
+                              builder: (context) => ForgotPasswordScreen(type: AppType.merchant), // واجهة غزة ورقم الجوال
                             ),
                           );
 
@@ -171,16 +171,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoginScreen(type: AppType.client), // واجهة تسجيل الدخول الخاصة بك
+                              builder: (context) => const ForgotPasswordScreen(type: AppType.client), // واجهة تسجيل الدخول الخاصة بك
                             ),
                           );
 
                         }
 
                       },
-                      child: const Text(
-                        "نسيت كلمة المرور؟",
-                        style: TextStyle(color: Color(0xFF5145E5)),
+                      child:  GestureDetector(
+                        child: Text(
+                          "نسيت كلمة المرور؟",
+                          style: TextStyle(color: Color(0xFF5145E5)),
+                        ),
                       ),
                     ),
                   ],

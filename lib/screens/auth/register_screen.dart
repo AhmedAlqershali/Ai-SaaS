@@ -2,7 +2,6 @@ import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/auth/code_register.dart';
 import 'package:ai_saas/screens/auth/complete_registration_screen.dart';
 import 'package:ai_saas/screens/auth/login_screen.dart';
-import 'package:ai_saas/screens/home_screen.dart';
 import 'package:ai_saas/screens/shopper_home.dart';
 import 'package:ai_saas/screens/user_selection.dart';
 import 'package:ai_saas/screens/widgets/size_button.dart';

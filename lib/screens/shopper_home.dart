@@ -1,8 +1,15 @@
+import 'package:ai_saas/screens/nearby_stores_screen.dart';
+import 'package:ai_saas/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
 
-class ShopperHomePage extends StatelessWidget {
+class ShopperHomePage extends StatefulWidget {
   const ShopperHomePage({super.key});
 
+  @override
+  State<ShopperHomePage> createState() => _ShopperHomePageState();
+}
+
+class _ShopperHomePageState extends State<ShopperHomePage> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -52,7 +59,17 @@ class ShopperHomePage extends StatelessWidget {
             child: const Icon(Icons.person, color: Colors.white, size: 20),
           ),
           const SizedBox(width: 10),
-          const Icon(Icons.notifications_outlined, size: 24),
+          GestureDetector(
+            onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  // نمرر النوع هنا
+                  builder: (context) =>  NotificationsScreen(),
+                ),
+              );
+            },
+              child: const Icon(Icons.notifications_outlined, size: 24)),
           const Spacer(),
           const Text(
             'النصيرات',
@@ -223,7 +240,14 @@ class ShopperHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NearbyStoresScreen(),
+                    ),
+                  );
+                },
                 child: const Text(
                   'عرض المزيد',
                   style: TextStyle(color: Color(0xFF5B4FCF), fontSize: 13),
@@ -407,7 +431,7 @@ class ShopperHomePage extends StatelessWidget {
                 child: const Icon(Icons.tune, size: 20),
               ),
               const Text(
-                'منتجات قريبة',
+                'منتجات مختارة',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -690,50 +714,4 @@ class ShopperHomePage extends StatelessWidget {
       ),
     );
   }
-
-  // Widget _buildBottomNav() {
-  //   return Directionality(
-  //     textDirection: TextDirection.rtl,
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         color: Colors.white,
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Colors.black.withOpacity(0.08),
-  //             blurRadius: 10,
-  //             offset: const Offset(0, -4),
-  //           ),
-  //         ],
-  //       ),
-  //       child: BottomNavigationBar(
-  //         currentIndex: 0,
-  //         selectedItemColor: const Color(0xFF5B4FCF),
-  //         unselectedItemColor: Colors.grey,
-  //         backgroundColor: Colors.white,
-  //         elevation: 0,
-  //         type: BottomNavigationBarType.fixed,
-  //         selectedFontSize: 11,
-  //         unselectedFontSize: 11,
-  //         items: const [
-  //           BottomNavigationBarItem(
-  //             icon: Icon(Icons.home),
-  //             label: 'الرئيسية',
-  //           ),
-  //           BottomNavigationBarItem(
-  //             icon: Icon(Icons.search),
-  //             label: 'البحث',
-  //           ),
-  //           BottomNavigationBarItem(
-  //             icon: Icon(Icons.dashboard_outlined),
-  //             label: 'لوحة التحكم',
-  //           ),
-  //           BottomNavigationBarItem(
-  //             icon: Icon(Icons.person_outline),
-  //             label: 'الحساب',
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }

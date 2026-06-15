@@ -1,7 +1,6 @@
 import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/client/categories_screen.dart';
 import 'package:ai_saas/screens/merchant/ai_marketing_tools.dart';
-import 'package:ai_saas/screens/home_screen.dart';
 import 'package:ai_saas/screens/profile_screen.dart';
 import 'package:ai_saas/screens/search_screen.dart';
 import 'package:ai_saas/screens/shopper_home.dart';
@@ -40,33 +39,15 @@ class NavConfig {
           ),
         ];
 
-    // 👇 الزائر
-      case AppType.guest:
-        return [
-          BnItem(
-            widget: ShopperHomePage(),
-            title: "Browse",
-            icon: Icons.home_outlined,
-            activeIcon: Icons.home,
-          ),
-          BnItem(
-            widget: SearchScreen(),
-            title: "Search",
-            icon: Icons.search_outlined,
-            activeIcon: Icons.search,
-          ),
-          BnItem(
-            widget: ShopperHomePage(),
-            title: "Browse",
-            icon: Icons.home_outlined,
-            activeIcon: Icons.home,
-          ),
-        ];
-
     // 👇 التاجر
       case AppType.merchant:
         return [
-
+          BnItem(
+            widget: ShopperHomePage(),
+            title: "Home",
+            icon: Icons.home_outlined,
+            activeIcon: Icons.home,
+          ),
           BnItem(
             widget: SearchScreen(),
             title: "Search",
@@ -86,6 +67,9 @@ class NavConfig {
             activeIcon: Icons.person,
           ),
         ];
+      case AppType.guest:
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
   }
 }

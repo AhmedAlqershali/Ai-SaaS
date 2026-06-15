@@ -1,7 +1,11 @@
 
 import 'package:ai_saas/screens/auth/forget_password_screen.dart';
 import 'package:ai_saas/screens/auth/complete_registration_screen.dart';
+import 'package:ai_saas/screens/notification_screen.dart';
 import 'package:ai_saas/screens/onboarding2.dart';
+import 'package:ai_saas/screens/shop_page.dart';
+import 'package:ai_saas/screens/shopper_home.dart';
+import 'package:ai_saas/screens/widgets/bn_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ai_saas/models/app_type.dart';
@@ -38,6 +42,7 @@ class MyApp extends StatelessWidget {
       //     ? const UserSelection()
       //     : BnScreen(type: appType!),
       home: OnboardingAIPage(),
+      // home: BnScreen(type: AppType.merchant),
       //   home: CompleteProfileScreen(),
 
     );
