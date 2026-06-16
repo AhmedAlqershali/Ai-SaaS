@@ -3,16 +3,16 @@ import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
+class EmailVerificationScreen extends StatefulWidget {
   final AppType type;
 
-  const ForgotPasswordScreen({super.key,required this.type});
+  const EmailVerificationScreen({super.key,required this.type});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  State<EmailVerificationScreen> createState() => _EmailVerificationScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   final _emailController = TextEditingController();
 
   @override

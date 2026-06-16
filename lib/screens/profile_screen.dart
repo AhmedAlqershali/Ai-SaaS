@@ -1,5 +1,6 @@
 import 'package:ai_saas/models/app_type.dart';
-import 'package:ai_saas/screens/auth/forget_password_screen.dart';
+import 'package:ai_saas/screens/auth/email_verification_screen.dart';
+import 'package:ai_saas/screens/auth/new_password_screen.dart';
 import 'package:ai_saas/screens/edit_profile_screen.dart';
 import 'package:ai_saas/screens/onboarding2.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ForgotPasswordScreen(type: AppType.client),
+                        builder: (context) => const NewPasswordScreen(),
                       ),
                     );
                   },

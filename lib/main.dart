@@ -1,5 +1,5 @@
 import 'package:ai_saas/screens/auth/complet_profile_photo_screen.dart';
-import 'package:ai_saas/screens/auth/forget_password_screen.dart';
+import 'package:ai_saas/screens/auth/email_verification_screen.dart';
 import 'package:ai_saas/screens/auth/complete_registration_merchant_screen.dart';
 import 'package:ai_saas/screens/merchant/add_product.dart';
 import 'package:ai_saas/screens/notification_screen.dart';
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
           // home: appType == null
           //     ? const UserSelection()
           //     : BnScreen(type: appType!),
-          home: const OnboardingAIPage(),
+          home: const EmailVerificationScreen(type: AppType.merchant),
           // home: AddProduct(),
           // home: BnScreen(type: AppType.merchant),
           //   home: CompleteProfileScreen(),
