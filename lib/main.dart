@@ -48,8 +48,8 @@ class MyApp extends StatelessWidget {
           // home: appType == null
           //     ? const UserSelection()
           //     : BnScreen(type: appType!),
-          // home: const OnboardingAIPage(),
-          home: AddProduct(),
+          home: const OnboardingAIPage(),
+          // home: AddProduct(),
           // home: BnScreen(type: AppType.merchant),
           //   home: CompleteProfileScreen(),
         );
