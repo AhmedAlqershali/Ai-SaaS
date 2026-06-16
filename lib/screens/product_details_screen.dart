@@ -22,7 +22,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=500'), // رابط تجريبي لصورة السيروم
+                        image: NetworkImage('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=500'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -98,7 +98,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // عداد ثابت بقيمة 1
+                        // عداد
                         Container(
                           height: 38.h,
                           padding: EdgeInsets.symmetric(horizontal: 4.w),
@@ -131,7 +131,6 @@ class ProductDetailsScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        // السعر الثابت 120 شيكل الموضح بالصورة
                         Text(
                           '₪120',
                           style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w900, color: Colors.black),
@@ -152,7 +151,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                           Text(
+                          Text(
                             'تواصل عبر واتساب',
                             style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),
                           ),
@@ -180,13 +179,12 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 
-  // قائمة المنتجات المقترحة الثابتة
   Widget _buildRelatedProductsHorizontalList() {
     return SizedBox(
       height: 180.h,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        reverse: true, // يبدأ التمرير من اليمين للياسر اتساقاً مع اتجاه التطبيق
+        reverse: true,
         physics: const BouncingScrollPhysics(),
         children: [
           const RelatedProductCard(
@@ -206,9 +204,6 @@ class ProductDetailsScreen extends StatelessWidget {
   }
 }
 
-// ==========================================
-// ويدجت كرت المنتج المقترح الثابت
-// ==========================================
 class RelatedProductCard extends StatelessWidget {
   final String title;
   final String price;

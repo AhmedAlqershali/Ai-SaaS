@@ -1,3 +1,5 @@
+import 'package:ai_saas/models/app_type.dart';
+import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:ai_saas/screens/onboarding2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,7 +84,7 @@ class SuccessPasswordScreen extends StatelessWidget {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const OnboardingAIPage(),
+                            builder: (context) => const LoginScreen(type: AppType.merchant ?? AppType.client),
                           ),
                               (route) => false,
                         );                      },
