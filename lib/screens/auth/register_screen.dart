@@ -1,6 +1,7 @@
 import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/auth/code_register.dart';
-import 'package:ai_saas/screens/auth/complete_registration_screen.dart';
+import 'package:ai_saas/screens/auth/complete_profile_client_screen.dart';
+import 'package:ai_saas/screens/auth/complete_registration_merchant_screen.dart';
 import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:ai_saas/screens/widgets/size_button.dart';
 import 'package:flutter/material.dart';
@@ -191,16 +192,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const CompleteProfileScreen(type: AppType.merchant,),
+                            builder: (context) => const CompleteProfileMerchantScreen(type: AppType.merchant,),
                           ),
                         );
                       } else if (widget.type == AppType.client) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>  CodeRegister(type:AppType.client),
-                          ),
-                        );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CompleteProfileClientScreen() ,
+                            ),
+                          );
                       }
                     },
                     name: 'انشاء حساب جديد',

@@ -2,17 +2,19 @@ import 'package:ai_saas/models/app_type.dart';
 import 'package:ai_saas/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart'; // 1. استيراد الحزمة
+import 'dart:io'; // 2. استيراد مكتبة التعامل مع الملفات
 
-class CompleteProfileScreen extends StatefulWidget {
+class CompleteProfileMerchantScreen extends StatefulWidget {
   final AppType type;
 
-  const CompleteProfileScreen({super.key, required this.type});
+  const CompleteProfileMerchantScreen({super.key, required this.type});
 
   @override
-  State<CompleteProfileScreen> createState() => _CompleteProfileScreenState();
+  State<CompleteProfileMerchantScreen> createState() => _CompleteProfileMerchantScreenState();
 }
 
-class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
+class _CompleteProfileMerchantScreenState extends State<CompleteProfileMerchantScreen> {
   final _formKey = GlobalKey<FormState>();
 
   // المتحكمات والمتغيرات لبيانات الواجهة
@@ -23,7 +25,76 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   final _workHoursController = TextEditingController();
 
   String? _selectedRegion;
-  String? _selectedCategory; // لتخزين الفئة المختارة وعرضها في الحقل
+  String? _selectedCategory;
+
+  // 3. متغيرات حفظ الصورة المحددة
+  File? _logoFile;
+  final ImagePicker _picker = ImagePicker();
+
+  // 4. دالة التقاط الصورة من الكاميرا أو المعرض
+  Future<void> _pickLogo(ImageSource source) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+        source: source,
+        imageQuality: 75, // ضغط جودة الصورة للحفاظ على سرعة الرفع والأداء
+      );
+
+      if (pickedFile != null) {
+        setState(() {
+          _logoFile = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      debugPrint("خطأ أثناء التقاط شعار المتجر: $e");
+    }
+  }
+
+  // 5. نافذة اختيار مصدر الصورة (كاميرا / استوديو)
+  void _showLogoSourceBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.r),
+          topRight: Radius.circular(20.r),
+        ),
+      ),
+      builder: (context) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Padding(
+            padding: EdgeInsets.all(16.r),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'اختر مصدر شعار المتجر',
+                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff0d1e3d)),
+                ),
+                SizedBox(height: 16.h),
+                ListTile(
+                  leading: const Icon(Icons.photo_library, color: Color(0xff623ce7)),
+                  title: const Text('اختيار من المعرض (Gallery)'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _pickLogo(ImageSource.gallery);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.camera_alt, color: Color(0xff623ce7)),
+                  title: const Text('التقاط بواسطة الكاميرا (Camera)'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _pickLogo(ImageSource.camera);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   void dispose() {
@@ -40,15 +111,14 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.transparent, // لجعل الحواف دائرية وخلفية الشاشة شفافة
+      backgroundColor: Colors.transparent,
       builder: (context) {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Container(
-            // أبعاد وتصميم الصندوق الأبيض العائم في الصورة الثانية
             margin: EdgeInsets.only(top: 80.h),
             decoration: BoxDecoration(
-              color: const Color(0xfffcfdff), // لون الخلفية الفاتح جداً مثل الصورة
+              color: const Color(0xfffcfdff),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30.r),
                 topRight: Radius.circular(30.r),
@@ -58,7 +128,6 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // مقبض السحب العلوي التجميلي
                 Container(
                   width: 40.w,
                   height: 4.h,
@@ -69,7 +138,6 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 ),
                 SizedBox(height: 14.h),
 
-                // رأس النافذة: زر الإغلاق وعنوان "اختر فئة المتجر"
                 Row(
                   children: [
                     InkWell(
@@ -95,12 +163,11 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 28.w), // لضمان توسط العنوان تماماً
+                    SizedBox(width: 28.w),
                   ],
                 ),
                 Divider(color: const Color(0xfff0f4f8), height: 32.h),
 
-                // شبكة الفئات التفاعلية (Grid) المقسمة لـ 3 أعمدة كما في الصورة الثانية
                 Flexible(
                   child: GridView.count(
                     shrinkWrap: true,
@@ -136,30 +203,27 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     );
   }
 
-  // بناء أزرار الفئات داخل الـ Grid لتطابق التصميم والألوان في الصورة الثانية
   Widget _buildCategoryItem(String name, IconData icon, Color primaryColor) {
     return InkWell(
       onTap: () {
         setState(() {
-          _selectedCategory = name; // حفظ الفئة المختارة في الحالة (State) ليتم عرضها في الواجهة الرئيسية
+          _selectedCategory = name;
         });
-        Navigator.pop(context); // إغلاق النافذة بعد الاختيار تلقائياً
+        Navigator.pop(context);
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // الدائرة الملونة بنفسجية فاتحة وبداخلها الأيقونة
           Container(
             width: 52.w,
             height: 52.h,
             decoration: BoxDecoration(
-              color: primaryColor.withOpacity(0.08), // لون شفاف خفيف جداً مثل الصورة الثانية
+              color: primaryColor.withOpacity(0.08),
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: primaryColor, size: 22.sp),
           ),
           SizedBox(height: 8.h),
-          // اسم الفئة أسفل الدائرة
           Text(
             name,
             style: TextStyle(
@@ -218,29 +282,42 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   ),
                   SizedBox(height: 24.h),
 
-                  // زر رفع شعار المتجر الدائري
+                  // زر رفع شعار المتجر الدائري المفعّل بالكامل
                   Center(
                     child: Column(
                       children: [
-                        Stack(
-                          alignment: Alignment.bottomRight,
-                          children: [
-                            Container(
-                              width: 90.w,
-                              height: 90.h,
-                              decoration: BoxDecoration(
-                                color: primaryColor.withOpacity(0.05),
-                                shape: BoxShape.circle,
-                                border: Border.all(color: primaryColor.withOpacity(0.2), width: 1.5.w),
+                        GestureDetector(
+                          onTap: _showLogoSourceBottomSheet, // تفعيل الفتح عند اللمس
+                          child: Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              Container(
+                                width: 90.w,
+                                height: 90.h,
+                                decoration: BoxDecoration(
+                                  color: primaryColor.withOpacity(0.05),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: primaryColor.withOpacity(0.2), width: 1.5.w),
+                                  // تحديث الخلفية لعرض الصورة فور اختيارها بنجاح
+                                  image: _logoFile != null
+                                      ? DecorationImage(
+                                    image: FileImage(_logoFile!),
+                                    fit: BoxFit.cover,
+                                  )
+                                      : null,
+                                ),
+                                // إذا تم اختيار صورة نقوم بإخفاء أيقونة الكاميرا الافتراضية
+                                child: _logoFile == null
+                                    ? Icon(Icons.add_a_photo_outlined, size: 32.sp, color: primaryColor)
+                                    : null,
                               ),
-                              child: Icon(Icons.add_a_photo_outlined, size: 32.sp, color: primaryColor),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(4.r),
-                              decoration: const BoxDecoration(color: primaryColor, shape: BoxShape.circle),
-                              child: Icon(Icons.edit, size: 14.sp, color: Colors.white),
-                            ),
-                          ],
+                              Container(
+                                padding: EdgeInsets.all(4.r),
+                                decoration: const BoxDecoration(color: primaryColor, shape: BoxShape.circle),
+                                child: Icon(Icons.edit, size: 14.sp, color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(height: 8.h),
                         Text(
@@ -265,14 +342,13 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // زر فئة المتجر التفاعلي الذي يستدعي النافذة المحدثة عند النقر
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _buildFieldLabel('فئة المتجر'),
                             InkWell(
-                              onTap: _showCategoryBottomSheet, // عند الضغط يفتح النافذة المطابقة للصورة الثانية
+                              onTap: _showCategoryBottomSheet,
                               child: Container(
                                 height: 54.h,
                                 padding: EdgeInsets.symmetric(horizontal: 14.w),
@@ -286,7 +362,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        _selectedCategory ?? 'اختر الفئة', // يعرض الفئة المحددة تلقائياً
+                                        _selectedCategory ?? 'اختر الفئة',
                                         style: TextStyle(
                                           color: _selectedCategory != null ? textColor : Colors.black38,
                                           fontSize: 14.sp,
@@ -303,7 +379,6 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                         ),
                       ),
                       SizedBox(width: 12.w),
-                      // حقل المنطقة
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -431,7 +506,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   ),
                   SizedBox(height: 32.h),
 
-                  // زر الحفظ والدخول للرئيسية التابع للواجهة الأولى
+                  // زر الحفظ والدخول للرئيسية
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -444,6 +519,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                     ),
                     child: ElevatedButton(
                       onPressed: () {
+                        // يمكنك هنا التحقق من رفع الصورة أيضاً، مثلاً: if (_logoFile != null)
                         if (widget.type == AppType.merchant) {
                           Navigator.push(
                             context,

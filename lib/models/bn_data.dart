@@ -62,9 +62,6 @@ class NavConfig {
             activeIcon: Icons.person,
           ),
         ];
-      case AppType.guest:
-        // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 }
