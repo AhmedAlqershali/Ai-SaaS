@@ -10,181 +10,177 @@ class NewPasswordScreen extends StatefulWidget {
 }
 
 class _NewPasswordScreenState extends State<NewPasswordScreen> {
-  // متغيرات للتحكم في إظهار وإخفاء النص داخل الحقول
   bool _obscureText1 = true;
   bool _obscureText2 = true;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffF8F9FD), // لون الخلفية الهادئ المعتمد في التطبيق
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Container(
-              padding: EdgeInsets.all(24.r),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.02),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min, // ليأخذ الكارت مساحة المحتوى فقط تماماً كالصورة
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 16.h),
+    const Color primaryColor = Color(0xff4D41DF);
+    const Color textColor = Color(0xff1A1A1A);
+    const Color subTextColor = Color(0xff707070);
 
-                  // أيقونة القفل الدائرية مع سهم التحديث الخلفي
-                  CircleAvatar(
-                    radius: 40.r,
-                    backgroundColor: const Color(0xff4D41DF).withOpacity(0.1),
-                    child: Icon(
-                      Icons.lock_reset_rounded,
-                      color: const Color(0xff4D41DF),
-                      size: 36.sp,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: const Color(0xffF8F9FD),
+        body: SafeArea(
+          child: Center(
+            // SingleChildScrollView يحمي الواجهة من الـ Overflow عند ظهور لوحة المفاتيح
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
+              child: Container(
+                padding: EdgeInsets.all(24.r),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20.r), // زوايا أنعم
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.03),
+                      blurRadius: 15,
+                      offset: const Offset(0, 8),
                     ),
-                  ),
-                  SizedBox(height: 24.h),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 10.h),
 
-                  // العنوان الرئيسي للواجهة
-                  Text(
-                    'تعيين كلمة مرور جديدة',
-                    style: GoogleFonts.ibmPlexSans(
-                      fontSize: 22.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xff1A1A1A),
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-
-                  // النص الفرعي التوضيحي
-                  Text(
-                    'الرجاء إدخال كلمة المرور الجديدة وتأكيدها.',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.ibmPlexSans(
-                      fontSize: 13.sp,
-                      color: const Color(0xff707070),
-                    ),
-                  ),
-                  SizedBox(height: 28.h),
-
-                  // حقل إدخال كلمة المرور الجديدة
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: TextField(
-                      obscureText: _obscureText1,
-                      textAlign: TextAlign.right,
-                      style: GoogleFonts.ibmPlexSans(fontSize: 14.sp),
-                      decoration: InputDecoration(
-                        hintText: 'كلمة المرور الجديدة',
-                        hintStyle: GoogleFonts.ibmPlexSans(fontSize: 14.sp, color: Colors.black38),
-                        // أيقونة العين تظهر على اليسار حسب اتجاه النص العربي المعاكس
-                        prefixIcon: IconButton(
-                          icon: Icon(
-                            _obscureText1 ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                            color: Colors.black38,
-                            size: 20.sp,
-                          ),
-                          onPressed: () => setState(() => _obscureText1 = !_obscureText1),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide: const BorderSide(color: Color(0xffEFEFEF)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide: const BorderSide(color: Color(0xff4D41DF)),
-                        ),
+                    // أيقونة القفل المحدثة
+                    CircleAvatar(
+                      radius: 40.r,
+                      backgroundColor: primaryColor.withOpacity(0.1),
+                      child: Icon(
+                        Icons.lock_reset_rounded,
+                        color: primaryColor,
+                        size: 40.sp,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 14.h),
+                    SizedBox(height: 24.h),
 
-                  // حقل تأكيد كلمة المرور
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: TextField(
-                      obscureText: _obscureText2,
-                      textAlign: TextAlign.right,
-                      style: GoogleFonts.ibmPlexSans(fontSize: 14.sp),
-                      decoration: InputDecoration(
-                        hintText: 'تأكيد كلمة المرور',
-                        hintStyle: GoogleFonts.ibmPlexSans(fontSize: 14.sp, color: Colors.black38),
-                        prefixIcon: IconButton(
-                          icon: Icon(
-                            _obscureText2 ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                            color: Colors.black38,
-                            size: 20.sp,
-                          ),
-                          onPressed: () => setState(() => _obscureText2 = !_obscureText2),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide: const BorderSide(color: Color(0xffEFEFEF)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                          borderSide: const BorderSide(color: Color(0xff4D41DF)),
-                        ),
+                    // العنوان
+                    Text(
+                      'تعيين كلمة مرور جديدة',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.ibmPlexSans(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.bold,
+                        color: textColor,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 24.h),
+                    SizedBox(height: 10.h),
 
-                  // زر التحديث الرئيسي بلون الهوية والسهم الموجه لليسار
-                  SizedBox(
-                    width: double.infinity,
-                    height: 52.h,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // أكشن تحديث كلمة المرور والانتقال لشاشة النجاح
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff4D41DF),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                        elevation: 0,
+                    // النص التوضيحي
+                    Text(
+                      'الرجاء إدخال كلمة المرور الجديدة وتأكيدها للمتابعة.',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.ibmPlexSans(
+                        fontSize: 13.sp,
+                        color: subTextColor,
+                        height: 1.4,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.arrow_back, // السهم المتجه لليسار كما في التصميم تماماً لمتابعة الخطوات
-                            color: Colors.white,
-                            size: 20.sp,
+                    ),
+                    SizedBox(height: 30.h),
+
+                    // حقل كلمة المرور الأولى
+                    _buildPasswordField(
+                      hint: 'كلمة المرور الجديدة',
+                      isObscured: _obscureText1,
+                      onToggle: () => setState(() => _obscureText1 = !_obscureText1),
+                    ),
+
+                    SizedBox(height: 16.h),
+
+                    // حقل تأكيد كلمة المرور
+                    _buildPasswordField(
+                      hint: 'تأكيد كلمة المرور الجديدة',
+                      isObscured: _obscureText2,
+                      onToggle: () => setState(() => _obscureText2 = !_obscureText2),
+                    ),
+
+                    SizedBox(height: 30.h),
+
+                    // زر التحديث
+                    SizedBox(
+                      width: double.infinity,
+                      height: 54.h,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // منطق التحديث هنا
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14.r),
                           ),
-                          SizedBox(width: 8.w),
-                          Text(
-                            'تحديث كلمة المرور',
-                            style: GoogleFonts.ibmPlexSans(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                          elevation: 0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'تحديث كلمة المرور',
+                              style: GoogleFonts.ibmPlexSans(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 10.w),
+                            Icon(
+                              Icons.check_circle_outline_rounded,
+                              color: Colors.white,
+                              size: 20.sp,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 12.h),
-                ],
+                    SizedBox(height: 10.h),
+                  ],
+                ),
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  // ويجت مخصص لبناء حقول كلمة المرور لتقليل تكرار الكود
+  Widget _buildPasswordField({
+    required String hint,
+    required bool isObscured,
+    required VoidCallback onToggle,
+  }) {
+    return TextField(
+      obscureText: isObscured,
+      textAlign: TextAlign.right,
+      style: GoogleFonts.ibmPlexSans(fontSize: 14.sp),
+      decoration: InputDecoration(
+        hintText: hint,
+        hintStyle: GoogleFonts.ibmPlexSans(fontSize: 13.sp, color: Colors.black38),
+        // الأيقونة جهة اليسار (Suffix في الـ RTL)
+        suffixIcon: IconButton(
+          icon: Icon(
+            isObscured ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+            color: Colors.black38,
+            size: 20.sp,
+          ),
+          onPressed: onToggle,
+        ),
+        prefixIcon: const Icon(Icons.lock_outline_rounded, color: Colors.black26),
+        filled: true,
+        fillColor: const Color(0xffF2F3F6), // تغيير بسيط للون الحقل ليعطي عمقاً
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: const BorderSide(color: Color(0xff4D41DF), width: 1.5),
         ),
       ),
     );

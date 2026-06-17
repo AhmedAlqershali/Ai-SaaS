@@ -1,178 +1,241 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xfff8fafc),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end, // محاذاة لليمين (اللغة العربية)
-            children: [
-              // ------ 1. الجزء العلوي: صورة المنتج والأزرار العائمة ------
-              Stack(
-                children: [
-                  Container(
-                    height: 350.h,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=500'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  // زر العودة الخلفي
-                  Positioned(
-                    top: 16.h,
-                    left: 16.w,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 20.r,
-                      child: IconButton(
-                        icon: Icon(Icons.arrow_back, color: Colors.black87, size: 20.sp),
-                        onPressed: () => Navigator.maybePop(context),
-                      ),
-                    ),
-                  ),
-                  // زر المفضلة
-                  Positioned(
-                    top: 16.h,
-                    right: 16.w,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 20.r,
-                      child: Icon(Icons.favorite_border_outlined, color: Colors.black54, size: 20.sp),
-                    ),
-                  ),
-                ],
-              ),
-
-              // ------ 2. تفاصيل وبيانات المنتج الثابتة ------
-              Padding(
-                padding: EdgeInsets.all(16.0.r),
+    return Directionality(
+      textDirection: TextDirection.rtl, // ضمان الاتجاه العربي
+      child: Scaffold(
+        backgroundColor: const Color(0xffF8F9FD),
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Anua',
-                      style: TextStyle(fontSize: 14.sp, color: Colors.grey, fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(height: 4.h),
-                    Text(
-                      'سيروم نياسيناميد 70%',
-                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: const Color(0xff1a1a1a)),
-                    ),
-                    SizedBox(height: 16.h),
-
-                    Text(
-                      'الوصف',
-                      style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Colors.black87),
-                    ),
-                    SizedBox(height: 6.h),
-                    Text(
-                      'منحي بشرتك الإشراقة التي تستحقها مع سيروم الخوخ من Anua. تم تصميم هذا السيروم خصيصاً ليمنحك بشرة زجاجية صافية وناعمة، حيث يعمل بتركيز عالٍ من مستخلص الخوخ والنياسيناميد على تفتيح البشرة، توحيد لونها، وتقليص مظهر المسام بشكل فعال.',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 13.sp, color: Colors.black54, height: 1.6),
-                    ),
-                    SizedBox(height: 16.h),
-
-                    Text(
-                      'طريقة الاستخدام',
-                      style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Colors.black87),
-                    ),
-                    SizedBox(height: 6.h),
-                    Text(
-                      'ضعي 2-3 قطرات على بشرة نظيفة بعد استخدام التونر، ودلكيها بلطف حتى تمتصها البشرة تماماً. استخدميه صباحاً ومساءً للحصول على أفضل النتائج.',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 13.sp, color: Colors.black54, height: 1.6),
-                    ),
-                    SizedBox(height: 24.h),
-
-                    // ------ 3. السعر والتحكم بالكمية ------
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // ------ 1. صورة المنتج والأزرار العائمة ------
+                    Stack(
                       children: [
-                        // عداد
                         Container(
-                          height: 38.h,
-                          padding: EdgeInsets.symmetric(horizontal: 4.w),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade200, width: 1.5.w),
-                            borderRadius: BorderRadius.circular(20.r),
+                          height: 380.h,
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                           ),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.remove, size: 16.sp, color: Colors.black54),
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                                onPressed: () {},
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                                child: Text(
-                                  '1',
-                                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.add, size: 16.sp, color: Colors.black54),
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                                onPressed: () {},
-                              ),
-                            ],
+                          child: Image.network(
+                            'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=500',
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.broken_image, size: 50, color: Colors.grey),
                           ),
                         ),
-                        Text(
-                          '₪120',
-                          style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w900, color: Colors.black),
+                        // زر العودة
+                        Positioned(
+                          top: 40.h,
+                          right: 16.w,
+                          child: _buildCircularButton(
+                            icon: Icons.arrow_back_ios_new_rounded,
+                            onTap: () => Navigator.maybePop(context),
+                          ),
+                        ),
+                        // زر المفضلة
+                        Positioned(
+                          top: 40.h,
+                          left: 16.w,
+                          child: _buildCircularButton(
+                            icon: Icons.favorite_border_rounded,
+                            onTap: () {},
+                          ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 24.h),
 
-                    // ------ 4. زر تواصل عبر واتساب ------
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff14db66),
-                        minimumSize: Size(double.infinity, 52.h),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
-                        elevation: 0,
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    // ------ 2. تفاصيل المنتج ------
+                    Padding(
+                      padding: EdgeInsets.all(20.r),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'تواصل عبر واتساب',
-                            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),
+                            'Anua',
+                            style: GoogleFonts.ibmPlexSans(
+                                fontSize: 14.sp,
+                                color: const Color(0xff4D41DF),
+                                fontWeight: FontWeight.bold
+                            ),
                           ),
-                          SizedBox(width: 8.w),
-                          Icon(Icons.chat_bubble_outline_outlined, color: Colors.white, size: 20.sp),
+                          SizedBox(height: 6.h),
+                          Text(
+                            'سيروم نياسيناميد 70%',
+                            style: GoogleFonts.ibmPlexSans(
+                                fontSize: 24.sp,
+                                fontWeight: FontWeight.bold,
+                                color: const Color(0xff1A1A1A)
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+
+                          _buildSectionTitle('الوصف'),
+                          SizedBox(height: 8.h),
+                          Text(
+                            'امنحي بشرتك الإشراقة التي تستحقها مع سيروم الخوخ من Anua. يعمل بتركيز عالٍ من مستخلص الخوخ والنياسيناميد على تفتيح البشرة وتوحيد لونها.',
+                            style: GoogleFonts.ibmPlexSans(
+                                fontSize: 13.sp,
+                                color: const Color(0xff707070),
+                                height: 1.6
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+
+                          _buildSectionTitle('طريقة الاستخدام'),
+                          SizedBox(height: 8.h),
+                          Text(
+                            'ضعي 2-3 قطرات على بشرة نظيفة بعد استخدام التونر، ودلكيها بلطف حتى تمتصها البشرة تماماً.',
+                            style: GoogleFonts.ibmPlexSans(
+                                fontSize: 13.sp,
+                                color: const Color(0xff707070),
+                                height: 1.6
+                            ),
+                          ),
+                          SizedBox(height: 30.h),
+
+                          // ------ 3. السعر والكمية ------
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '₪120',
+                                style: GoogleFonts.ibmPlexSans(
+                                    fontSize: 26.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(0xff1A1A1A)
+                                ),
+                              ),
+                              _buildQuantityStepper(),
+                            ],
+                          ),
+                          SizedBox(height: 30.h),
+
+                          // ------ 4. قسم منتجات أخرى ------
+                          _buildSectionTitle('منتجات قد تعجبك'),
+                          SizedBox(height: 14.h),
+                          _buildRelatedProductsHorizontalList(),
+                          SizedBox(height: 20.h),
                         ],
                       ),
                     ),
-                    SizedBox(height: 24.h),
-
-                    // ------ 5. قسم أخرى بالأسفل ------
-                    Text(
-                      'أخرى',
-                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.black87),
-                    ),
-                    SizedBox(height: 12.h),
-                    _buildRelatedProductsHorizontalList(),
                   ],
                 ),
               ),
-            ],
+            ),
+
+            // ------ 5. زر الواتساب الثابت في الأسفل ------
+            _buildBottomWhatsAppButton(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ويجت عنوان القسم
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: GoogleFonts.ibmPlexSans(
+          fontSize: 16.sp,
+          fontWeight: FontWeight.bold,
+          color: const Color(0xff1A1A1A)
+      ),
+    );
+  }
+
+  // ويجت الأزرار العلوية الدائرية
+  Widget _buildCircularButton({required IconData icon, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(10.r),
+        decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.9),
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))
+            ]
+        ),
+        child: Icon(icon, color: Colors.black87, size: 20.sp),
+      ),
+    );
+  }
+
+  // ويجت عداد الكمية
+  Widget _buildQuantityStepper() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        border: Border.all(color: const Color(0xFFEFEFEF), width: 1.5.w),
+        borderRadius: BorderRadius.circular(30.r),
+        color: Colors.white,
+      ),
+      child: Row(
+        children: [
+          _buildStepButton(Icons.add_rounded, () {}),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Text(
+              '1',
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+            ),
+          ),
+          _buildStepButton(Icons.remove_rounded, () {}),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStepButton(IconData icon, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(4.r),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF5F5F5),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        child: Icon(icon, size: 20.sp, color: Colors.black87),
+      ),
+    );
+  }
+
+  // زر الواتساب السفلي
+  Widget _buildBottomWhatsAppButton() {
+    return Container(
+      padding: EdgeInsets.all(20.r),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, -4))
+          ]
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        height: 55.h,
+        child: ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xff14db66),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+            elevation: 0,
+          ),
+          onPressed: () {},
+          icon: Icon(Icons.chat_bubble_outline_rounded, color: Colors.white, size: 22.sp),
+          label: Text(
+            'تواصل عبر واتساب',
+            style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
       ),
@@ -181,24 +244,19 @@ class ProductDetailsScreen extends StatelessWidget {
 
   Widget _buildRelatedProductsHorizontalList() {
     return SizedBox(
-      height: 180.h,
-      child: ListView(
+      height: 200.h,
+      child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        reverse: true,
         physics: const BouncingScrollPhysics(),
-        children: [
-          const RelatedProductCard(
-            title: 'سيروم الكافيين للعيون',
+        itemCount: 3,
+        separatorBuilder: (context, index) => SizedBox(width: 12.w),
+        itemBuilder: (context, index) {
+          return const RelatedProductCard(
+            title: 'منتج مرتبط مميز',
             price: '200',
             imageUrl: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=300',
-          ),
-          SizedBox(width: 12.w),
-          const RelatedProductCard(
-            title: 'سيروم نياسيناميد',
-            price: '210',
-            imageUrl: 'https://images.unsplash.com/photo-1608248597481-496100c8c836?q=80&w=300',
-          ),
-        ],
+          );
+        },
       ),
     );
   }
@@ -219,53 +277,30 @@ class RelatedProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 140.w,
+      width: 150.w,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12.0.r),
-        border: Border.all(color: Colors.grey.shade100),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: const Color(0xFFEFEFEF)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0.r),
-                    image: DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.cover),
-                  ),
-                ),
-                Positioned(
-                  top: 6.h,
-                  left: 6.w,
-                  child: Container(
-                    width: 24.w,
-                    height: 24.h,
-                    decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                    child: Icon(Icons.favorite_border_outlined, color: Colors.black54, size: 14.sp),
-                  ),
-                ),
-              ],
+            child: ClipRRect(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+              child: Image.network(imageUrl, fit: BoxFit.cover, width: double.infinity),
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(6.0.r),
+            padding: EdgeInsets.all(10.r),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: Colors.black87),
-                ),
+                Text(title, maxLines: 1, overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold)),
                 SizedBox(height: 4.h),
-                Text(
-                  '₪$price',
-                  style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: Colors.black),
-                ),
+                Text('₪$price', style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: const Color(0xff4D41DF))),
               ],
             ),
           ),

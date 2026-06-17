@@ -48,8 +48,7 @@ class MyApp extends StatelessWidget {
           // home: appType == null
           //     ? const UserSelection()
           //     : BnScreen(type: appType!),
-          home: const EmailVerificationScreen(type: AppType.merchant),
-          // home: AddProduct(),
+          home: OnboardingAIPage(),
           // home: BnScreen(type: AppType.merchant),
           //   home: CompleteProfileScreen(),
         );

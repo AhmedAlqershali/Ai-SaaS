@@ -1,183 +1,263 @@
 import 'package:ai_saas/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StoreDetailsScreen extends StatelessWidget {
   const StoreDetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xfff8fafc),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: const Color(0xff1a1a1a), size: 24.sp),
-          onPressed: () => Navigator.maybePop(context),
-        ),
-      ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.all(16.0.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end, // محاذاة العناصر للغة العربية
-          children: [
-            // صورة المتجر الرئيسية
-            Container(
-              height: 180.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0.r),
-                image: const DecorationImage(
-                  image: NetworkImage('https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=600'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SizedBox(height: 12.h),
+    // الألوان الموحدة للبراند
+    const Color primaryColor = Color(0xff4D41DF);
+    const Color textColor = Color(0xff1A1A1A);
+    const Color subTextColor = Color(0xff718096);
 
-            // اسم المتجر والتقييم
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.star, color: Colors.amber, size: 18.sp),
-                    SizedBox(width: 4.w),
-                    Text(
-                      '4.7',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: const Color(0xffF8FAF1).withOpacity(0.97),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.5,
+          title: Text(
+            'تفاصيل المتجر',
+            style: GoogleFonts.ibmPlexSans(
+              color: textColor,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new_rounded, color: textColor, size: 18.sp),
+            onPressed: () => Navigator.maybePop(context),
+          ),
+        ),
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // ─── 1. صورة المتجر الرئيسية ───
+              Padding(
+                padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 0),
+                child: Container(
+                  height: 180.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.06),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      )
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16.r),
+                    child: Image.network(
+                      'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=600',
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          Container(color: Colors.grey.shade200, child: const Icon(Icons.broken_image)),
                     ),
-                  ],
-                ),
-                Text(
-                  'الرئيسي كوزمتكس',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xff1a1a1a),
                   ),
                 ),
-              ],
-            ),
-            SizedBox(height: 16.h),
-
-            // قسم عن المتجر
-            Text(
-              'عن المتجر',
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.black87),
-            ),
-            SizedBox(height: 6.h),
-            Text(
-              'نحن في (الرئيسي كوزمتكس) نؤمن أن الجمال هو انعكاس للعناية بالتفاصيل. متخصصون في توفير أرقى منتجات التجميل والعناية بالبشرة من أشهر العلامات التجارية العالمية، لنضمن لك تجربة تسوق تلبي احتياجاتك وتبرز جمالك بلمسة احترافية.',
-              textAlign: TextAlign.right,
-              style: TextStyle(fontSize: 13.sp, color: Colors.black54, height: 1.6),
-            ),
-            SizedBox(height: 20.h),
-
-            // تفاصيل العنوان ومواعيد العمل
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Row(
-                      children: [
-                        Text('مواعيد العمل :', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp)),
-                        SizedBox(width: 4.w),
-                        Icon(Icons.access_time, size: 16.sp, color: Colors.black54),
-                      ],
-                    ),
-                    SizedBox(height: 4.h),
-                    Text('10 صباحاً - 8 مساءً', style: TextStyle(fontSize: 12.sp, color: Colors.black54)),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Row(
-                      children: [
-                        Text('العنوان :', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp)),
-                        SizedBox(width: 4.w),
-                        Icon(Icons.location_on_outlined, size: 16.sp, color: Colors.black54),
-                      ],
-                    ),
-                    SizedBox(height: 4.h),
-                    Text('النصيرات , مقابل هايبر مول', style: TextStyle(fontSize: 12.sp, color: Colors.black54)),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 12.h),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'مفتوح الآن',
-                style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 14.sp),
               ),
-            ),
 
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.0.h),
-              child: const Divider(),
-            ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 16.h),
 
-            // ------ قسم جديدنا ------
-            _buildSectionHeader('جديدنا'),
-            SizedBox(height: 10.h),
-            _buildHorizontalProductList(),
+                    // ─── 2. اسم المتجر والتقييم ───
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'الرئيسي كوزمتكس',
+                            style: GoogleFonts.ibmPlexSans(
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.bold,
+                              color: textColor,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        _buildRatingBadge('4.7'),
+                      ],
+                    ),
+                    SizedBox(height: 12.h),
 
-            SizedBox(height: 20.h),
+                    // ─── 3. بطاقة معلومات المتجر ───
+                    _buildStoreInfoCard(primaryColor),
+                    SizedBox(height: 20.h),
 
-            // ------ قسم الأكثر مبيعاً ------
-            _buildSectionHeader('الأكثر مبيعاً'),
-            SizedBox(height: 10.h),
-            _buildHorizontalProductList(),
-          ],
+                    // ─── 4. قسم "عن المتجر" ───
+                    Text(
+                      'عن المتجر',
+                      style: GoogleFonts.ibmPlexSans(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.bold,
+                          color: textColor
+                      ),
+                    ),
+                    SizedBox(height: 6.h),
+                    Text(
+                      'نحن في (الرئيسي كوزمتكس) نؤمن أن الجمال هو انعكاس للعناية بالتفاصيل. متخصصون في توفير أرقى منتجات التجميل من ماركات عالمية.',
+                      style: GoogleFonts.ibmPlexSans(
+                          fontSize: 13.sp,
+                          color: subTextColor,
+                          height: 1.5
+                      ),
+                    ),
+                    SizedBox(height: 24.h),
+
+                    // ─── 5. الأقسام العرضية ───
+                    _buildSectionHeader('جديدنا', primaryColor),
+                    SizedBox(height: 12.h),
+                    _buildHorizontalProductList(),
+
+                    SizedBox(height: 24.h),
+
+                    _buildSectionHeader('الأكثر مبيعاً', primaryColor),
+                    SizedBox(height: 12.h),
+                    _buildHorizontalProductList(),
+
+                    SizedBox(height: 30.h), // مساحة إضافية في الأسفل
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: TextStyle(
-        fontSize: 18.sp,
-        fontWeight: FontWeight.bold,
-        color: const Color(0xff1a1a1a),
+  // ويجت التقييم
+  Widget _buildRatingBadge(String rate) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: const Color(0xffFFC107).withOpacity(0.12),
+        borderRadius: BorderRadius.circular(20.r),
       ),
+      child: Row(
+        children: [
+          Icon(Icons.star_rounded, color: const Color(0xffFFB300), size: 16.sp),
+          SizedBox(width: 4.w),
+          Text(
+            rate,
+            style: GoogleFonts.ibmPlexSans(
+              fontWeight: FontWeight.bold,
+              fontSize: 12.sp,
+              color: const Color(0xffFF8F00),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // بطاقة تفاصيل العنوان والوقت
+  Widget _buildStoreInfoCard(Color primaryColor) {
+    return Container(
+      padding: EdgeInsets.all(14.r),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: const Color(0xffE2E8F0)),
+      ),
+      child: Column(
+        children: [
+          _buildInfoRow(Icons.location_on_rounded, 'النصيرات، مقابل هايبر مول', primaryColor),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            child: Divider(color: const Color(0xffEDF2F7), thickness: 1.h),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(child: _buildInfoRow(Icons.access_time_filled_rounded, '10:00 ص - 08:00 م', primaryColor)),
+              _buildStatusBadge(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(IconData icon, String text, Color color) {
+    return Row(
+      children: [
+        Icon(icon, size: 18.sp, color: color),
+        SizedBox(width: 8.w),
+        Expanded(
+          child: Text(
+            text,
+            style: GoogleFonts.ibmPlexSans(fontSize: 13.sp, color: const Color(0xff4A5568)),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatusBadge() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: const Color(0xff10B981).withOpacity(0.1),
+        borderRadius: BorderRadius.circular(6.r),
+      ),
+      child: Text(
+        'مفتوح الآن',
+        style: GoogleFonts.ibmPlexSans(
+          color: const Color(0xff10B981),
+          fontWeight: FontWeight.bold,
+          fontSize: 11.sp,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title, Color primaryColor) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title, style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff1A1A1A))),
+        TextButton(
+          onPressed: () {},
+          style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero),
+          child: Text('عرض الكل', style: GoogleFonts.ibmPlexSans(fontSize: 13.sp, fontWeight: FontWeight.bold, color: primaryColor)),
+        ),
+      ],
     );
   }
 
   Widget _buildHorizontalProductList() {
     return SizedBox(
-      height: 175.h,
-      child: ListView(
+      height: 210.h, // زيادة الارتفاع قليلاً لضمان عدم حدوث Overflow عند تكبير النصوص
+      child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        reverse: true, // يبدأ التمرير من اليمين لليسام ليناسب اللغة العربية
         physics: const BouncingScrollPhysics(),
-        children: [
-          const ProductItemCard(
-            title: 'سيروم الكافيين للعيون',
+        itemCount: 3,
+        separatorBuilder: (context, index) => SizedBox(width: 12.w),
+        itemBuilder: (context, index) {
+          return const ProductItemCard(
+            title: 'سيروم الكافيين للعيون والمناطق الحساسة',
             price: '200',
             imageUrl: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=300',
-          ),
-          SizedBox(width: 12.w),
-          const ProductItemCard(
-            title: 'سيروم نياسيناميد',
-            price: '210',
-            imageUrl: 'https://images.unsplash.com/photo-1608248597481-496100c8c836?q=80&w=300',
-          ),
-          SizedBox(width: 12.w),
-          const ProductItemCard(
-            title: 'تونر البشرة النقي',
-            price: '180',
-            imageUrl: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=300',
-          ),
-        ],
+          );
+        },
       ),
     );
   }
@@ -198,71 +278,70 @@ class ProductItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ProductDetailsScreen(),
-          ),
-        );
-      },
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductDetailsScreen())),
       child: Container(
-        width: 140.w,
+        width: 145.w, // زيادة العرض قليلاً للتوازن
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12.0.r),
+          borderRadius: BorderRadius.circular(14.r),
+          border: Border.all(color: const Color(0xffEDF2F7)),
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 8, offset: const Offset(0, 2))
+          ],
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // صورة المنتج المصغرة وزر القلب
-            Expanded(
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0.r),
-                      image: DecorationImage(
-                        image: NetworkImage(imageUrl),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+            // صورة المنتج
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(14.r)),
+                  child: Image.network(
+                    imageUrl,
+                    height: 110.h,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Container(height: 110.h, color: Colors.grey.shade100, child: const Icon(Icons.image)),
                   ),
-                  Positioned(
-                    top: 6.h,
-                    left: 6.w,
-                    child: Container(
-                      width: 26.w,
-                      height: 26.h,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.favorite_border_outlined,
-                        color: Colors.black54,
-                        size: 14.sp,
-                      ),
-                    ),
+                ),
+                Positioned(
+                  top: 8.h,
+                  right: 8.w,
+                  child: Container(
+                    padding: EdgeInsets.all(5.r),
+                    decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                    child: Icon(Icons.favorite_rounded, color: const Color(0xffE53E3E).withOpacity(0.3), size: 15.sp),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+            // تفاصيل المنتج
             Padding(
-              padding: EdgeInsets.all(6.0.r),
+              padding: EdgeInsets.all(10.r),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    maxLines: 1,
+                    maxLines: 2, // يسمح بسطرين لضمان عدم ضياع الوصف
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600, color: Colors.black87),
+                    style: GoogleFonts.ibmPlexSans(fontSize: 12.sp, fontWeight: FontWeight.w600, color: const Color(0xff2D3748), height: 1.2),
                   ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    '₪$price',
-                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: Colors.black),
+                  SizedBox(height: 8.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '₪$price',
+                        style: GoogleFonts.ibmPlexSans(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xff4D41DF)),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(4.r),
+                        decoration: BoxDecoration(color: const Color(0xff4D41DF).withOpacity(0.1), borderRadius: BorderRadius.circular(6.r)),
+                        child: Icon(Icons.add_rounded, size: 16.sp, color: const Color(0xff4D41DF)),
+                      ),
+                    ],
                   ),
                 ],
               ),

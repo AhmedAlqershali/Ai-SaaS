@@ -1,10 +1,12 @@
-import 'package:ai_saas/screens/widgets/add_product_textfield.dart';
-import 'package:ai_saas/screens/widgets/size_button.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+
+// الحفاظ على استدعاءاتك كما هي
+import 'package:ai_saas/screens/widgets/add_product_textfield.dart';
+import 'package:ai_saas/screens/widgets/size_button.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key});
@@ -17,95 +19,57 @@ class _AddProductState extends State<AddProduct> {
   bool isEnabled1 = false;
   bool isEnabled2 = false;
 
-  // الصورة الحالية الموجودة في الكاميرا العلوية (المعاينة)
-  File? _currentCameraImage;
-
-  // قائمة الصور التي تم تأكيدها وانضمت لخانات الزائد بالأسفل (الحد الأقصى 3)
   final List<File> _attachedImages = [];
   final int _maxImages = 3;
-
   final ImagePicker _picker = ImagePicker();
 
-  // دالة التقاط الصورة عند الضغط على الكاميرا العلوية
-  Future<void> _pickImageFromCamera(ImageSource source) async {
+  Future<void> _pickImage(ImageSource source) async {
     try {
-      final XFile? pickedFile = await _picker.pickImage(source: source, imageQuality: 80);
+      final XFile? pickedFile = await _picker.pickImage(source: source, imageQuality: 70);
       if (pickedFile != null) {
-        setState(() {
-          _currentCameraImage = File(pickedFile.path);
-        });
-
-        // بمجرد اختيار الصورة والموافقة، ننقلها تلقائياً إلى خانات الزائد بالأسفل
-        _moveImageToGrid();
+        if (_attachedImages.length < _maxImages) {
+          setState(() {
+            _attachedImages.add(File(pickedFile.path));
+          });
+        } else {
+          _showSnackBar('تم الوصول للحد الأقصى (3 صور)');
+        }
       }
     } catch (e) {
       debugPrint("خطأ في التقاط الصورة: $e");
     }
   }
 
-  // الدالة المسؤول عن نقل الصورة من الكاميرا العلوية إلى مربعات الزائد بالأسفل
-  void _moveImageToGrid() {
-    if (_currentCameraImage != null) {
-      if (_attachedImages.length < _maxImages) {
-        setState(() {
-          _attachedImages.add(_currentCameraImage!);
-          _currentCameraImage = null; // تصفير الكاميرا العلوية لتصبح جاهزة للصورة التالية
-        });
-      } else {
-        // تنبيه المستخدم في حال امتلأت الخانات الثلاثة
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('تم الوصول للحد الأقصى من الصور (3 صور فقط)'),
-            backgroundColor: Colors.orange,
-          ),
-        );
-        setState(() {
-          _currentCameraImage = null;
-        });
-      }
-    }
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.orange),
+    );
   }
 
-  // حذف صورة معينة من الخانات السفلى وإعادتها كزر زائد
   void _removeAttachedImage(int index) {
     setState(() {
       _attachedImages.removeAt(index);
     });
   }
 
-  // نافذة اختيار مصدر الصورة العلوية
   void _showImageSourceBottomSheet() {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(16.r), topRight: Radius.circular(16.r)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
       builder: (context) {
         return Directionality(
           textDirection: TextDirection.rtl,
-          child: Padding(
-            padding: EdgeInsets.all(16.r),
+          child: Container(
+            padding: EdgeInsets.all(20.r),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('اختر مصدر الصورة للكاميرا', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
-                SizedBox(height: 16.h),
-                ListTile(
-                  leading: const Icon(Icons.photo_library, color: Color(0xff3622CA)),
-                  title: const Text('معرض الصور (Gallery)'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    _pickImageFromCamera(ImageSource.gallery);
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.camera_alt, color: Color(0xff3622CA)),
-                  title: const Text('الكاميرا (Camera)'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    _pickImageFromCamera(ImageSource.camera);
-                  },
-                ),
+                Text('إضافة صورة المنتج', style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                SizedBox(height: 20.h),
+                _buildSourceTile(Icons.photo_library, 'معرض الصور', ImageSource.gallery),
+                _buildSourceTile(Icons.camera_alt, 'الكاميرا', ImageSource.camera),
               ],
             ),
           ),
@@ -114,290 +78,253 @@ class _AddProductState extends State<AddProduct> {
     );
   }
 
+  Widget _buildSourceTile(IconData icon, String title, ImageSource source) {
+    return ListTile(
+      leading: Icon(icon, color: const Color(0xff4D41DF)),
+      title: Text(title, style: GoogleFonts.ibmPlexSans(fontSize: 14.sp)),
+      onTap: () {
+        Navigator.pop(context);
+        _pickImage(source);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            CircleAvatar(radius: 24.r, backgroundColor: Colors.red),
+    const Color primaryColor = Color(0xff4D41DF);
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: const Color(0xffF8F9FA),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.5,
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.close, size: 22.sp, color: Colors.black),
+          ),
+          title: Text(
+            'إضافة منتج جديد',
+            style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          centerTitle: true,
+          actions: [
             TextButton(
               onPressed: () {},
-              child: Text(
-                'حفظ كمسودة',
-                style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff4D41DF)),
-              ),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: Text(
-                'إضافة منتج جديد',
-                style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.black),
-              ),
+              child: Text('مسودة', style: GoogleFonts.ibmPlexSans(color: primaryColor, fontWeight: FontWeight.bold)),
             ),
           ],
         ),
-        elevation: 0,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.close, size: 24.sp))],
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ... قسم الحقول الأساسية والوصف ...
-              Padding(
-                padding: EdgeInsets.all(18.0.r),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text('بيانات المنتج الأساسية', style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff464555)), textAlign: TextAlign.right),
-                    SizedBox(width: 8.w),
-                    Icon(Icons.storefront, color: const Color(0xff4D41DF), size: 20.sp),
-                  ],
-                ),
-              ),
-              Text('اسم المنتج', style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff464555)), textAlign: TextAlign.right),
-              SizedBox(height: 10.h),
-              SizedBox(height: 56.h, width: 278.w, child: const add_product_textfield(name: 'مثال: سماعات لاسلكي')),
-              SizedBox(height: 10.h),
-              Text('(USD)', style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff464555)), textAlign: TextAlign.right),
-              SizedBox(height: 10.h),
-              SizedBox(height: 56.h, width: 278.w, child: const add_product_textfield(name: '0.00')),
-              SizedBox(height: 10.h),
-              Text('الفئة', style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff464555)), textAlign: TextAlign.right),
-              SizedBox(height: 10.h),
-              SizedBox(height: 56.h, width: 278.w, child: const add_product_textfield(name: 'الالكترونيات')),
-              SizedBox(height: 10.h),
+              _buildSectionHeader(Icons.storefront, 'بيانات المنتج الأساسية', primaryColor),
+              SizedBox(height: 20.h),
 
-              Container(
-                width: 320.w,
-                height: 534.h,
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(16.r))),
-                child: Stack(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r)),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 180.w,
-                                height: 72.h,
-                                decoration: BoxDecoration(color: const Color(0xff4D41DF), borderRadius: BorderRadius.circular(24.r)),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Flexible(child: Text(textAlign: TextAlign.right, 'توليد وصف بالذكاء\n الاصطناعي', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis)),
-                                    SizedBox(width: 14.w),
-                                    Icon(Icons.auto_awesome, color: Colors.white, size: 22.sp),
-                                    SizedBox(width: 15.w),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 10.w),
-                              Text('وصف\n المنتج', style: TextStyle(fontSize: 14.sp)),
-                              SizedBox(width: 8.w),
-                              Icon(Icons.insert_drive_file, color: const Color(0xff4D41DF), size: 24.sp),
-                            ],
-                          ),
-                          SizedBox(height: 16.h),
-                          SizedBox(
-                            height: 300.h,
-                            width: 278.w,
-                            child: TextField(
-                              maxLines: null,
-                              expands: true,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(fontSize: 14.sp),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: const Color(0xffF2F3F6),
-                                hintText: 'ابدأ بكتابة وصف المنتج أو استخدم الذكاء\nالاصطناعي لتوليد وصف احترافي تلقائياً...',
-                                hintStyle: GoogleFonts.ibmPlexSans(fontSize: 14.sp),
-                                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(24.r)),
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 20.h),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('نصحية الذكاء الاصطناعي', style: GoogleFonts.ibmPlexSans(fontSize: 14.sp, color: const Color(0xff3622CA))),
-                              SizedBox(width: 4.w),
-                              Icon(Icons.lightbulb, color: const Color(0xff3622CA), size: 20.sp),
-                            ],
-                          ),
-                          Text(textAlign: TextAlign.right, 'بالكلمات المفتاحية يزيد من ظهور منتجك في نتائج البحث بنسبة تصل إلى40%.الوصف الغني', style: GoogleFonts.ibmPlexSans(fontSize: 14.sp, color: const Color(0xff3622CA))),
-                        ],
-                      ),
-                    ),
-                    Positioned(left: 0, top: 0, bottom: 0, child: Container(width: 6.w, decoration: BoxDecoration(color: Colors.deepPurple, borderRadius: BorderRadius.only(topLeft: Radius.circular(16.r), bottomLeft: Radius.circular(16.r))))),
-                  ],
-                ),
+              _buildLabel('اسم المنتج'),
+              const add_product_textfield(name: 'مثال: سماعات لاسلكي'),
+              SizedBox(height: 16.h),
+
+              _buildLabel('السعر (₪)'),
+              const add_product_textfield(name: '0.00'),
+              SizedBox(height: 16.h),
+
+              _buildLabel('الفئة'),
+              const add_product_textfield(name: 'اختر الفئة'),
+              SizedBox(height: 24.h),
+
+              // كرت الوصف بالذكاء الاصطناعي
+              _buildAIContentCard(primaryColor),
+              SizedBox(height: 24.h),
+
+              // قسم الصور
+              _buildImageUploadSection(primaryColor),
+              SizedBox(height: 24.h),
+
+              _buildLabel('الحالة والظهور'),
+              SizedBox(height: 10.h),
+              _buildSwitchTile(Icons.remove_red_eye, 'مرئي للجميع', isEnabled1, (v) => setState(() => isEnabled1 = v), const Color(0xff006B5C)),
+              SizedBox(height: 12.h),
+              _buildSwitchTile(Icons.local_fire_department_rounded, 'منتج مميز', isEnabled2, (v) => setState(() => isEnabled2 = v), const Color(0xff914800)),
+
+              SizedBox(height: 32.h),
+              // استخدام Size_Button كما هي في الكود الأصلي الخاص بك
+              Size_Button(
+                onPressed: () {},
+                name: 'نشر المنتج الآن',
+                color: primaryColor,
+                size: Size(double.infinity, 54.h),
+                colorname: Colors.white,
+              ),
+              SizedBox(height: 12.h),
+              Size_Button(
+                onPressed: () {},
+                name: 'معاينة المتجر',
+                color: const Color(0xffE8E7F5),
+                size: Size(double.infinity, 54.h),
+                colorname: primaryColor,
               ),
               SizedBox(height: 30.h),
-
-              // ======= قسم رفع ومعاينة وتأكيد الصور الديناميكي بالكامل =======
-              Container(
-                height: 294.h,
-                width: 294.w,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16.r),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // زر الكاميرا العلوي (المُحرك الأساسي لرفع الصور)
-                    GestureDetector(
-                      onTap: _showImageSourceBottomSheet,
-                      child: CircleAvatar(
-                        radius: 30.r,
-                        backgroundColor: const Color(0xffC7C4D8),
-                        // يعرض المعاينة المؤقتة إذا التقطت صورة ولم تنزل بعد للاسفل، وإلا يعرض أيقونة الكاميرا الافتراضية
-                        backgroundImage: _currentCameraImage != null ? FileImage(_currentCameraImage!) : null,
-                        child: _currentCameraImage == null
-                            ? Icon(Icons.add_a_photo, color: const Color(0xff3622CA), size: 28.sp)
-                            : null,
-                      ),
-                    ),
-                    SizedBox(height: 15.h),
-                    Text(
-                      'اضغط على الكاميرا لرفع الصورة',
-                      style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'الصور المرفوعة ستنتقل مباشرة إلى خانات الزائد بالأسفل.',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.ibmPlexSans(fontSize: 11.sp, color: Colors.black54),
-                    ),
-                    SizedBox(height: 15.h),
-
-                    // سطر المربعات الثلاثة: يستقبل الصور بالتتابع ويحذف علامة الزائد منها
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: List.generate(3, (index) {
-                        // 1. إذا كان هذا المربع يحتوي على صورة منقولة من الكاميرا
-                        if (index < _attachedImages.length) {
-                          return Stack(
-                            alignment: Alignment.topRight,
-                            children: [
-                              Container(
-                                width: 80.w,
-                                height: 80.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24.r),
-                                  image: DecorationImage(
-                                    image: FileImage(_attachedImages[index]),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              // زر لحذف هذه الصورة وإرجاعها كعلامة زائد (+) مجدداً
-                              GestureDetector(
-                                onTap: () => _removeAttachedImage(index),
-                                child: CircleAvatar(
-                                  radius: 10.r,
-                                  backgroundColor: Colors.red,
-                                  child: Icon(Icons.close, size: 12.sp, color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          );
-                        }
-                        // 2. إذا كانت هذه الخانة فارغة وجاهزة لاستقبال الصورة القادمة من الكاميرا، تظهر كعلامة زائد (+)
-                        else {
-                          return Container(
-                            width: 80.w,
-                            height: 80.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24.r),
-                              color: const Color(0xffC7C4D8),
-                              border: index == _attachedImages.length
-                                  ? Border.all(color: const Color(0xff3622CA), width: 1.w) // تمييز المربع النشط التالي
-                                  : null,
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.add,
-                                size: 24.sp,
-                                color: index == _attachedImages.length ? const Color(0xff3622CA) : Colors.black26,
-                              ),
-                            ),
-                          );
-                        }
-                      }),
-                    ),
-                  ],
-                ),
-              ),
-              // ==========================================
-
-              SizedBox(height: 30.h),
-              Column(
-                children: [
-                  Text('الحالة والظهور', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 10.h),
-                  Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r), color: const Color(0xffC7C4D8)),
-                    height: 44.h,
-                    width: 294.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Switch(activeThumbColor: const Color(0xff006B5C), value: isEnabled1, onChanged: (value) { setState(() { isEnabled1 = value; }); }),
-                        const Spacer(),
-                        Text('مرئي للجميع', style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, color: Colors.black54)),
-                        SizedBox(width: 15.w),
-                        Icon(Icons.remove_red_eye, color: const Color(0xff006B5C), size: 24.sp),
-                        SizedBox(width: 15.w),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 15.h),
-                  Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r), color: const Color(0xffC7C4D8)),
-                    height: 44.h,
-                    width: 294.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Switch(activeThumbColor: const Color(0xff006B5C), value: isEnabled2, onChanged: (value) { setState(() { isEnabled2 = value; }); }),
-                        const Spacer(),
-                        Text('منتج مميز', style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, color: Colors.black54)),
-                        SizedBox(width: 15.w),
-                        Icon(Icons.local_fire_department_outlined, color: const Color(0xff914800), size: 24.sp),
-                        SizedBox(width: 15.w),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 15.h),
-                  Size_Button(
-                    onPressed: () {
-                      // عند ضغط نشر المنتج، تجد الصور المرفوعة كلها مخزنة داخل القائمة جاهزة للإرسال للسيرفر
-                      debugPrint("عدد الصور المرفوعة الإجمالي: ${_attachedImages.length}");
-                    },
-                    name: 'نشر المنتج الآن',
-                    color: const Color(0xff3622CA),
-                    size: Size(294.w, 60.h),
-                    colorname: Colors.white,
-                  ),
-                  SizedBox(height: 20.h),
-                  Size_Button(onPressed: () {}, name: 'معاينة المتجر', color: const Color(0xffC7C4D8), size: Size(294.w, 60.h), colorname: const Color(0xff191C1E)),
-                  SizedBox(height: 20.h),
-                ],
-              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(IconData icon, String title, Color color) {
+    return Row(
+      children: [
+        Icon(icon, color: color, size: 22.sp),
+        SizedBox(width: 8.w),
+        Text(title, style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xff464555))),
+      ],
+    );
+  }
+
+  Widget _buildLabel(String text) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8.h),
+      child: Text(text, style: GoogleFonts.ibmPlexSans(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xff464555))),
+    );
+  }
+
+  Widget _buildAIContentCard(Color primaryColor) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10)],
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(16.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('وصف المنتج', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold)),
+                    _buildAIButton(),
+                  ],
+                ),
+                SizedBox(height: 16.h),
+                TextField(
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xffF2F3F6),
+                    hintText: 'اكتب وصفاً جذاباً لمنتجك...',
+                    hintStyle: TextStyle(fontSize: 12.sp),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.r), borderSide: BorderSide.none),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(12.r),
+            decoration: BoxDecoration(color: primaryColor.withOpacity(0.05), borderRadius: BorderRadius.vertical(bottom: Radius.circular(16.r))),
+            child: Row(
+              children: [
+                Icon(Icons.lightbulb_outline, color: primaryColor, size: 18.sp),
+                SizedBox(width: 8.w),
+                Expanded(child: Text('نصيحة: الوصف الدقيق يزيد المبيعات بنسبة 40%', style: TextStyle(fontSize: 11.sp, color: primaryColor))),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAIButton() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+      decoration: BoxDecoration(color: const Color(0xff4D41DF), borderRadius: BorderRadius.circular(10.r)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min, // مهم جداً لمنع الـ Overflow
+        children: [
+          Icon(Icons.auto_awesome, color: Colors.white, size: 14.sp),
+          SizedBox(width: 6.w),
+          Text('توليد ذكي', style: TextStyle(color: Colors.white, fontSize: 11.sp, fontWeight: FontWeight.bold)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageUploadSection(Color primaryColor) {
+    return Container(
+      padding: EdgeInsets.all(16.r),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16.r)),
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: _showImageSourceBottomSheet,
+            child: CircleAvatar(
+              radius: 30.r,
+              backgroundColor: const Color(0xffF2F3F6),
+              child: Icon(Icons.add_a_photo_rounded, color: primaryColor, size: 26.sp),
+            ),
+          ),
+          SizedBox(height: 10.h),
+          Text('رفع صور المنتج (بحد أقصى 3)', style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold)),
+          SizedBox(height: 16.h),
+          // الـ Row محاط بـ SingleChildScrollView أوفقياً للحماية الإضافية
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(3, (index) => _buildImageSlot(index, primaryColor)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageSlot(int index, Color primaryColor) {
+    bool hasImage = index < _attachedImages.length;
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 6.w),
+      width: 70.w,
+      height: 70.w,
+      decoration: BoxDecoration(
+        color: const Color(0xffF2F3F6),
+        borderRadius: BorderRadius.circular(12.r),
+        image: hasImage ? DecorationImage(image: FileImage(_attachedImages[index]), fit: BoxFit.cover) : null,
+        border: !hasImage && index == _attachedImages.length ? Border.all(color: primaryColor) : null,
+      ),
+      child: hasImage
+          ? Align(
+        alignment: Alignment.topRight,
+        child: GestureDetector(
+          onTap: () => _removeAttachedImage(index),
+          child: CircleAvatar(radius: 10.r, backgroundColor: Colors.red, child: const Icon(Icons.close, size: 12, color: Colors.white)),
+        ),
+      )
+          : Icon(Icons.add, color: index == _attachedImages.length ? primaryColor : Colors.black12),
+    );
+  }
+
+  Widget _buildSwitchTile(IconData icon, String title, bool value, Function(bool) onChanged, Color color) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.w),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12.r)),
+      child: Row(
+        children: [
+          Icon(icon, color: color, size: 20.sp),
+          SizedBox(width: 12.w),
+          Text(title, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500)),
+          const Spacer(),
+          Switch(value: value, onChanged: onChanged, activeColor: color),
+        ],
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:ai_saas/screens/nearby_stores_screen.dart';
 import 'package:ai_saas/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ShopperHomePage extends StatefulWidget {
   const ShopperHomePage({super.key});
@@ -11,32 +12,38 @@ class ShopperHomePage extends StatefulWidget {
 }
 
 class _ShopperHomePageState extends State<ShopperHomePage> {
+  // الألوان الثابتة للهوية البصرية
+  final Color primaryColor = const Color(0xff4D41DF);
+  final Color scaffoldBg = const Color(0xffF8F9FD);
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: const Color(0xFFF5F5F5),
+        backgroundColor: scaffoldBg,
         body: SafeArea(
           child: Column(
             children: [
               _buildTopBar(),
               Expanded(
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildSearchBar(),
+                      SizedBox(height: 16.h),
                       _buildHeroBanner(),
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 24.h),
                       _buildCategories(),
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 24.h),
                       _buildNearbyStores(),
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 24.h),
                       _buildNearbyProducts(),
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 24.h),
                       _buildWeekendPromo(),
-                      SizedBox(height: 80.h),
+                      SizedBox(height: 30.h), // مساحة مريحة في الأسفل
                     ],
                   ),
                 ),
@@ -48,181 +55,170 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
     );
   }
 
+  // ======= شريط التطبيق العلوي =======
   Widget _buildTopBar() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Row(
         children: [
           CircleAvatar(
-            radius: 20.r,
-            backgroundColor: const Color(0xFF5B4FCF),
-            child: Icon(Icons.person, color: Colors.white, size: 20.sp),
+            radius: 22.r,
+            backgroundColor: primaryColor.withOpacity(0.1),
+            child: Icon(Icons.person_outline_rounded, color: primaryColor, size: 22.sp),
           ),
           SizedBox(width: 10.w),
-          GestureDetector(
-            onTap: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationsScreen(),
-                ),
-              );
-            },
-              child: Icon(Icons.notifications_outlined, size: 24.sp)),
+          _buildNotificationIcon(),
           const Spacer(),
-          Text(
-            'النصيرات',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.bold,
+          // قسم الموقع الجغرافي - مع حماية من تداخل النصوص
+          Flexible(
+            flex: 4,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.location_on_rounded, color: primaryColor, size: 16.sp),
+                    SizedBox(width: 4.w),
+                    Flexible(
+                      child: Text(
+                        'النصيرات',
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.ibmPlexSans(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xff1A1A1A),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  'المنطقة الوسطى',
+                  style: GoogleFonts.ibmPlexSans(fontSize: 10.sp, color: Colors.black38),
+                )
+              ],
             ),
           ),
-          SizedBox(width: 4.w),
-          Icon(Icons.location_on, color: const Color(0xFF5B4FCF), size: 16.sp),
           const Spacer(),
-          Icon(Icons.menu, size: 24.sp),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.menu_rounded, size: 26.sp, color: Colors.black87),
+          ),
         ],
       ),
     );
   }
 
+  Widget _buildNotificationIcon() {
+    return GestureDetector(
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen())),
+      child: Container(
+        padding: EdgeInsets.all(8.r),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          border: Border.all(color: const Color(0xFFEFEFEF)),
+        ),
+        child: Icon(Icons.notifications_none_rounded, size: 22.sp, color: Colors.black87),
+      ),
+    );
+  }
+
+  // ======= حقل البحث =======
   Widget _buildSearchBar() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Container(
+        height: 50.h,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(14.r),
           boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 8.r,
-              offset: Offset(0, 2.h),
-            ),
+            BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 10, offset: const Offset(0, 4)),
           ],
         ),
         child: TextField(
-          textAlign: TextAlign.right,
+          textAlignVertical: TextAlignVertical.center,
+          style: GoogleFonts.ibmPlexSans(fontSize: 14.sp),
           decoration: InputDecoration(
-            hintText: 'ابحث عن منتجات , ماركات , متاجر ........',
-            hintStyle: TextStyle(color: Colors.grey, fontSize: 13.sp),
-            prefixIcon: Icon(Icons.search, color: Colors.grey, size: 20.sp),
+            hintText: 'ابحث عن منتجات، ماركات، متاجر...',
+            hintStyle: GoogleFonts.ibmPlexSans(color: Colors.black38, fontSize: 13.sp),
+            prefixIcon: Icon(Icons.search_rounded, color: Colors.black38, size: 22.sp),
             border: InputBorder.none,
-            contentPadding:
-            EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
           ),
         ),
       ),
     );
   }
 
+  // ======= البانر الترويجي =======
   Widget _buildHeroBanner() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      child: Container(
-        height: 180.h,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF5B4FCF), Color(0xFF7B6FEF)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: EdgeInsets.all(20.r),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [primaryColor, const Color(0xff6A5AE0)]),
+        borderRadius: BorderRadius.circular(20.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'تسوّق في النصيرات',
+            style: GoogleFonts.ibmPlexSans(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
-          borderRadius: BorderRadius.circular(16.r),
-        ),
-        padding: EdgeInsets.all(20.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.25),
-                borderRadius: BorderRadius.circular(20.r),
-              ),
-              child: Text(
-                'عرض لفترة محدودة',
-                style: TextStyle(color: Colors.white, fontSize: 11.sp),
-              ),
+          SizedBox(height: 4.h),
+          Text(
+            'أفضل العروض والخصومات القريبة منك 🔥',
+            style: GoogleFonts.ibmPlexSans(color: Colors.white.withOpacity(0.9), fontSize: 13.sp),
+          ),
+          SizedBox(height: 16.h),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: primaryColor,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
             ),
-            SizedBox(height: 8.h),
-            Text(
-              'تسوّق في النصيرات',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              'أفضل العروض في النصيرات 🔥',
-              style: TextStyle(color: Colors.white70, fontSize: 13.sp),
-            ),
-            const Spacer(),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: const Color(0xFF5B4FCF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.r),
-                  ),
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-                ),
-                child: Text(
-                  'اكتشف الان',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
-                ),
-              ),
-            ),
-          ],
-        ),
+            child: Text('اكتشف الآن', style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold)),
+          ),
+        ],
       ),
     );
   }
 
+  // ======= التصنيفات =======
   Widget _buildCategories() {
     final categories = [
-      {'icon': Icons.checkroom, 'label': 'ملابس'},
-      {'icon': Icons.sports_handball, 'label': 'احذية'},
-      {'icon': Icons.face, 'label': 'كوزمتكس'},
-      {'icon': Icons.restaurant, 'label': 'طعام'},
+      {'icon': Icons.checkroom_rounded, 'label': 'ملابس'},
+      {'icon': Icons.ice_skating_rounded, 'label': 'أحذية'},
+      {'icon': Icons.face_retouching_natural_rounded, 'label': 'كوزمتكس'},
+      {'icon': Icons.restaurant_rounded, 'label': 'طعام'},
     ];
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: categories.map((cat) {
           return Column(
             children: [
               Container(
-                width: 60.w,
-                height: 60.h,
+                width: 65.w,
+                height: 65.w, // استخدام w يضمن شكل دائري مثالي
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.07),
-                      blurRadius: 8.r,
-                      offset: Offset(0, 2.h),
-                    ),
-                  ],
+                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 5)],
                 ),
-                child: Icon(
-                  cat['icon'] as IconData,
-                  color: const Color(0xFF5B4FCF),
-                  size: 26.sp,
-                ),
+                child: Icon(cat['icon'] as IconData, color: primaryColor, size: 26.sp),
               ),
-              SizedBox(height: 6.h),
-              Text(
-                cat['label'] as String,
-                style: TextStyle(fontSize: 12.sp),
-              ),
+              SizedBox(height: 8.h),
+              Text(cat['label'] as String, style: GoogleFonts.ibmPlexSans(fontSize: 12.sp, fontWeight: FontWeight.w500)),
             ],
           );
         }).toList(),
@@ -230,175 +226,67 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
     );
   }
 
+  // ======= المتاجر القريبة =======
   Widget _buildNearbyStores() {
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NearbyStoresScreen(),
-                    ),
-                  );
-                },
-                child: Text(
-                  'عرض المزيد',
-                  style: TextStyle(color: const Color(0xFF5B4FCF), fontSize: 13.sp),
-                ),
-              ),
-              Text(
-                'متاجر قريبة',
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 10.h),
+        _buildSectionHeader('متاجر قريبة منك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NearbyStoresScreen()))),
+        SizedBox(height: 12.h),
         SizedBox(
-          height: 160.h,
-          child: ListView(
+          height: 180.h,
+          child: ListView.separated(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.only(right: 16.w),
-            children: [
-              _buildStoreCard(
-                name: 'معرض حكاية للملابس',
-                location: 'النصيرات وسط شارع القسام .',
-                rating: 4.9,
-                isMain: true,
-              ),
-              SizedBox(width: 10.w),
-              _buildStoreCard(
-                name: 'الرنتيز\nالنصير',
-                location: '',
-                rating: null,
-                isMain: false,
-              ),
-            ],
+            physics: const BouncingScrollPhysics(),
+            itemCount: 2,
+            separatorBuilder: (_, __) => SizedBox(width: 12.w),
+            itemBuilder: (context, index) => _buildStoreCard(
+              name: index == 0 ? 'معرض حكاية للملابس' : 'بوتيك الرنتيسي للرجال',
+              location: 'النصيرات - الشارع العام',
+              rating: 4.8,
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildStoreCard({
-    required String name,
-    required String location,
-    required double? rating,
-    required bool isMain,
-  }) {
-    if (!isMain) {
-      return Container(
-        width: 100.w,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12.r),
-          image: const DecorationImage(
-            image: NetworkImage(
-                'https://via.placeholder.com/100x160/cccccc/999999?text=Store'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.r),
-            gradient: LinearGradient(
-              colors: [Colors.transparent, Colors.black.withOpacity(0.5)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          padding: EdgeInsets.all(8.r),
-          alignment: Alignment.bottomRight,
-          child: Text(
-            name,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 11.sp,
-                fontWeight: FontWeight.bold),
-            textAlign: TextAlign.right,
-          ),
-        ),
-      );
-    }
-
+  Widget _buildStoreCard({required String name, required String location, required double rating}) {
     return Container(
-      width: 220.w,
+      width: 240.w,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.07),
-            blurRadius: 8.r,
-            offset: Offset(0, 2.h),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: const Color(0xFFEFEFEF)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius:
-                BorderRadius.vertical(top: Radius.circular(12.r)),
-                child: Container(
-                  height: 100.h,
-                  width: double.infinity,
-                  color: const Color(0xFF8B7355),
-                  child: Icon(Icons.store, size: 50.sp, color: Colors.white54),
-                ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: primaryColor.withOpacity(0.05),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
               ),
-              if (rating != null)
-                Positioned(
-                  top: 8.h,
-                  right: 8.w,
-                  child: Container(
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.star, color: Colors.amber, size: 14.sp),
-                        SizedBox(width: 2.w),
-                        Text(
-                          '$rating',
-                          style: TextStyle(
-                              fontSize: 12.sp, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-            ],
+              child: Center(child: Icon(Icons.storefront_rounded, size: 40.sp, color: primaryColor.withOpacity(0.3))),
+            ),
           ),
           Padding(
-            padding: EdgeInsets.all(8.r),
+            padding: EdgeInsets.all(12.r),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 13.sp),
+                Text(name, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp)),
+                SizedBox(height: 4.h),
+                Row(
+                  children: [
+                    Icon(Icons.star_rounded, color: Colors.amber, size: 14.sp),
+                    SizedBox(width: 4.w),
+                    Text('$rating', style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold)),
+                    SizedBox(width: 8.w),
+                    Text(location, style: TextStyle(color: Colors.black38, fontSize: 11.sp)),
+                  ],
                 ),
-                if (location.isNotEmpty)
-                  Text(
-                    location,
-                    style: TextStyle(color: Colors.grey, fontSize: 11.sp),
-                  ),
               ],
             ),
           ),
@@ -407,161 +295,23 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
     );
   }
 
+  // ======= المنتجات =======
   Widget _buildNearbyProducts() {
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: EdgeInsets.all(8.r),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 4.r,
-                    ),
-                  ],
-                ),
-                child: Icon(Icons.tune, size: 20.sp),
-              ),
-              Text(
-                'منتجات مختارة',
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
+        _buildSectionHeader('منتجات مختارة لك', () {}),
         SizedBox(height: 12.h),
-        // Featured Product Card
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.r),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.07),
-                  blurRadius: 10.r,
-                  offset: Offset(0, 4.h),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(12.r),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.w, vertical: 4.h),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF5B4FCF),
-                              borderRadius: BorderRadius.circular(12.r),
-                            ),
-                            child: Text(
-                              'الرائج الان',
-                              style:
-                              TextStyle(color: Colors.white, fontSize: 11.sp),
-                            ),
-                          ),
-                          Text(
-                            '45.00 ش',
-                            style: TextStyle(
-                              color: const Color(0xFF5B4FCF),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 6.h),
-                      Text(
-                        '✨ سكارف حرير فاخر',
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'فخامة بدوية من قلب غزة ✨\nبتصاميم تراثية مميزة',
-                        style: TextStyle(color: Colors.grey, fontSize: 12.sp),
-                        textAlign: TextAlign.right,
-                      ),
-                    ],
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius:
-                  const BorderRadius.vertical(bottom: Radius.circular(0)),
-                  child: Container(
-                    height: 200.h,
-                    width: double.infinity,
-                    color: const Color(0xFF8B2FC9),
-                    child: Icon(Icons.shopping_bag,
-                        size: 80.sp, color: Colors.white38),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(12.r),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: Icon(Icons.shopping_cart_outlined, size: 20.sp),
-                      label: Text('اضف الى السلة', style: TextStyle(fontSize: 16.sp)),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF5B4FCF),
-                        foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(vertical: 14.h),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        // المنتج الرئيسي المتميز
+        _buildFeaturedProduct(),
         SizedBox(height: 16.h),
-        // Product Grid
+        // شبكة منتجات ثنائية
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Row(
             children: [
-              Expanded(
-                child: _buildProductCard(
-                  name: 'نظارات طيار رائقة 😎',
-                  price: '85 ش',
-                  distance: 'يبعد 0.5 كم',
-                  color: const Color(0xFF2C2C2C),
-                ),
-              ),
+              Expanded(child: _buildSmallProductCard('نظارات طيار 😎', '85 ₪')),
               SizedBox(width: 12.w),
-              Expanded(
-                child: _buildProductCard(
-                  name: 'حذاء رياضي أحمر سريع',
-                  price: '120 ش',
-                  distance: 'يبعد 2.1 كم',
-                  color: const Color(0xFFFF4444),
-                ),
-              ),
+              Expanded(child: _buildSmallProductCard('حذاء رياضي مريح', '120 ₪')),
             ],
           ),
         ),
@@ -569,147 +319,103 @@ class _ShopperHomePageState extends State<ShopperHomePage> {
     );
   }
 
-  Widget _buildProductCard({
-    required String name,
-    required String price,
-    required String distance,
-    required Color color,
-  }) {
+  Widget _buildFeaturedProduct() {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.07),
-            blurRadius: 8.r,
-            offset: Offset(0, 2.h),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(20.r),
+        border: Border.all(color: const Color(0xFFEFEFEF)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius:
-                BorderRadius.vertical(top: Radius.circular(12.r)),
-                child: Container(
-                  height: 120.h,
-                  width: double.infinity,
-                  color: color.withOpacity(0.15),
-                  child: Icon(Icons.shopping_bag, size: 50.sp, color: color),
-                ),
-              ),
-              Positioned(
-                top: 8.h,
-                left: 8.w,
-                child: Container(
-                  padding: EdgeInsets.all(6.r),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(Icons.favorite_border,
-                      size: 16.sp, color: Colors.grey),
-                ),
-              ),
-            ],
-          ),
           Padding(
-            padding: EdgeInsets.all(8.r),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            padding: EdgeInsets.all(16.r),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                      fontSize: 12.sp, fontWeight: FontWeight.w600),
-                  textAlign: TextAlign.right,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('✨ سكارف حرير فاخر', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                    Text('فخامة بدوية بتصاميم تراثية', style: TextStyle(color: Colors.black45, fontSize: 12.sp)),
+                  ],
                 ),
-                SizedBox(height: 4.h),
-                Text(
-                  distance,
-                  style: TextStyle(color: Colors.grey, fontSize: 10.sp),
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  price,
-                  style: TextStyle(
-                    color: const Color(0xFF5B4FCF),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.sp,
-                  ),
-                ),
+                Text('45 ₪', style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 18.sp)),
               ],
             ),
           ),
+          Container(height: 140.h, width: double.infinity, color: primaryColor.withOpacity(0.02), child: Icon(Icons.shopping_bag_outlined, size: 50.sp, color: primaryColor.withOpacity(0.2))),
+          Padding(
+            padding: EdgeInsets.all(12.r),
+            child: SizedBox(
+              width: double.infinity,
+              height: 45.h,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(backgroundColor: primaryColor, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r))),
+                child: const Text('أضف إلى السلة', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSmallProductCard(String name, String price) {
+    return Container(
+      padding: EdgeInsets.all(10.r),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16.r), border: Border.all(color: const Color(0xFFEFEFEF))),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(height: 90.h, width: double.infinity, color: scaffoldBg, child: Icon(Icons.grid_view_rounded, color: primaryColor.withOpacity(0.2))),
+          SizedBox(height: 8.h),
+          Text(name, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp)),
+          SizedBox(height: 4.h),
+          Text(price, style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 13.sp)),
+        ],
+      ),
+    );
+  }
+
+  // ======= عناصر مساعدة =======
+  Widget _buildSectionHeader(String title, VoidCallback onTap) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title, style: GoogleFonts.ibmPlexSans(fontSize: 18.sp, fontWeight: FontWeight.bold)),
+          TextButton(onPressed: onTap, child: Text('عرض الكل', style: TextStyle(color: primaryColor, fontSize: 13.sp, fontWeight: FontWeight.bold))),
         ],
       ),
     );
   }
 
   Widget _buildWeekendPromo() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xFF1A1A2E),
-          borderRadius: BorderRadius.circular(16.r),
-        ),
-        padding: EdgeInsets.all(20.r),
-        child: Row(
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF4CAF50),
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.r),
-                ),
-                padding:
-                EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-              ),
-              child: Text(
-                'احصل على العرض',
-                style: TextStyle(fontSize: 11.sp),
-              ),
-            ),
-            const Spacer(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: EdgeInsets.all(20.r),
+      decoration: BoxDecoration(color: const Color(0xFF1E1B4B), borderRadius: BorderRadius.circular(20.r)),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'عروض التقنية لعطلة',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'نهاية الأسبوع 🔥',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  'خصومات حتى %40 🎉',
-                  style: TextStyle(color: Colors.white70, fontSize: 11.sp),
-                ),
-                Text(
-                  'على أجهزة الفعل القريبة منك',
-                  style: TextStyle(color: Colors.white70, fontSize: 11.sp),
-                ),
+                Text('عروض نهاية الأسبوع 🔥', style: TextStyle(color: Colors.white, fontSize: 15.sp, fontWeight: FontWeight.bold)),
+                Text('خصومات تصل إلى 40%', style: TextStyle(color: Colors.white70, fontSize: 11.sp)),
               ],
             ),
-          ],
-        ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(backgroundColor: primaryColor, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r))),
+            child:  Text('احصل عليه', style: TextStyle(color: Colors.white, fontSize: 11.sp)),
+          ),
+        ],
       ),
     );
   }

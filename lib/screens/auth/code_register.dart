@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CodeRegister extends StatefulWidget {
   final AppType type;
-  const CodeRegister({super.key,required this.type});
+  const CodeRegister({super.key, required this.type});
   @override
   State<CodeRegister> createState() => _CodeRegisterState();
 }
@@ -65,172 +65,201 @@ class _CodeRegisterState extends State<CodeRegister> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        backgroundColor: const Color(0xffF8F9FD), // الخلفية الهادئة الموحدة لـ Tradex
         appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           centerTitle: true,
+          leading: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black87)
+          ),
           title: Text(
             'Tradex',
             style: GoogleFonts.ibmPlexSans(
-              fontSize: 32.sp,
-              color: const Color(0xff8127CF),
+              fontSize: 28.sp,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xff4D41DF),
             ),
           ),
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_forward_ios)),
-          ],
         ),
-        body: Padding(
-          padding: EdgeInsets.all(18.r),
-          child: Column(
-            children: [
-              Container(
-                height: 80.h,
-                width: 80.w,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(24.r),
-                ),
-                child: Icon(Icons.security, size: 40.sp, color: const Color(0xff8127CF)),
-              ),
-              SizedBox(height: 20.h),
-              Text(
-                'كود التحقق ',
-                style: GoogleFonts.ibmPlexSans(
-                  fontSize: 26.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 25.h),
-
-              Text(
-                'لقد أرسلنا رمزاً مكوناً من 4 أرقام إلى هاتفك',
-                style: GoogleFonts.ibmPlexSans(
-                  fontSize: 16.sp,
-                  height: 1.0,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              Text(
-                '+966 50 XXX XXXX',
-                style: GoogleFonts.ibmPlexSans(
-                  fontSize: 16.sp,
-                  height: 1.0,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-
-              SizedBox(height: 25.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CodeTextField(
-                    editingController: _firstCodeTextController,
-                    focusNode: _firstFocusNode,
-                    onChanged: (String value) {
-                      if (value.isNotEmpty) {
-                        _secondFocusNode.requestFocus();
-                      }
-                    },
-                  ),
-                  SizedBox(width: 10.w),
-                  CodeTextField(
-                    editingController: _secondCodeTextController,
-                    focusNode: _secondFocusNode,
-                    onChanged: (String value) {
-                      value.isNotEmpty
-                          ? _thirdFocusNode.requestFocus()
-                          : _firstFocusNode.requestFocus();
-                    },
-                  ),
-                  SizedBox(width: 10.w),
-                  CodeTextField(
-                    editingController: _thirdCodeTextController,
-                    focusNode: _thirdFocusNode,
-                    onChanged: (String value) {
-                      value.isNotEmpty
-                          ? _fourthFocusNode.requestFocus()
-                          : _secondFocusNode.requestFocus();
-                    },
-                  ),
-                  SizedBox(width: 10.w),
-                  CodeTextField(
-                    editingController: _fourthCodeTextController,
-                    focusNode: _fourthFocusNode,
-                    onChanged: (String value) {
-                      if (value.isEmpty) {
-                        _thirdFocusNode.requestFocus();
-                      }
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 30.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'لم يصلك الكود',
-                    style: GoogleFonts.ibmPlexSans(
-                      fontSize: 16.sp,
-                      height: 1.0,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.normal,
+                  SizedBox(height: 20.h),
+
+                  // ======= أيقونة الحماية والأمان العلوية =======
+                  CircleAvatar(
+                    radius: 40.r,
+                    backgroundColor: const Color(0xff4D41DF).withOpacity(0.1),
+                    child: Icon(
+                        Icons.security_rounded,
+                        size: 36.sp,
+                        color: const Color(0xff4D41DF)
                     ),
                   ),
-                  SizedBox(width: 5.w),
+                  SizedBox(height: 24.h),
+
+                  // ======= العنوان الرئيسي =======
                   Text(
-                    '0:59',
+                    'كود التحقق',
                     style: GoogleFonts.ibmPlexSans(
-                      fontSize: 16.sp,
-                      height: 1.0,
-                      color: const Color(0xff8127CF),
-                      fontWeight: FontWeight.normal,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xff1A1A1A),
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+
+                  // ======= نصوص التوجيه ورقم الهاتف =======
+                  Text(
+                    'لقد أرسلنا رمزاً مكوناً من 4 أرقام إلى هاتفك',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.ibmPlexSans(
+                      fontSize: 14.sp,
+                      color: const Color(0xff707070),
+                    ),
+                  ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    '+966 50 XXX XXXX',
+                    style: GoogleFonts.ibmPlexSans(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xff1A1A1A),
+                    ),
+                  ),
+                  SizedBox(height: 32.h),
+
+                  // ======= حقول إدخال الرمز الـ 4 أرقام =======
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CodeTextField(
+                        editingController: _firstCodeTextController,
+                        focusNode: _firstFocusNode,
+                        onChanged: (String value) {
+                          if (value.isNotEmpty) {
+                            _secondFocusNode.requestFocus();
+                          }
+                        },
+                      ),
+                      SizedBox(width: 12.w),
+                      CodeTextField(
+                        editingController: _secondCodeTextController,
+                        focusNode: _secondFocusNode,
+                        onChanged: (String value) {
+                          value.isNotEmpty
+                              ? _thirdFocusNode.requestFocus()
+                              : _firstFocusNode.requestFocus();
+                        },
+                      ),
+                      SizedBox(width: 12.w),
+                      CodeTextField(
+                        editingController: _thirdCodeTextController,
+                        focusNode: _thirdFocusNode,
+                        onChanged: (String value) {
+                          value.isNotEmpty
+                              ? _fourthFocusNode.requestFocus()
+                              : _secondFocusNode.requestFocus();
+                        },
+                      ),
+                      SizedBox(width: 12.w),
+                      CodeTextField(
+                        editingController: _fourthCodeTextController,
+                        focusNode: _fourthFocusNode,
+                        onChanged: (String value) {
+                          if (value.isEmpty) {
+                            _thirdFocusNode.requestFocus();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 32.h),
+
+                  // ======= قسم العداد المؤقتي للرمز =======
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'لم يصلك الكود؟ ',
+                        style: GoogleFonts.ibmPlexSans(
+                          fontSize: 14.sp,
+                          color: const Color(0xff707070),
+                        ),
+                      ),
+                      Text(
+                        '0:59',
+                        style: GoogleFonts.ibmPlexSans(
+                          fontSize: 14.sp,
+                          color: const Color(0xff4D41DF),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8.h),
+
+                  // ======= زر إعادة الإرسال التفاعلي =======
+                  TextButton(
+                    onPressed: () {
+                      // أكشن إعادة إرسال الكود
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    ),
+                    child: Text(
+                      'إعادة ارسال الكود',
+                      style: GoogleFonts.ibmPlexSans(
+                        fontSize: 14.sp,
+                        color: const Color(0xff4D41DF),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 40.h),
+
+                  // ======= زر المتابعة وتأكيد الرمز الرئيسي =======
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52.h,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(
+                              type: widget.type == AppType.merchant ? AppType.merchant : AppType.client,
+                            ),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff4D41DF),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14.r),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: Text(
+                        'تأكيد الرمز',
+                        style: GoogleFonts.ibmPlexSans(
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
-
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'اعادة ارسال الكود',
-                  style: GoogleFonts.ibmPlexSans(
-                    fontSize: 16.sp,
-                    height: 1.0,
-                    color: Colors.black45,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              SizedBox(height: 20.h),
-              ElevatedButton(
-                onPressed:(){
-                  if (widget.type == AppType.merchant) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(type: AppType.merchant),
-                      ),
-                    );
-                  } else if (widget.type == AppType.client) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(type: AppType.client),
-                      ),
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50.h),
-                  backgroundColor: const Color(0xff8127CF),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-                ),
-                child: Text('تأكيد الرمز', style: GoogleFonts.cairo(fontSize: 16.sp, color: Colors.white)),
-              ),
-            ],
+            ),
           ),
         ),
       ),

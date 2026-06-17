@@ -8,300 +8,318 @@ class OnboardingAIPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const Color primaryColor = Color(0xff4D41DF);
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xffF8F9FD),
         body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 10.h),
-                // ─── الجزء العلوي: تاق الذكاء الاصطناعي ───
-                 Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFEEEBFF),
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children:  [
-                        Icon(Icons.auto_awesome, size: 14.sp, color: const Color(0xFF5B4FCF)),
-                        SizedBox(width: 6.w),
-                        Text(
-                          'الذكاء الاصطناعي',
-                          style: GoogleFonts.ibmPlexSans(
-                            color: const Color(0xFF5B4FCF),
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // ─── الجزء العلوي: النصوص ───
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 20.h),
+                            _buildAITag(primaryColor),
+                            SizedBox(height: 16.h),
+                            _buildMainHeading(primaryColor),
+                            SizedBox(height: 10.h),
+                            Text(
+                              'حوّل أفكارك إلى حملات تسويقية احترافية في ثوانٍ معدودة. دع مساعدنا الذكي يتولى كتابة المحتوى وتصميم العروض.',
+                              style: GoogleFonts.ibmPlexSans(
+                                color: const Color(0xff707070),
+                                fontSize: 14.sp,
+                                height: 1.5,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // ─── الجزء الأوسط: الـ Stack المحمي ───
+                        // تم تغليف الـ Stack بحاوية مرنة لضمان عدم حدوث Overflow
+                        Container(
+                          height: 300.h,
+                          width: double.infinity,
+                          margin: EdgeInsets.symmetric(vertical: 20.h),
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.center,
+                            children: [
+                              // الصورة المركزية (المنتج)
+                              _buildCentralImage(),
+
+                              // بطاقة "وصف مقترح" (أعلى اليمين)
+                              Positioned(
+                                top: 5.h,
+                                right: -10.w,
+                                child: _buildSuggestedDescriptionCard(),
+                              ),
+
+                              // أيقونة المشاركة (منتصف اليمين)
+                              Positioned(
+                                bottom: 80.h,
+                                right: 5.w,
+                                child: _buildShareBadge(),
+                              ),
+
+                              // بطاقة "تحليل البيانات" (أسفل اليسار)
+                              Positioned(
+                                bottom: 10.h,
+                                left: -5.w,
+                                child: _buildFloatingBadge(
+                                  icon: Icons.psychology_rounded,
+                                  label: 'تحليل البيانات',
+                                  color: primaryColor,
+                                ),
+                              ),
+
+                              // بطاقة "الزيادة المتوقعة" (منتصف اليسار)
+                              Positioned(
+                                top: 120.h,
+                                left: -10.w,
+                                child: _buildStatBadge(),
+                              ),
+                            ],
                           ),
+                        ),
+
+                        // ─── الجزء السفلي: الأزرار ───
+                        Column(
+                          children: [
+                            _buildPageIndicator(primaryColor),
+                            SizedBox(height: 24.h),
+                            _buildMainButton(context, primaryColor),
+                            SizedBox(height: 8.h),
+                            _buildSkipButton(context),
+                            SizedBox(height: 16.h),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                SizedBox(height: 10.h),
-
-                // ─── العناوين ───
-                 Text(
-                   textAlign: TextAlign.right,
-                  'سوّق باستخدام',
-                  style: GoogleFonts.ibmPlexSans(fontSize: 36.sp, fontWeight: FontWeight.bold),
                 ),
-                 Text(
-                   textAlign: TextAlign.right,
-                  'الذكاء الاصطناعي',
-                  style: TextStyle(
-                    fontSize: 36.sp,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF5B4FCF),
-                  ),
-                ),
-                SizedBox(height: 16.h),
-                 Text(
-                  'حوّل أفكارك إلى حملات تسويقية احترافية في ثوانٍ معدودة. دع مساعدنا الذكي يتولى كتابة المحتوى وتصميم العروض.',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.ibmPlexSans(color: Colors.grey, fontSize: 18.sp, height: 1.5),
-                ),
-
-                const Spacer(),
-
-                // ─── الجزء الأوسط: Stack للعناصر العائمة ───
-
-                SizedBox(
-                  height: 280.h,
-                  width: double.infinity,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-
-                      // صورة الساعة الرئيسية
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(24.r),
-                        child: Image.asset(
-                          'assets/images/shoes.png', // استبدلها بصورتك
-                          height: 200.h,
-                          width: 250.w,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      // داخل دالة build في Stack الصور
-                      Positioned(
-                        top: 15.h,
-                        right: 15.w,
-                        child: _buildSuggestedDescriptionCard(), // بطاقة وصف مقترح
-                      ),
-                      Positioned(
-                        top: 90.h,
-                        left: 0,
-                        child: _buildShareBadge(), // أيقونة المشاركة
-                      ),
-                      // بطاقة "تحليل البيانات" البنفسجية
-                      Positioned(
-                        bottom: 25.h,
-                        left: 10.w,
-                        child: _buildFloatingBadge(
-                          icon: Icons.psychology,
-                          label: 'تحليل البيانات',
-                          color: const Color(0xFF5B4FCF),
-                        ),
-                      ),
-                      // بطاقة "الزيادة المتوقعة" البرتقالية
-                      Positioned(
-                        top: 80.h,
-                        left: 0,
-                        child: _buildStatBadge(),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const Spacer(),
-
-                // ─── مؤشر الصفحات (Dots) ───
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildDot(false),
-                    SizedBox(width: 5.w),
-                    _buildDot(true), // النقطة النشطة
-                    SizedBox(width: 5.w),
-                    _buildDot(false),
-                  ],
-                ),
-                SizedBox(height: 15.h),
-
-                // ─── أزرار التحكم ───
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SplashScreen()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF5B4FCF),
-                    minimumSize: Size(double.infinity, 40.h),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
-                  ),
-                  child:  Text(
-                    'التالي',
-                    style: GoogleFonts.ibmPlexSans(fontSize: 18.sp, color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SplashScreen()),
-                    );
-                  },
-                  child:  Text(
-                    'تخطي للمرحلة النهائية',
-                    style: GoogleFonts.ibmPlexSans(color: Colors.grey, fontSize: 14.sp),
-                  ),
-                ),
-                SizedBox(height: 10.h),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-  // ميثود لبناء النقاط السفلية
-  Widget _buildDot(bool isActive) {
-    return Container(
-      height: 8.h,
-      width: isActive ? 24.w : 8.w,
-      decoration: BoxDecoration(
-        color: isActive ? const Color(0xFF5B4FCF) : Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(4.r),
-      ),
-    );
-  }
+  // --- مكونات الواجهة الصغيرة ---
 
-  // ميثود للبطاقات العائمة الصغيرة
-  Widget _buildFloatingBadge({required IconData icon, required String label, required Color color}) {
+  Widget _buildAITag(Color color) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
       decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(16.r),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: Colors.white, size: 20.sp),
-          SizedBox(height: 4.h),
-          Text(label, style: TextStyle(color: Colors.white, fontSize: 10.sp, fontWeight: FontWeight.bold)),
-        ],
-      ),
-    );
-  }
-
-  // ميثود لبطاقة الإحصائيات (الزيادة المتوقعة)
-  Widget _buildStatBadge() {
-    return Container(
-      padding: EdgeInsets.all(12.r),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFFE0D3),
-        borderRadius: BorderRadius.circular(16.r),
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.trending_up, color: Colors.brown, size: 18.sp),
-          SizedBox(width: 8.w),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('زيادة متوقعة', style: TextStyle(fontSize: 10.sp, color: Colors.brown)),
-              Text('+240%', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.brown)),
-            ],
+          Icon(Icons.auto_awesome_rounded, size: 14.sp, color: color),
+          SizedBox(width: 6.w),
+          Text(
+            'الذكاء الاصطناعي',
+            style: GoogleFonts.ibmPlexSans(
+              color: color,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
     );
   }
+
+  Widget _buildMainHeading(Color color) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'سوّق باستخدام',
+          style: GoogleFonts.ibmPlexSans(
+            fontSize: 28.sp,
+            fontWeight: FontWeight.bold,
+            color: const Color(0xff1A1A1A),
+            height: 1.1,
+          ),
+        ),
+        Text(
+          'الذكاء الاصطناعي',
+          style: GoogleFonts.ibmPlexSans(
+            fontSize: 28.sp,
+            fontWeight: FontWeight.bold,
+            color: color,
+            height: 1.1,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCentralImage() {
+    return Container(
+      width: 200.w,
+      height: 150.h,
+      decoration: BoxDecoration(
+        color: const Color(0xff4D41DF).withOpacity(0.05),
+        borderRadius: BorderRadius.circular(24.r),
+      ),
+      child: Center(
+        child: Image.asset(
+          'assets/images/shoes.png',
+          width: 160.w,
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) =>
+              Icon(Icons.shopping_bag_outlined, size: 50.sp, color: Colors.grey.withOpacity(0.5)),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPageIndicator(Color color) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildDot(false, color),
+        SizedBox(width: 6.w),
+        _buildDot(true, color),
+        SizedBox(width: 6.w),
+        _buildDot(false, color),
+      ],
+    );
+  }
+
+  Widget _buildDot(bool isActive, Color color) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      height: 6.h,
+      width: isActive ? 24.w : 6.w,
+      decoration: BoxDecoration(
+        color: isActive ? color : const Color(0xFFE0E0E0),
+        borderRadius: BorderRadius.circular(10.r),
+      ),
+    );
+  }
+
+  Widget _buildMainButton(BuildContext context, Color color) {
+    return SizedBox(
+      width: double.infinity,
+      height: 54.h,
+      child: ElevatedButton(
+        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SplashScreen())),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          elevation: 0,
+        ),
+        child: Text(
+          'التالي',
+          style: GoogleFonts.ibmPlexSans(fontSize: 16.sp, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSkipButton(BuildContext context) {
+    return TextButton(
+      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SplashScreen())),
+      child: Text(
+        'تخطي للمرحلة النهائية',
+        style: GoogleFonts.ibmPlexSans(color: const Color(0xff707070), fontSize: 14.sp),
+      ),
+    );
+  }
+
+  // --- البطاقات العائمة ---
 
   Widget _buildSuggestedDescriptionCard() {
     return Container(
-      width: 220.w, // عرض مناسب لاحتواء النص
-      padding: EdgeInsets.all(16.r),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 20.r,
-            offset: Offset(0, 10.h),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end, // لضمان محاذاة النص لليمين
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // العنوان العلوي مع النقطة الخضراء
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                'وصف مقترح',
-                style: TextStyle(
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF37474F),
-                ),
-              ),
-              SizedBox(width: 8.w),
-              Container(
-                width: 9.w,
-                height: 9.h,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF00695C),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 12.h),
-          // النص المطلوب إضافته
-          Text(
-            "اكتشف الأناقة العصرية مع ساعتنا الجديدة. صممت لتناسب نمط حياتك الذكي.",
-            textAlign: TextAlign.right, // محاذاة النص العربي
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: const Color(0xFF546E7A),
-              height: 1.6, // تباعد الأسطر ليعطي طابع الذكاء الاصطناعي المنظم
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-  Widget _buildShareBadge() {
-    return Container(
+      width: 160.w,
       padding: EdgeInsets.all(10.r),
       decoration: BoxDecoration(
-        color: const Color(0xFF76FFDE), // اللون السماوي الفاتح في الصورة
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15.r),
-          bottomLeft: Radius.circular(15.r),
-          bottomRight: Radius.circular(15.r),
-        ),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14.r),
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10)],
       ),
-      child: Icon(
-        Icons.share,
-        color: const Color(0xFF00BFA5),
-        size: 20.sp,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const CircleAvatar(radius: 3, backgroundColor: Color(0xff14db66)),
+              SizedBox(width: 6.w),
+              Text('وصف مقترح', style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold)),
+            ],
+          ),
+          SizedBox(height: 4.h),
+          Text("اكتشف الأناقة العصرية مع تصاميمنا الجديدة.", style: TextStyle(fontSize: 10.sp, color: Colors.grey, height: 1.3)),
+        ],
       ),
     );
   }
 
+  Widget _buildStatBadge() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFEFE9),
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: const Color(0xFFFFDCD0)),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.trending_up_rounded, color: const Color(0xFFE65100), size: 16.sp),
+          SizedBox(width: 6.w),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('زيادة متوقعة', style: TextStyle(fontSize: 8.sp, color: const Color(0xFFE65100))),
+              Text('+240%', style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFFE65100))),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFloatingBadge({required IconData icon, required String label, required Color color}) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.white, size: 14.sp),
+          SizedBox(width: 6.w),
+          Text(label, style: TextStyle(color: Colors.white, fontSize: 11.sp, fontWeight: FontWeight.bold)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildShareBadge() {
+    return Container(
+      padding: EdgeInsets.all(8.r),
+      decoration: const BoxDecoration(color: Color(0xffe0fbf6), shape: BoxShape.circle),
+      child: Icon(Icons.share_rounded, color: const Color(0xff00bfa5), size: 16.sp),
+    );
+  }
 }

@@ -8,291 +8,204 @@ import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   final AppType type;
-  const LoginScreen({super.key,required this.type});
+  const LoginScreen({super.key, required this.type});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _obscureText = true;
+  bool _rememberMe = false;
+
   @override
   Widget build(BuildContext context) {
+    const Color primaryColor = Color(0xFF4D41DF);
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        resizeToAvoidBottomInset: false, // يمنع الشاشة من التغير عند ظهور الكيبورد
+        backgroundColor: const Color(0xffF8F9FD),
         body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(8.0.r),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(20.r),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.r),
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color(0xFF5145E5), Color(0xFF3B1E91)],
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  // ======= كارت الترحيب الذكي =======
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(24.r),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24.r),
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [primaryColor, Color(0xFF3127A5)],
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.auto_awesome, color: Colors.white, size: 40.sp),
+                        SizedBox(height: 16.h),
+                        Text(
+                          "مرحباً بك في Tradex",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.ibmPlexSans(
+                            color: Colors.white,
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                        Text(
+                          "المستقبل الذكي لإدارة تجارتك واستثماراتك الرقمية في مكان واحد.",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.ibmPlexSans(
+                            color: Colors.white.withOpacity(0.85),
+                            fontSize: 13.sp,
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.auto_awesome,
-                        color: Colors.white,
-                        size: 50.sp,
+                  SizedBox(height: 24.h),
+
+                  // ======= عنوان تسجيل الدخول =======
+                  Text(
+                    "تسجيل الدخول",
+                    style: GoogleFonts.ibmPlexSans(
+                      fontSize: 22.sp,
+                      color: const Color(0xFF1A1A1A),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+
+                  // ======= حقل البريد الإلكتروني =======
+                  _buildInputLabel("البريد الإلكتروني"),
+                  _buildTextFieldContainer(
+                    child: TextField(
+                      style: GoogleFonts.ibmPlexSans(fontSize: 14.sp),
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: _buildInputDecoration(
+                        hint: "example@tradex.com",
+                        icon: Icons.email_outlined,
                       ),
-                      SizedBox(height: 20.h),
-                      // العنوان
-                      Text(
-                        " مرحباً بك في Tradex",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.ibmPlexSans(
-                          color: Colors.white,
-                          fontSize: 32.sp,
-                          fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 16.h),
+
+                  // ======= حقل كلمة المرور =======
+                  _buildInputLabel("كلمة المرور"),
+                  _buildTextFieldContainer(
+                    child: TextField(
+                      obscureText: _obscureText,
+                      style: GoogleFonts.ibmPlexSans(fontSize: 14.sp),
+                      decoration: _buildInputDecoration(
+                        hint: "********",
+                        icon: Icons.lock_outline,
+                      ).copyWith(
+                        suffixIcon: IconButton(
+                          padding: EdgeInsets.zero,
+                          icon: Icon(
+                            _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                            color: Colors.black38,
+                            size: 20.sp,
+                          ),
+                          onPressed: () => setState(() => _obscureText = !_obscureText),
                         ),
                       ),
-                      SizedBox(height: 15.h),
-                      // الوصف
-                      Text(
-                        "المستقبل الذكي لإدارة تجارتك واستثماراتك الرقمية في مكان واحد.",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.ibmPlexSans(
-                          color: Colors.white,
-                          fontSize: 18.sp,
-                          height: 1.5,
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+
+                  // ======= تذكرني ونسيت كلمة المرور =======
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 24.w,
+                            height: 24.w,
+                            child: Checkbox(
+                              value: _rememberMe,
+                              activeColor: primaryColor,
+                              onChanged: (val) => setState(() => _rememberMe = val ?? false),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+                            ),
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            "تذكرني",
+                            style: GoogleFonts.ibmPlexSans(color: const Color(0xff707070), fontSize: 13.sp),
+                          ),
+                        ],
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EmailVerificationScreen(
+                                type: widget.type,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "نسيت كلمة المرور؟",
+                          style: GoogleFonts.ibmPlexSans(color: primaryColor, fontSize: 13.sp, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
                   ),
-                ),
-                SizedBox(height: 10.h),
-                Text(
-                  "تسجيل الدخول إلى حسابك",
-                  style: TextStyle(
-                    fontSize: 32.sp,
-                    color: const Color(0xFF4A4A4A),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(height: 10.h),
+                  SizedBox(height: 16.h),
 
-                Text(
-                  "البريد الإلكتروني ",
-                  style: TextStyle(color: Colors.grey, fontSize: 14.sp),
-                ),
-                SizedBox(height: 8.h),
-                SizedBox(
-                  height: 40.h,
-                  child: TextField(
-                    style: const TextStyle(decoration: TextDecoration.none),
-                    decoration: InputDecoration(
-                      hintText: "example@tradex.com",
-                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14.sp),
-                      prefixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
-                      filled: true,
-                      fillColor: const Color(0xffF2F3FF),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.r),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.h),
-
-                // حقل كلمة المرور
-                Text("كلمة المرور", style: TextStyle(color: Colors.grey, fontSize: 14.sp)),
-                SizedBox(height: 8.h),
-                SizedBox(
-                  height: 40.h,
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: "********",
-                      hintStyle: TextStyle(fontSize: 14.sp),
-                      prefixIcon: const Icon(
-                        Icons.lock_outline,
-                        color: Colors.grey,
-                      ),
-                      suffixIcon: const Icon(
-                        Icons.visibility_outlined,
-                        color: Colors.grey,
-                      ),
-                      filled: true,
-                      fillColor: const Color(0xFFF5F7FF),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.r),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.h),
-
-                // تذكرني ونسيت كلمة المرور
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: false,
-                          onChanged: (val) {},
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.r),
-                          ),
-                        ),
-                        Text(
-                          "تذكرني",
-                          style: TextStyle(color: Colors.grey, fontSize: 14.sp),
-                        ),
-                      ],
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        if (widget.type == AppType.merchant) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EmailVerificationScreen(type: AppType.merchant),
-                            ),
-                          );
-                        } else if (widget.type == AppType.client) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const EmailVerificationScreen(type: AppType.client),
-                            ),
-                          );
-                        }
-                      },
-                      child: Text(
-                        "نسيت كلمة المرور؟",
-                        style: TextStyle(color: const Color(0xFF5145E5), fontSize: 14.sp),
-                      ),
-                    ),
-                  ],
-                ),
-                Center(
-                  child: Size_Button(
-                    onPressed:(){
-                      if (widget.type == AppType.merchant) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const BnScreen(type:AppType.merchant ),
-                          ),
-                        );
-                      } else if (widget.type == AppType.client) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const BnScreen(type:AppType.client ),
-                          ),
-                        );
-                      }
+                  // ======= زر تسجيل الدخول =======
+                  Size_Button(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => BnScreen(type: widget.type)),
+                      );
                     },
                     name: 'تسجيل الدخول',
-                    color: const Color(0xFF5145E5),
+                    color: primaryColor,
                     colorname: Colors.white,
-                    size: Size(350.w, 40.h),
+                    size: Size(double.infinity, 54.h),
                   ),
-                ),
-                SizedBox(height: 8.h),
-                Row(
-                  children: [
-                    const Expanded(
-                      child: Divider(
-                        thickness: 1,
-                        color: Color(0xFFE0E0E0),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      child: Text(
-                        "أو المتابعة عبر",
-                        style: TextStyle(color: Colors.grey, fontSize: 12.sp),
-                      ),
-                    ),
-                    const Expanded(
-                      child: Divider(
-                        thickness: 1,
-                        color: Color(0xFFE0E0E0),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8.h),
+                  SizedBox(height: 24.h),
 
-                // أزرار جوجل وآبل
-                Row(
-                  children: [
-                    Expanded(
-                      child: socialButton(
-                        label: "جوجل",
-                        imagePath: 'assets/google_logo.png',
-                      ),
-                    ),
-                    SizedBox(width: 15.w),
-                    Expanded(
-                      child: socialButton(
-                        label: "آبل iOS",
-                        icon: Icons.apple,
-                      ),
-                    ),
-                  ],
-                ),
+                  // ======= الفاصل =======
+                  _buildDivider(),
 
-                const Spacer(),
+                  SizedBox(height: 20.h),
 
-                // نص إنشاء حساب جديد
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  Container(
-                    padding: EdgeInsets.all(12.r),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE0E7FF),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 10.r,
-                          offset: Offset(0, 4.h),
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      Icons.headset_mic_rounded,
-                      color: const Color(0xFF5145E5),
-                      size: 25.sp,
-                    ),
+                  // ======= أزرار السوشيال =======
+                  Row(
+                    children: [
+                      Expanded(
+                        child: socialButton(label: "جوجل", icon: Icons.g_mobiledata_rounded),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: socialButton(label: "آبل", icon: Icons.apple_rounded),
+                      ),
+                    ],
                   ),
-                    SizedBox(width: 10.w),
-                    Text(
-                      "ليس لديك حساب؟ ",
-                      style: TextStyle(color: Colors.grey, fontSize: 14.sp),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        "أنشئ حساباً جديداً",
-                        style: TextStyle(
-                          color: const Color(0xFF5145E5),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                  SizedBox(height: 30.h),
+
+                  // ======= إنشاء حساب جديد =======
+                  _buildFooter(primaryColor),
+                ],
+              ),
             ),
           ),
         ),
@@ -300,27 +213,86 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // ودجيت فرعية لتصميم الزر الموحد
-  Widget socialButton({
-    required String label,
-    String? imagePath,
-    IconData? icon,
-  }) {
+  // --- Helper Widgets ---
+
+  Widget _buildInputLabel(String label) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8.h),
+      child: Text(
+        label,
+        style: GoogleFonts.ibmPlexSans(color: const Color(0xff707070), fontSize: 13.sp, fontWeight: FontWeight.w500),
+      ),
+    );
+  }
+
+  Widget _buildTextFieldContainer({required Widget child}) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 12.h),
+      height: 54.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15.r),
-        border: Border.all(color: const Color(0xFFE0E0E0)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: const Color(0xFFEFEFEF)),
+      ),
+      child: child,
+    );
+  }
+
+  InputDecoration _buildInputDecoration({required String hint, required IconData icon}) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: GoogleFonts.ibmPlexSans(color: Colors.black26, fontSize: 14.sp),
+      prefixIcon: Icon(icon, color: Colors.black38, size: 20.sp),
+      border: InputBorder.none,
+      contentPadding: EdgeInsets.symmetric(vertical: 14.h),
+    );
+  }
+
+  Widget _buildDivider() {
+    return Row(
+      children: [
+        const Expanded(child: Divider(thickness: 1, color: Color(0xFFEFEFEF))),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Text("أو المتابعة عبر", style: GoogleFonts.ibmPlexSans(color: Colors.black38, fontSize: 12.sp)),
+        ),
+        const Expanded(child: Divider(thickness: 1, color: Color(0xFFEFEFEF))),
+      ],
+    );
+  }
+
+  Widget _buildFooter(Color primaryColor) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "ليس لديك حساب؟ ",
+          style: GoogleFonts.ibmPlexSans(color: const Color(0xff707070), fontSize: 13.sp),
+        ),
+        GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Text(
+            "أنشئ حساباً جديداً",
+            style: GoogleFonts.ibmPlexSans(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 13.sp),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget socialButton({required String label, required IconData icon}) {
+    return Container(
+      height: 50.h,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: const Color(0xFFEFEFEF)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (imagePath != null)
-            Icon(Icons.person, size: 24.sp)
-          else if (icon != null)
-            Icon(icon, size: 24.sp),
-          SizedBox(width: 10.w),
-          Text(label, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp)),
+          Icon(icon, size: 24.sp, color: Colors.black87),
+          SizedBox(width: 6.w),
+          Text(label, style: GoogleFonts.ibmPlexSans(fontWeight: FontWeight.bold, fontSize: 14.sp, color: Colors.black87)),
         ],
       ),
     );

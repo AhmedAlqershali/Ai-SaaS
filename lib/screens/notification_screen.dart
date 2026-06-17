@@ -1,116 +1,114 @@
 import 'package:ai_saas/screens/recently_arrived_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-// ==========================================
-// 1. شاشة الإشعارات الأساسية (Notifications Screen)
-// ==========================================
+// ملاحظة: تأكد من وجود شاشة OfferScreen في مشروعك، سأفترض وجودها أو توجيهها لصفحة فارغة حالياً
+import 'package:ai_saas/screens/widgets/bn_screen.dart'; // كمثال للتوجيه
+
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xfff8fafc), // خلفية الواجهة المائلة للبياض
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: const Color(0xff3f2d56), size: 24.sp),
-          onPressed: () => Navigator.maybePop(context),
+    const Color primaryColor = Color(0xff4D41DF);
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: const Color(0xffF8F9FD),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.5,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new_rounded, color: const Color(0xff1A1A1A), size: 20.sp),
+            onPressed: () => Navigator.maybePop(context),
+          ),
+          title: Text(
+            'الإشعارات',
+            style: GoogleFonts.ibmPlexSans(
+              color: const Color(0xff1A1A1A),
+              fontWeight: FontWeight.bold,
+              fontSize: 18.sp,
+            ),
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.settings_outlined, color: primaryColor, size: 22.sp),
+              onPressed: () {},
+            ),
+          ],
         ),
-        title: Text(
-          'الاشعارات',
-          style: TextStyle(
-            color: const Color(0xff1a1a1a),
-            fontWeight: FontWeight.bold,
-            fontSize: 20.sp,
-          ),
+        body: ListView(
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          children: [
+            _buildSectionHeader('اليوم'),
+            SizedBox(height: 12.h),
+
+            const NotificationCard(
+              text: 'عرض 50% على كل القطع المتوفرة لدى محل حكاية. استغل العرض الكمية محدودة 🔥',
+              time: '10:30 ص',
+              icon: Icons.local_offer_rounded,
+              iconColor: Colors.redAccent,
+              type: 'offer',
+            ),
+            SizedBox(height: 12.h),
+
+            const NotificationCard(
+              text: 'وصل حديثاً، كولكشن فساتين مناسبات لدى Lovista Store. متوفر بجميع المقاسات والألوان.',
+              time: '09:30 ص',
+              icon: Icons.auto_awesome_rounded,
+              iconColor: Colors.orange,
+              type: 'new_arrival',
+            ),
+
+            SizedBox(height: 24.h),
+
+            _buildSectionHeader('الأمس'),
+            SizedBox(height: 12.h),
+
+            const NotificationCard(
+              text: 'تم تحديث حالة طلبك رقم #1024. الطلب الآن في مرحلة التوصيل.',
+              time: 'أمس، 08:20 م',
+              icon: Icons.local_shipping_rounded,
+              iconColor: primaryColor,
+              type: 'order_update',
+            ),
+            SizedBox(height: 12.h),
+
+            const NotificationCard(
+              text: 'كوبون خصم جديد بانتظارك! استخدم الكود TRADEX20 للحصول على خصم إضافي.',
+              time: 'أمس، 02:15 م',
+              icon: Icons.confirmation_number_rounded,
+              iconColor: Colors.green,
+              type: 'offer',
+            ),
+          ],
         ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.settings_outlined, color: const Color(0xff3f2d56), size: 24.sp),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 10.0.h),
-        children: [
-          // ------ قسم اليوم ------
-          _buildSectionHeader('اليوم'),
-          SizedBox(height: 10.h),
-
-          const NotificationCard(
-            text: 'عرض 50% على كل القطع المتوفرة لدى محل حكاية .\nاستغل العرض الكمية محدودة',
-            time: '10:30 am',
-            icon: Icons.percent,
-            iconColor: Colors.red,
-            type: 'offer', // يوجه إلى شاشة العروض
-          ),
-          SizedBox(height: 12.h),
-
-          const NotificationCard(
-            text: 'وصل حديثاً , كولشكن فساتين مناسبات لدى Lovista Store . متوفر بجميع المقاسات والألوان.',
-            time: '9:30 am',
-            icon: Icons.fiber_new,
-            iconColor: Colors.orange,
-            type: 'new_arrival', // يوجه إلى شاشة وصل حديثاً
-          ),
-
-          SizedBox(height: 24.h),
-
-          // ------ قسم الأمس ------
-          _buildSectionHeader('الأمس'),
-          SizedBox(height: 10.h),
-
-          const NotificationCard(
-            text: 'عرض 50% على كل القطع المتوفرة لدى محل حكاية .\nاستغل العرض الكمية محدودة',
-            time: '10:30 am',
-            icon: Icons.percent,
-            iconColor: Colors.red,
-            type: 'offer',
-          ),
-          SizedBox(height: 12.h),
-
-          const NotificationCard(
-            text: 'وصل حديثاً , كولشكن فساتين مناسبات لدى Lovista Store . متوفر بجميع المقاسات والألوان.',
-            time: '9:30 am',
-            icon: Icons.fiber_new,
-            iconColor: Colors.orange,
-            type: 'new_arrival',
-          ),
-        ],
       ),
     );
   }
 
-  // ويدجت عنوان القسم (اليوم / الأمس)
   Widget _buildSectionHeader(String title) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 18.sp,
-          fontWeight: FontWeight.bold,
-          color: const Color(0xff1a1a1a),
-        ),
+    return Text(
+      title,
+      style: GoogleFonts.ibmPlexSans(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.bold,
+        color: const Color(0xff1A1A1A),
       ),
     );
   }
 }
 
-// ==========================================
-// 2. ويدجت كرت الإشعار الذكي والمنفصل (Notification Card)
-// ==========================================
 class NotificationCard extends StatelessWidget {
   final String text;
   final String time;
   final IconData icon;
   final Color iconColor;
-  final String type; // الفحص عن طريق النوع: 'offer' أو 'new_arrival'
+  final String type;
 
   const NotificationCard({
     Key? key,
@@ -125,65 +123,66 @@ class NotificationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // فحص نوع الإشعار والانتقال بناءً عليه
         if (type == 'new_arrival') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const RecentlyArrivedScreen()),
           );
         } else if (type == 'offer') {
-
+          // يمكن توجيهه لشاشة العروض أو صفحة مخصصة
         }
       },
       child: Container(
+        padding: EdgeInsets.all(14.r),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: Colors.grey.shade200, width: 1.5.w),
+          borderRadius: BorderRadius.circular(14.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+          border: Border.all(color: const Color(0xffEFEFEF), width: 1.w),
         ),
-        padding: EdgeInsets.all(16.0.r),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // نص الإشعار والوقت في عمود مرن
+            // الأيقونة (تظهر جهة اليمين في الـ RTL)
+            Container(
+              width: 48.w,
+              height: 48.w,
+              decoration: BoxDecoration(
+                color: iconColor.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: iconColor, size: 24.sp),
+            ),
+            SizedBox(width: 14.w),
+            // محتوى الإشعار
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     text,
-                    style: TextStyle(
-                      fontSize: 14.sp,
+                    style: GoogleFonts.ibmPlexSans(
+                      fontSize: 13.5.sp,
                       height: 1.5,
-                      color: Colors.black87,
+                      color: const Color(0xff1A1A1A),
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 8.h),
                   Text(
                     time,
-                    style: TextStyle(
-                      fontSize: 12.sp,
+                    style: GoogleFonts.ibmPlexSans(
+                      fontSize: 11.sp,
                       color: Colors.grey.shade500,
                     ),
                   ),
                 ],
-              ),
-            ),
-            SizedBox(width: 12.w),
-            // الأيقونة الدائرية الملونة جهة اليسار
-            Container(
-              width: 50.w,
-              height: 50.h,
-              decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.1),
-                shape: BoxShape.circle,
-                border: Border.all(color: iconColor.withOpacity(0.3), width: 1.w),
-              ),
-              child: Icon(
-                icon,
-                color: iconColor,
-                size: 26.sp,
               ),
             ),
           ],

@@ -5,6 +5,7 @@ import 'package:ai_saas/screens/edit_profile_screen.dart';
 import 'package:ai_saas/screens/onboarding2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,46 +15,52 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int _currentIndex = 3; // لتحديد تبويب "حسابي" كعنصر نشط في شريط التنقل السفلي
-
   @override
   Widget build(BuildContext context) {
-    // الألوان الثابتة المتوافقة مع الهوية البصرية للمشروع والصورة
-    const Color primaryColor = Color(0xff623ce7);
-    const Color textColor = Color(0xff0d1e3d);
-    const Color itemBackgroundColor = Color(0xfff4f6fa);
-    const Color scaffoldBgColor = Color(0xfffafdff);
+    // الألوان الثابتة للهوية البصرية
+    final Color primaryColor = const Color(0xff623ce7);
+    final Color textColor = const Color(0xff0d1e3d);
+    final Color itemBackgroundColor = const Color(0xfff4f6fa);
+    final Color scaffoldBgColor = const Color(0xfffafdff);
 
     return Scaffold(
       backgroundColor: scaffoldBgColor,
       body: SafeArea(
         child: Directionality(
-          textDirection: TextDirection.rtl, // تنسيق الواجهة بالكامل باللغة العربية
+          textDirection: TextDirection.rtl,
           child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 24.0.h),
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             child: Column(
               children: [
-                // 1. قسم الصورة الشخصية والاسم والموقع
+                // 1. قسم الصورة الشخصية
                 Center(
                   child: Column(
                     children: [
                       Container(
-                        width: 90.w,
-                        height: 90.h,
+                        width: 100.w,
+                        height: 100.w, // استخدام w للطرفين يضمن دائرة مثالية
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: primaryColor, width: 2.w),
+                          border: Border.all(color: primaryColor.withOpacity(0.2), width: 4.w),
+                          boxShadow: [
+                            BoxShadow(
+                              color: primaryColor.withOpacity(0.1),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            )
+                          ],
                           image: const DecorationImage(
-                            image: NetworkImage('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300'), // رابط تجريبي لصورة المستخدم الشخصية
+                            image: NetworkImage('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300'),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      SizedBox(height: 12.h),
+                      SizedBox(height: 16.h),
                       Text(
                         'أحمد القرشلي',
-                        style: TextStyle(
-                          fontSize: 20.sp,
+                        style: GoogleFonts.ibmPlexSans(
+                          fontSize: 22.sp,
                           fontWeight: FontWeight.bold,
                           color: textColor,
                         ),
@@ -62,74 +69,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.location_on_outlined, size: 16.sp, color: Colors.grey),
+                          Icon(Icons.location_on_rounded, size: 16.sp, color: primaryColor),
                           SizedBox(width: 4.w),
                           Text(
                             'غزة، فلسطين',
-                            style: TextStyle(fontSize: 13.sp, color: Colors.grey),
+                            style: GoogleFonts.ibmPlexSans(fontSize: 14.sp, color: Colors.grey.shade600),
                           ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 28.h),
+                SizedBox(height: 30.h),
 
-                // 2. قائمة خيارات الحساب والتحكم
+                // 2. قائمة الخيارات
                 _buildMenuOption(
                   title: 'المعلومات الشخصية',
-                  icon: Icons.person_outline,
+                  icon: Icons.person_outline_rounded,
                   backgroundColor: itemBackgroundColor,
                   textColor: textColor,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const EditProfileScreen(),
-                      ),
-                    );
-                  },
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EditProfileScreen())),
                 ),
                 SizedBox(height: 12.h),
                 _buildMenuOption(
                   title: 'تغيير كلمة المرور',
-                  icon: Icons.lock_open_outlined,
+                  icon: Icons.lock_open_rounded,
                   backgroundColor: itemBackgroundColor,
                   textColor: textColor,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const NewPasswordScreen(),
-                      ),
-                    );
-                  },
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NewPasswordScreen())),
                 ),
                 SizedBox(height: 12.h),
                 _buildMenuOption(
                   title: 'تسجيل خروج',
-                  icon: Icons.logout_outlined,
-                  backgroundColor: itemBackgroundColor,
-                  textColor: textColor,
+                  icon: Icons.logout_rounded,
+                  backgroundColor: const Color(0xffFFF1F1), // لون خروج مميز
+                  textColor: Colors.redAccent,
                   onTap: () {
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const OnboardingAIPage(),
-                      ),
+                      MaterialPageRoute(builder: (_) => const OnboardingAIPage()),
                           (route) => false,
                     );
                   },
                 ),
-                SizedBox(height: 28.h),
+                SizedBox(height: 30.h),
 
-                // 3. رأس قسم "منتجاتي المفضلة" مع زر عرض الكل
+                // 3. قسم المفضلة
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'منتجاتي المفضلة',
-                      style: TextStyle(
+                      style: GoogleFonts.ibmPlexSans(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
                         color: textColor,
@@ -139,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onPressed: () {},
                       child: Text(
                         'عرض الكل',
-                        style: TextStyle(
+                        style: GoogleFonts.ibmPlexSans(
                           color: primaryColor,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
@@ -150,92 +141,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 SizedBox(height: 12.h),
 
-                // 4. شبكة عرض المنتجات المفضلة (عمودين متناسقين)
-                GridView.count(
+                // 4. شبكة المنتجات المفضلة
+                GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16.h,
-                  crossAxisSpacing: 16.w,
-                  childAspectRatio: 0.78,
-                  children: [
-                    _buildProductCard(
-                      title: 'حذاء رياضي نايكي',
-                      price: '240 ₪',
-                      imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=300',
+                  itemCount: 4,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16.h,
+                    crossAxisSpacing: 16.w,
+                    childAspectRatio: 0.72, // تعديل النسبة لمنع التداخل
+                  ),
+                  itemBuilder: (context, index) {
+                    return _buildProductCard(
+                      title: index == 0 ? 'حذاء رياضي نايكي' : 'ساعة ذكية Series 9',
+                      price: index == 0 ? '240 ₪' : '1200 ₪',
+                      imageUrl: index == 0
+                          ? 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=300'
+                          : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=300',
                       primaryColor: primaryColor,
-                    ),
-                    _buildProductCard(
-                      title: 'ساعة ذكية Series 9',
-                      price: '1200 ₪',
-                      imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=300',
-                      primaryColor: primaryColor,
-                    ),
-                    _buildProductCard(
-                      title: 'سماعات رأس لاسلكية',
-                      price: '450 ₪',
-                      imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=300',
-                      primaryColor: primaryColor,
-                    ),
-                    _buildProductCard(
-                      title: 'نظارات شمسية',
-                      price: '180 ₪',
-                      imageUrl: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&q=80&w=300',
-                      primaryColor: primaryColor,
-                    ),
-                  ],
+                    );
+                  },
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: 20.h),
               ],
             ),
           ),
         ),
       ),
-
-      // 5. شريط التنقل السفلي المطابق تماماً لأيقونات الصورة
-      bottomNavigationBar: Directionality(
-        textDirection: TextDirection.rtl,
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          selectedItemColor: primaryColor,
-          unselectedItemColor: Colors.grey,
-          selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
-          unselectedLabelStyle: TextStyle(fontSize: 12.sp),
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
-              label: 'الرئيسية',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.grid_view_outlined),
-              activeIcon: Icon(Icons.grid_view),
-              label: 'الفئات',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search_outlined),
-              activeIcon: Icon(Icons.search),
-              label: 'بحث',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              activeIcon: Icon(Icons.person),
-              label: 'حسابي',
-            ),
-          ],
-        ),
-      ),
     );
   }
 
-  // دالة مساعدة مخصصة لبناء خيارات الحساب والتحكم (Buttons)
   Widget _buildMenuOption({
     required String title,
     required IconData icon,
@@ -245,32 +181,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(15.r),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(15.r),
         ),
         child: Row(
           children: [
-            Icon(icon, color: Colors.grey, size: 22.sp),
-            SizedBox(width: 14.w),
+            Container(
+              padding: EdgeInsets.all(8.r),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: Icon(icon, color: textColor.withOpacity(0.7), size: 22.sp),
+            ),
+            SizedBox(width: 16.w),
             Text(
               title,
-              style: TextStyle(
+              style: GoogleFonts.ibmPlexSans(
                 color: textColor,
                 fontSize: 15.sp,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
             ),
+            const Spacer(),
+            Icon(Icons.arrow_forward_ios_rounded, size: 14.sp, color: Colors.grey),
           ],
         ),
       ),
     );
   }
 
-  // دالة مساعدة لبناء كرت المنتج المفضل مع زر الإعجاب العائم
   Widget _buildProductCard({
     required String title,
     required String price,
@@ -283,72 +227,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10.r,
-            offset: Offset(0, 4.h),
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // صورة المنتج + زر القلب الأحمر المفعل تلقائياً
           Expanded(
             child: Stack(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
-                    image: DecorationImage(
-                      image: NetworkImage(imageUrl),
-                      fit: BoxFit.cover,
-                    ),
+                ClipRRect(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+                  child: Image.network(
+                    imageUrl,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                // زر الإعجاب (القلب الأحمر الدائري في أعلى اليسار)
                 Positioned(
                   top: 8.h,
-                  left: 8.w,
-                  child: Container(
-                    padding: EdgeInsets.all(6.r),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                      size: 16.sp,
-                    ),
+                  right: 8.w, // تعديل الموقع لليمين ليتناسب مع RTL
+                  child: CircleAvatar(
+                    radius: 15.r,
+                    backgroundColor: Colors.white.withOpacity(0.9),
+                    child:  Icon(Icons.favorite, color: Colors.red, size: 16.sp),
                   ),
                 ),
               ],
             ),
           ),
-
-          // تفاصيل المنتج (الاسم والسعر) أسفل الصورة
           Padding(
-            padding: EdgeInsets.all(12.0.r),
+            padding: EdgeInsets.all(10.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xff0d1e3d),
-                  ),
+                  style: GoogleFonts.ibmPlexSans(fontSize: 13.sp, fontWeight: FontWeight.bold),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: 4.h),
                 Text(
                   price,
-                  style:  TextStyle(
+                  style: GoogleFonts.ibmPlexSans(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
-                    color: primaryColor, // اللون البنفسجي المعتمد للأسعار
+                    color: primaryColor,
                   ),
                 ),
               ],
